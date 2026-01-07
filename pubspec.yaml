@@ -1,0 +1,35 @@
+name: pos_flutter
+description: "POS Flutter Mobile App for cashier transactions."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.0
+  dio: ^5.4.0
+  shared_preferences: ^2.2.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  google_fonts: ^6.1.0
+  flutter_svg: ^2.0.9
+  cached_network_image: ^3.3.0
+  sensors_plus: ^1.1.1
+  intl: ^0.18.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.4.8
+  hive_generator: ^2.0.1
+  mockito: ^5.4.4
+  http_mock_adapter: ^0.6.1
+
+flutter:
+  uses-material-design: true
