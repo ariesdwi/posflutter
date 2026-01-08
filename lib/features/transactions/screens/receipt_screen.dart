@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import '../../../core/utils/formatters.dart';
+import '../../../core/constants/app_colors.dart';
 
 class ReceiptScreen extends StatelessWidget {
   final Transaction transaction;
@@ -15,251 +16,370 @@ class ReceiptScreen extends StatelessWidget {
         return false;
       },
       child: Scaffold(
+        backgroundColor: AppColors.slate50,
         appBar: AppBar(
-          title: const Text('Receipt'),
+          title: const Text('Transaction Receipt'),
+          centerTitle: true,
           automaticallyImplyLeading: false,
+          elevation: 0,
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
           child: Column(
             children: [
-              // Receipt Content
+              // Success Header
+              const Icon(
+                Icons.check_circle_rounded,
+                color: AppColors.success,
+                size: 80,
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Payment Successful!',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.slate900,
+                ),
+              ),
+              const SizedBox(height: 32),
+
+              // Thermal Receipt Card
               Container(
-                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.slate900.withOpacity(0.1),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                      'POS FLUTTER',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    // Jagged / Dotted Top border simulation
+                    Container(
+                      height: 6,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: AppColors.slate200.withOpacity(0.5),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(4),
+                          topRight: Radius.circular(4),
+                        ),
                       ),
                     ),
-                    const Text('RECEIPT', style: TextStyle(fontSize: 14)),
-                    const Divider(),
-                    const SizedBox(height: 8),
-                    // Date & Time
-                    if (transaction.createdAt != null)
-                      Column(
-                        children: [
-                          Text(
-                            'Date: ${DateFormatter.formatDateTime(transaction.createdAt!)}',
-                            style: const TextStyle(fontSize: 12),
-                          ),
-                          const SizedBox(height: 8),
-                        ],
-                      ),
-                    // Transaction ID
-                    if (transaction.id != null)
-                      Text(
-                        'Transaction #${transaction.id}',
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    const Divider(),
-                    const SizedBox(height: 8),
-                    // Items
-                    Align(
-                      alignment: Alignment.centerLeft,
+                    Padding(
+                      padding: const EdgeInsets.all(24),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Items:',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            'KEDAI KITA',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 1.2,
+                              color: AppColors.indigo500,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Professional POS System',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppColors.slate500,
+                              letterSpacing: 1,
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+
+                          // Receipt Details
+                          _buildDetailRow(
+                            'Date',
+                            DateFormatter.formatDateTime(
+                              transaction.createdAt ?? DateTime.now(),
+                            ),
                           ),
                           const SizedBox(height: 8),
+                          _buildDetailRow(
+                            'Order ID',
+                            '#${transaction.id?.toUpperCase() ?? 'POS-001'}',
+                          ),
+                          if (transaction.tableNumber != null) ...[
+                            const SizedBox(height: 8),
+                            _buildDetailRow(
+                              'Table',
+                              transaction.tableNumber!,
+                              isBold: true,
+                            ),
+                          ],
+                          const SizedBox(height: 12),
+                          const Divider(thickness: 1, height: 24),
+
+                          // Items
                           ...transaction.items.map((item) {
                             return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              padding: const EdgeInsets.only(bottom: 12),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                    child: Text(
-                                      '${item.productName} x${item.quantity}',
-                                      style: const TextStyle(fontSize: 12),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.productName,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: AppColors.slate900,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${item.quantity} x ${CurrencyFormatter.format(item.price)}',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.slate500,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   Text(
                                     CurrencyFormatter.format(item.subtotal),
-                                    style: const TextStyle(fontSize: 12),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: AppColors.slate900,
+                                    ),
                                   ),
                                 ],
                               ),
                             );
                           }).toList(),
-                        ],
-                      ),
-                    ),
-                    const Divider(),
-                    const SizedBox(height: 8),
-                    // Totals
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Subtotal:', style: TextStyle(fontSize: 12)),
-                        Text(
-                          CurrencyFormatter.format(transaction.subtotal),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Discount:', style: TextStyle(fontSize: 12)),
-                        Text(
-                          CurrencyFormatter.format(transaction.discount),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Tax (10%):',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                        Text(
-                          CurrencyFormatter.format(transaction.tax),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          top: const BorderSide(width: 2),
-                          bottom: const BorderSide(width: 2),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+
+                          const Divider(thickness: 1, height: 24),
+
+                          // Bill Breakdown
+                          _buildBillRow(
+                            'Subtotal',
+                            CurrencyFormatter.format(transaction.subtotal),
+                          ),
+                          const SizedBox(height: 8),
+                          _buildBillRow(
+                            'Discount',
+                            '-${CurrencyFormatter.format(transaction.discount)}',
+                            isError: true,
+                          ),
+                          const SizedBox(height: 8),
+                          _buildBillRow(
+                            'Tax (10%)',
+                            CurrencyFormatter.format(transaction.tax),
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Total
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 16,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.slate50,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'TOTAL',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 16,
+                                    color: AppColors.slate900,
+                                  ),
+                                ),
+                                Text(
+                                  CurrencyFormatter.format(transaction.total),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 20,
+                                    color: AppColors.slate900,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Payment Status
+                          _buildDetailRow('Payment', transaction.paymentMethod),
+                          const SizedBox(height: 8),
+                          _buildDetailRow(
+                            'Amount Paid',
+                            CurrencyFormatter.format(transaction.paymentAmount),
+                          ),
+                          const SizedBox(height: 8),
+                          _buildDetailRow(
+                            'Change',
+                            CurrencyFormatter.format(transaction.change),
+                            isBold: true,
+                          ),
+
+                          const SizedBox(height: 32),
                           const Text(
-                            'Total:',
+                            'Thank you for your visit!',
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Text(
-                            CurrencyFormatter.format(transaction.total),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
+                              fontStyle: FontStyle.italic,
+                              color: AppColors.slate500,
+                              fontSize: 13,
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Payment:', style: TextStyle(fontSize: 12)),
-                        Text(
-                          transaction.paymentMethod,
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Amount Paid:',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                        Text(
-                          CurrencyFormatter.format(transaction.paymentAmount),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Change:', style: TextStyle(fontSize: 12)),
-                        Text(
-                          CurrencyFormatter.format(transaction.change),
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                      ],
-                    ),
-                    const Divider(),
-                    const SizedBox(height: 12),
-                    const Text(
-                      'Thank you for your purchase!',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      'Please come again',
-                      style: TextStyle(fontSize: 12),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
-              // Buttons
+              const SizedBox(height: 40),
+
+              // Action Buttons
               Row(
                 children: [
                   Expanded(
-                    child: ElevatedButton.icon(
+                    child: _buildActionButton(
+                      label: 'Print',
+                      icon: Icons.print_outlined,
+                      color: AppColors.slate900,
                       onPressed: () {
-                        // TODO: Implement print receipt
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Print feature coming soon'),
-                          ),
-                        );
+                        // TODO: Implement print
                       },
-                      icon: const Icon(Icons.print),
-                      label: const Text('Print'),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 16),
                   Expanded(
-                    child: ElevatedButton.icon(
+                    child: _buildActionButton(
+                      label: 'Share',
+                      icon: Icons.share_outlined,
+                      color: AppColors.indigo500,
                       onPressed: () {
-                        // TODO: Implement share receipt
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Share feature coming soon'),
-                          ),
-                        );
+                        // TODO: Implement share
                       },
-                      icon: const Icon(Icons.share),
-                      label: const Text('Share'),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: TextButton(
                   onPressed: () {
                     Navigator.of(context).popUntil((route) => route.isFirst);
                   },
-                  child: const Text('Done'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  child: const Text(
+                    'Done',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: AppColors.slate500,
+                    ),
+                  ),
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value, {bool isBold = false}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 13, color: AppColors.slate500),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: isBold ? FontWeight.bold : FontWeight.w500,
+            color: AppColors.slate900,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBillRow(String label, String value, {bool isError = false}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 14, color: AppColors.slate900),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: isError ? AppColors.error : AppColors.slate900,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButton({
+    required String label,
+    required IconData icon,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: color.withOpacity(0.2)),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(12),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: color, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

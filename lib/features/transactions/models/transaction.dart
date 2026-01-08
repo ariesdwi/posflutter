@@ -47,6 +47,7 @@ class Transaction {
   final double paymentAmount;
   final double change;
   final String status;
+  final String? tableNumber;
   final String? notes;
   final DateTime? createdAt;
   final String? userId;
@@ -63,6 +64,7 @@ class Transaction {
     required this.paymentAmount,
     required this.change,
     required this.status,
+    this.tableNumber,
     this.notes,
     this.createdAt,
     this.userId,
@@ -110,6 +112,7 @@ class Transaction {
           0.0,
 
       status: json['status'] as String? ?? 'PENDING',
+      tableNumber: json['tableNumber'] as String?,
       notes: json['notes'] as String?,
       createdAt: json['createdAt'] != null
           ? DateTime.parse(json['createdAt'] as String)
@@ -128,6 +131,8 @@ class Transaction {
             .toList(),
         'paymentMethod': paymentMethod,
         'paymentAmount': paymentAmount,
+        'status': status,
+        if (tableNumber != null) 'tableNumber': tableNumber,
         if (notes != null) 'notes': notes,
       };
     }
@@ -145,6 +150,7 @@ class Transaction {
       'paymentAmount': paymentAmount,
       'changeAmount': change,
       'status': status,
+      if (tableNumber != null) 'tableNumber': tableNumber,
       if (notes != null) 'notes': notes,
       'createdAt': createdAt?.toIso8601String(),
       'userId': userId,

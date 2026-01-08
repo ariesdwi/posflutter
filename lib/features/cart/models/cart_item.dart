@@ -1,4 +1,4 @@
-import 'package:pos_flutter/features/products/models/product.dart';
+import '../../products/models/product.dart';
 
 class CartItem {
   final Product product;

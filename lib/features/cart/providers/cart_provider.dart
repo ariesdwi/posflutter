@@ -6,8 +6,10 @@ import '../../../core/constants/app_constants.dart';
 class CartProvider extends ChangeNotifier {
   List<CartItem> _items = [];
   double _discount = 0;
+  String? _tableNumber;
 
   List<CartItem> get items => _items;
+  String? get tableNumber => _tableNumber;
   int get itemCount => _items.length;
   double get subtotal => _items.fold(0, (sum, item) => sum + item.subtotal);
   double get discount => _discount;
@@ -50,9 +52,15 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setTableNumber(String? table) {
+    _tableNumber = table;
+    notifyListeners();
+  }
+
   void clearCart() {
     _items.clear();
     _discount = 0;
+    _tableNumber = null;
     notifyListeners();
   }
 

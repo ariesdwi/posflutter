@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
 import 'package:mockito/mockito.dart';
-import 'package:pos_flutter/core/api/api_client.dart';
-import 'package:pos_flutter/core/constants/api_constants.dart';
+import 'package:kedai_kita/core/api/api_client.dart';
+import 'package:kedai_kita/core/constants/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

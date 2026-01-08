@@ -1,6 +1,6 @@
 class ApiConstants {
   // Base URL - Update this based on your backend
-  static const String baseUrl = 'http://10.168.81.25:3000';
+  static const String baseUrl = 'http://10.168.81.25:3000/';
 
   // Endpoints
   static const String loginEndpoint = '/auth/login';

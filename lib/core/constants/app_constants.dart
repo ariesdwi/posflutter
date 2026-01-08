@@ -1,6 +1,6 @@
 class AppConstants {
   // App Name
-  static const String appName = 'POS Flutter';
+  static const String appName = 'KEDAI KITA';
   static const String appVersion = '1.0.0';
 
   // Storage Keys

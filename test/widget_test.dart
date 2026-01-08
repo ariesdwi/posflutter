@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:pos_flutter/main.dart';
+import 'package:kedai_kita/main.dart';
 
 void main() {
   testWidgets('POS Flutter app starts', (WidgetTester tester) async {
@@ -17,7 +17,7 @@ void main() {
     // Mock SharedPreferences for testing
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
-    
+
     await tester.pumpWidget(MyApp(prefs: prefs));
 
     // Verify that the app starts without crashing

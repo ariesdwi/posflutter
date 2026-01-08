@@ -5,12 +5,15 @@ import '../providers/transaction_provider.dart';
 import '../models/transaction.dart';
 import '../models/transaction.dart' as trans;
 import '../../../core/constants/app_constants.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../core/widgets/custom_widgets.dart';
 import 'receipt_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key}) : super(key: key);
+  final Transaction? existingTransaction;
+
+  const PaymentScreen({Key? key, this.existingTransaction}) : super(key: key);
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -38,13 +41,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
     TransactionProvider transactionProvider,
   ) async {
     final amountPaid = double.tryParse(_amountPaidController.text) ?? 0;
+    final totalToPay = widget.existingTransaction?.total ?? cartProvider.total;
 
-    if (amountPaid < cartProvider.total) {
+    if (amountPaid < totalToPay) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Amount paid is less than total')),
       );
       return;
     }
+
+    final String tableNumber =
+        widget.existingTransaction?.tableNumber ??
+        cartProvider.tableNumber ??
+        '';
 
     // Create transaction items
     final items = cartProvider.items
@@ -65,11 +74,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
       subtotal: cartProvider.subtotal,
       discount: cartProvider.discount,
       tax: cartProvider.tax,
-      total: cartProvider.total,
+      total: totalToPay,
       paymentMethod: _selectedPaymentMethod,
       paymentAmount: amountPaid,
-      change: amountPaid - cartProvider.total,
+      change: amountPaid - totalToPay,
       status: AppConstants.transactionStatusCompleted,
+      tableNumber: tableNumber.isNotEmpty ? tableNumber : null,
       createdAt: DateTime.now(),
     );
 
@@ -82,7 +92,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
 
     // Submit transaction
-    final success = await transactionProvider.createTransaction(transaction);
+    bool success;
+    if (widget.existingTransaction != null) {
+      success = await transactionProvider.checkoutTransaction(
+        widget.existingTransaction!.id!,
+        {'paymentMethod': _selectedPaymentMethod, 'paymentAmount': amountPaid},
+      );
+    } else {
+      success = await transactionProvider.createTransaction(transaction);
+    }
 
     if (mounted) {
       Navigator.pop(context); // Close loading dialog
@@ -116,75 +134,122 @@ class _PaymentScreenState extends State<PaymentScreen> {
       appBar: AppBar(title: const Text('Payment')),
       body: Consumer<CartProvider>(
         builder: (context, cartProvider, _) {
+          final totalToPay =
+              widget.existingTransaction?.total ?? cartProvider.total;
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Order Summary
+                // Modern Order Summary Card
                 Container(
-                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey[300]!),
-                    borderRadius: BorderRadius.circular(8),
+                    color: AppColors.surface,
+                    borderRadius: BorderRadius.circular(24),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.shadow.withOpacity(0.08),
+                        blurRadius: 20,
+                        offset: const Offset(0, 8),
+                      ),
+                    ],
+                    border: Border.all(
+                      color: AppColors.slate200.withOpacity(0.5),
+                    ),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Order Summary',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Bill Summary',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: AppColors.slate900,
+                                  ),
+                                ),
+                                if (widget.existingTransaction?.tableNumber !=
+                                        null ||
+                                    cartProvider.tableNumber != null)
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 4,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.indigo500.withOpacity(
+                                        0.1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      widget.existingTransaction?.tableNumber ??
+                                          cartProvider.tableNumber ??
+                                          '-',
+                                      style: const TextStyle(
+                                        color: AppColors.indigo500,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            _buildSummaryRow(
+                              'Subtotal',
+                              CurrencyFormatter.format(cartProvider.subtotal),
+                            ),
+                            const SizedBox(height: 8),
+                            _buildSummaryRow(
+                              'Discount',
+                              '-${CurrencyFormatter.format(cartProvider.discount)}',
+                              isNegative: true,
+                            ),
+                            const SizedBox(height: 8),
+                            _buildSummaryRow(
+                              'Tax (10%)',
+                              CurrencyFormatter.format(cartProvider.tax),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Subtotal:'),
-                          Text(CurrencyFormatter.format(cartProvider.subtotal)),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Discount:'),
-                          Text(CurrencyFormatter.format(cartProvider.discount)),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Tax:'),
-                          Text(CurrencyFormatter.format(cartProvider.tax)),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
                       Container(
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 20,
+                        ),
                         decoration: BoxDecoration(
-                          color: Colors.blue[50],
-                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.slate50,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(24),
+                            bottomRight: Radius.circular(24),
+                          ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
-                              'Total:',
+                              'Total to Pay',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
+                                color: AppColors.slate900,
                               ),
                             ),
                             Text(
-                              CurrencyFormatter.format(cartProvider.total),
+                              CurrencyFormatter.format(totalToPay),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.blue,
+                                fontSize: 22,
+                                color: AppColors.indigo500,
                               ),
                             ),
                           ],
@@ -193,122 +258,283 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
-                // Payment Method
+                const SizedBox(height: 32),
+
+                // Payment Method Selection
                 const Text(
-                  'Payment Method',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  'Select Payment Method',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: AppColors.slate900,
+                  ),
                 ),
-                const SizedBox(height: 12),
-                RadioListTile<String>(
-                  title: const Text('Cash'),
-                  value: AppConstants.paymentMethodCash,
-                  groupValue: _selectedPaymentMethod,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedPaymentMethod = value!;
-                      _amountPaidController.clear();
-                    });
-                  },
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    _buildPaymentCard(
+                      'Cash',
+                      Icons.payments_outlined,
+                      AppConstants.paymentMethodCash,
+                    ),
+                    const SizedBox(width: 16),
+                    _buildPaymentCard(
+                      'Card',
+                      Icons.credit_card_outlined,
+                      AppConstants.paymentMethodCard,
+                    ),
+                  ],
                 ),
-                RadioListTile<String>(
-                  title: const Text('Card'),
-                  value: AppConstants.paymentMethodCard,
-                  groupValue: _selectedPaymentMethod,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedPaymentMethod = value!;
-                      _amountPaidController.clear();
-                    });
-                  },
-                ),
-                const SizedBox(height: 24),
-                // Amount Paid
+                const SizedBox(height: 32),
+
+                // Amount Entry with "Quick Pay" buttons style
                 const Text(
                   'Amount Paid',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: AppColors.slate900,
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 TextField(
                   controller: _amountPaidController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Enter amount',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    prefixText: 'Rp ',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.slate900,
                   ),
-                  onChanged: (_) {
-                    setState(() {});
-                  },
+                  decoration: InputDecoration(
+                    prefixIcon: const Padding(
+                      padding: EdgeInsets.only(left: 16, right: 8),
+                      child: Text(
+                        'Rp',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.slate500,
+                        ),
+                      ),
+                    ),
+                    prefixIconConstraints: const BoxConstraints(
+                      minWidth: 0,
+                      minHeight: 0,
+                    ),
+                    hintText: '0',
+                    filled: true,
+                    fillColor: AppColors.surface,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: BorderSide(color: AppColors.slate200),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      borderSide: const BorderSide(
+                        color: AppColors.indigo500,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                  onChanged: (_) => setState(() {}),
                 ),
-                const SizedBox(height: 16),
-                // Change
+
+                const SizedBox(height: 24),
+
+                // Dynamic Change Display
                 if (_amountPaidController.text.isNotEmpty)
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.green[50],
-                      borderRadius: BorderRadius.circular(8),
+                      color:
+                          ((double.tryParse(_amountPaidController.text) ?? 0) >=
+                              totalToPay)
+                          ? AppColors.success.withOpacity(0.08)
+                          : AppColors.error.withOpacity(0.08),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color:
+                            ((double.tryParse(_amountPaidController.text) ??
+                                    0) >=
+                                totalToPay)
+                            ? AppColors.success.withOpacity(0.2)
+                            : AppColors.error.withOpacity(0.2),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Change:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        Text(
+                          ((double.tryParse(_amountPaidController.text) ?? 0) >=
+                                  totalToPay)
+                              ? 'Change to Customer'
+                              : 'Remaining Balance',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color:
+                                ((double.tryParse(_amountPaidController.text) ??
+                                        0) >=
+                                    totalToPay)
+                                ? AppColors.success
+                                : AppColors.error,
+                          ),
                         ),
                         Text(
                           CurrencyFormatter.format(
-                            (double.tryParse(_amountPaidController.text) ?? 0) -
-                                cartProvider.total,
+                            ((double.tryParse(_amountPaidController.text) ??
+                                        0) -
+                                    totalToPay)
+                                .abs(),
                           ),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                            fontSize: 18,
+                            color:
+                                ((double.tryParse(_amountPaidController.text) ??
+                                        0) >=
+                                    totalToPay)
+                                ? AppColors.success
+                                : AppColors.error,
                           ),
                         ),
                       ],
                     ),
                   ),
-                const SizedBox(height: 24),
-                // Buttons
+
+                const SizedBox(height: 40),
+
+                // Final Action Button
                 Consumer<TransactionProvider>(
                   builder: (context, transactionProvider, _) {
-                    return Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () => Navigator.pop(context),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey,
-                            ),
-                            child: const Text('Back'),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: CustomButton(
-                            label: 'Process Payment',
-                            isLoading: transactionProvider.isLoading,
-                            onPressed: () {
-                              _processPayment(
+                    return SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: transactionProvider.isLoading
+                            ? null
+                            : () => _processPayment(
                                 context,
                                 cartProvider,
                                 transactionProvider,
-                              );
-                            },
+                              ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.slate900,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
                           ),
+                          elevation: 0,
                         ),
-                      ],
+                        child: transactionProvider.isLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Text(
+                                'Complete Transaction',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ),
                     );
                   },
+                ),
+                const SizedBox(height: 12),
+                Center(
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      'Back to Cart',
+                      style: TextStyle(color: AppColors.slate500),
+                    ),
+                  ),
                 ),
               ],
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildSummaryRow(
+    String label,
+    String value, {
+    bool isNegative = false,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(color: AppColors.slate500, fontSize: 14),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            color: isNegative ? AppColors.error : AppColors.slate900,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPaymentCard(String label, IconData icon, String value) {
+    final isSelected = _selectedPaymentMethod == value;
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            _selectedPaymentMethod = value;
+            _amountPaidController.clear();
+          });
+        },
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.indigo500 : AppColors.surface,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isSelected ? AppColors.indigo500 : AppColors.slate200,
+              width: 1.5,
+            ),
+            boxShadow: isSelected
+                ? [
+                    BoxShadow(
+                      color: AppColors.indigo500.withOpacity(0.2),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : [],
+          ),
+          child: Column(
+            children: [
+              Icon(
+                icon,
+                color: isSelected ? Colors.white : AppColors.slate500,
+                size: 32,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                label,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: isSelected ? Colors.white : AppColors.slate900,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

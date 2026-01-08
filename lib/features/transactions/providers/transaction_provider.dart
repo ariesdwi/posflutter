@@ -29,6 +29,10 @@ class TransactionProvider extends ChangeNotifier {
       if (response.statusCode == 201 || response.statusCode == 200) {
         final data = response.data as Map<String, dynamic>;
         if (data['success'] == true) {
+          // If it was a pending transaction, refresh the list
+          if (transaction.status == 'PENDING') {
+            await fetchTransactions();
+          }
           _setLoading(false);
           notifyListeners();
           return true;
@@ -45,12 +49,19 @@ class TransactionProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchTransactions() async {
+  Future<void> fetchTransactions({String? status, String? tableNumber}) async {
     _setLoading(true);
     _error = null;
 
     try {
-      final response = await _apiClient.get(ApiConstants.transactionsEndpoint);
+      final Map<String, dynamic> queryParameters = {};
+      if (status != null) queryParameters['status'] = status;
+      if (tableNumber != null) queryParameters['tableNumber'] = tableNumber;
+
+      final response = await _apiClient.get(
+        ApiConstants.transactionsEndpoint,
+        queryParameters: queryParameters,
+      );
 
       if (response.statusCode == 200) {
         final data = response.data as Map<String, dynamic>;
@@ -94,6 +105,35 @@ class TransactionProvider extends ChangeNotifier {
       return _transactions.firstWhere((transaction) => transaction.id == id);
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<bool> checkoutTransaction(String id, Map<String, dynamic> data) async {
+    _setLoading(true);
+    _error = null;
+
+    try {
+      final response = await _apiClient.post(
+        '${ApiConstants.transactionsEndpoint}/$id/checkout',
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        final respData = response.data as Map<String, dynamic>;
+        if (respData['success'] == true) {
+          await fetchTransactions();
+          _setLoading(false);
+          return true;
+        }
+      }
+
+      _error = 'Failed to checkout transaction';
+      _setLoading(false);
+      return false;
+    } catch (e) {
+      _error = e.toString();
+      _setLoading(false);
+      return false;
     }
   }
 

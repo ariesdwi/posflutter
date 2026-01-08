@@ -1,5 +1,5 @@
-name: pos_flutter
-description: "POS Flutter Mobile App for cashier transactions."
+name: kedai_kita
+description: "KEDAI KITA - Modern POS Mobile App for cashier transactions."
 publish_to: 'none'
 
 version: 1.0.0+1
