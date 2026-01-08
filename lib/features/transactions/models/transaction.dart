@@ -50,6 +50,7 @@ class Transaction {
   final String? tableNumber;
   final String? notes;
   final DateTime? createdAt;
+  final DateTime? updatedAt;
   final String? userId;
 
   Transaction({
@@ -67,6 +68,7 @@ class Transaction {
     this.tableNumber,
     this.notes,
     this.createdAt,
+    this.updatedAt,
     this.userId,
   });
 
@@ -79,21 +81,20 @@ class Transaction {
               ?.map((e) => TransactionItem.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      // These might technically be missing in the summary list, default to 0
       subtotal: double.tryParse(json['subtotal']?.toString() ?? '0') ?? 0.0,
       discount: double.tryParse(json['discount']?.toString() ?? '0') ?? 0.0,
       tax: double.tryParse(json['tax']?.toString() ?? '0') ?? 0.0,
 
-      // Map totalAmount -> total
+      // Map totalAmount (per spec) or total (fallback)
       total:
           double.tryParse(
             json['totalAmount']?.toString() ?? json['total']?.toString() ?? '0',
           ) ??
           0.0,
 
-      paymentMethod: json['paymentMethod'] as String? ?? '',
+      paymentMethod: json['paymentMethod'] as String? ?? 'CASH',
 
-      // Map paymentAmount -> paymentAmount (handle string)
+      // Map paymentAmount (handle string)
       paymentAmount:
           double.tryParse(
             json['paymentAmount']?.toString() ??
@@ -102,7 +103,7 @@ class Transaction {
           ) ??
           0.0,
 
-      // Map changeAmount -> change
+      // Map changeAmount (per response) or change
       change:
           double.tryParse(
             json['changeAmount']?.toString() ??
@@ -117,43 +118,22 @@ class Transaction {
       createdAt: json['createdAt'] != null
           ? DateTime.parse(json['createdAt'] as String)
           : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'] as String)
+          : null,
       userId: json['userId'] as String?,
     );
   }
 
-  // Simplified toJson for creating transactions - only send what API expects
+  // Strictly follow new spec for creating transactions: POST /transactions
   Map<String, dynamic> toJson() {
-    // When creating a new transaction, only send required fields
-    if (id == null) {
-      return {
-        'items': items
-            .map((e) => {'productId': e.productId, 'quantity': e.quantity})
-            .toList(),
-        'paymentMethod': paymentMethod,
-        'paymentAmount': paymentAmount,
-        'status': status,
-        if (tableNumber != null) 'tableNumber': tableNumber,
-        if (notes != null) 'notes': notes,
-      };
-    }
-
-    // When returning existing transaction, include all fields
     return {
-      'id': id,
-      'transactionNumber': transactionNumber,
-      'items': items.map((e) => e.toJson()).toList(),
-      'subtotal': subtotal,
-      'discount': discount,
-      'tax': tax,
-      'totalAmount': total,
-      'paymentMethod': paymentMethod,
-      'paymentAmount': paymentAmount,
-      'changeAmount': change,
+      if (tableNumber != null && tableNumber!.isNotEmpty)
+        'tableNumber': tableNumber,
+      'items': items
+          .map((e) => {'productId': e.productId, 'quantity': e.quantity})
+          .toList(),
       'status': status,
-      if (tableNumber != null) 'tableNumber': tableNumber,
-      if (notes != null) 'notes': notes,
-      'createdAt': createdAt?.toIso8601String(),
-      'userId': userId,
     };
   }
 }

@@ -94,10 +94,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
     // Submit transaction
     bool success;
     if (widget.existingTransaction != null) {
-      success = await transactionProvider.checkoutTransaction(
-        widget.existingTransaction!.id!,
-        {'paymentMethod': _selectedPaymentMethod, 'paymentAmount': amountPaid},
-      );
+      success = await transactionProvider
+          .checkoutTransaction(widget.existingTransaction!.id!, {
+            'paymentMethod': _selectedPaymentMethod,
+            'paymentAmount': amountPaid,
+            'notes':
+                'Payment for ${tableNumber.isNotEmpty ? tableNumber : "Order"}',
+          });
     } else {
       success = await transactionProvider.createTransaction(transaction);
     }

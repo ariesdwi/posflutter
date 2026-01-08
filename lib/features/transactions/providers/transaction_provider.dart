@@ -137,6 +137,35 @@ class TransactionProvider extends ChangeNotifier {
     }
   }
 
+  Future<bool> updateStatus(String id, String status) async {
+    _setLoading(true);
+    _error = null;
+
+    try {
+      final response = await _apiClient.patch(
+        '${ApiConstants.transactionsEndpoint}/$id/status',
+        data: {'status': status},
+      );
+
+      if (response.statusCode == 200) {
+        final respData = response.data as Map<String, dynamic>;
+        if (respData['success'] == true) {
+          await fetchTransactions();
+          _setLoading(false);
+          return true;
+        }
+      }
+
+      _error = 'Failed to update status';
+      _setLoading(false);
+      return false;
+    } catch (e) {
+      _error = e.toString();
+      _setLoading(false);
+      return false;
+    }
+  }
+
   Future<String?> getReceiptPdf(String transactionId) async {
     try {
       final response = await _apiClient.get(
