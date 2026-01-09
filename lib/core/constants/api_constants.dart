@@ -1,6 +1,6 @@
 class ApiConstants {
   // Base URL - Update this based on your backend
-  static const String baseUrl = 'http://172.20.10.3:3000/api';
+  static const String baseUrl = 'https://posbackend-18c9.vercel.app';
 
   // Endpoints
   static const String loginEndpoint = '/auth/login';

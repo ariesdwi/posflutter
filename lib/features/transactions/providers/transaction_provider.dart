@@ -118,7 +118,8 @@ class TransactionProvider extends ChangeNotifier {
         data: data,
       );
 
-      if (response.statusCode == 200) {
+      // Accept both 200 and 201 status codes (API returns 201 for created)
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final respData = response.data as Map<String, dynamic>;
         if (respData['success'] == true) {
           await fetchTransactions();

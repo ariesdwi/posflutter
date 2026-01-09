@@ -55,25 +55,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
         cartProvider.tableNumber ??
         '';
 
-    // Create transaction items
-    final items = cartProvider.items
-        .map(
-          (item) => trans.TransactionItem(
-            productId: item.product.id,
-            productName: item.product.name,
-            price: item.product.price,
-            quantity: item.quantity,
-            subtotal: item.subtotal,
-          ),
-        )
-        .toList();
+    // Create transaction items - use existing transaction items if available
+    final items = widget.existingTransaction != null
+        ? widget.existingTransaction!.items
+        : cartProvider.items
+              .map(
+                (item) => trans.TransactionItem(
+                  productId: item.product.id,
+                  productName: item.product.name,
+                  price: item.product.price,
+                  quantity: item.quantity,
+                  subtotal: item.subtotal,
+                ),
+              )
+              .toList();
 
-    // Create transaction
+    // Create transaction - use existing transaction data if available
     final transaction = Transaction(
       items: items,
-      subtotal: cartProvider.subtotal,
-      discount: cartProvider.discount,
-      tax: cartProvider.tax,
+      subtotal: widget.existingTransaction?.subtotal ?? cartProvider.subtotal,
+      discount: widget.existingTransaction?.discount ?? cartProvider.discount,
+      tax: widget.existingTransaction?.tax ?? cartProvider.tax,
       total: totalToPay,
       paymentMethod: _selectedPaymentMethod,
       paymentAmount: amountPaid,
@@ -208,18 +210,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             const SizedBox(height: 16),
                             _buildSummaryRow(
                               'Subtotal',
-                              CurrencyFormatter.format(cartProvider.subtotal),
+                              CurrencyFormatter.format(
+                                widget.existingTransaction?.subtotal ??
+                                    cartProvider.subtotal,
+                              ),
                             ),
                             const SizedBox(height: 8),
                             _buildSummaryRow(
                               'Discount',
-                              '-${CurrencyFormatter.format(cartProvider.discount)}',
+                              '-${CurrencyFormatter.format(widget.existingTransaction?.discount ?? cartProvider.discount)}',
                               isNegative: true,
                             ),
                             const SizedBox(height: 8),
                             _buildSummaryRow(
                               'Tax (10%)',
-                              CurrencyFormatter.format(cartProvider.tax),
+                              CurrencyFormatter.format(
+                                widget.existingTransaction?.tax ??
+                                    cartProvider.tax,
+                              ),
                             ),
                           ],
                         ),

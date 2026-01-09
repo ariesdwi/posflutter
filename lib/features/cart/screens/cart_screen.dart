@@ -5,6 +5,7 @@ import '../../transactions/providers/transaction_provider.dart';
 import '../../transactions/models/transaction.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/widgets/custom_widgets.dart';
 import '../../transactions/screens/payment_screen.dart';
 
 class CartScreen extends StatefulWidget {
@@ -467,28 +468,40 @@ class _CartScreenState extends State<CartScreen> {
       tableNumber: cartProvider.tableNumber,
     );
 
+    // Show loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const LoadingDialog(message: 'Saving order...'),
+    );
+
     final success = await context.read<TransactionProvider>().createTransaction(
       transaction,
     );
 
-    if (success && mounted) {
-      cartProvider.clearCart();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Order for ${transaction.tableNumber} saved!'),
-          backgroundColor: AppColors.success,
-        ),
-      );
-      Navigator.pop(context);
-    } else if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            context.read<TransactionProvider>().error ?? 'Failed to save order',
+    if (mounted) {
+      Navigator.pop(context); // Close loading dialog
+
+      if (success) {
+        cartProvider.clearCart();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Order for ${transaction.tableNumber} saved!'),
+            backgroundColor: AppColors.success,
           ),
-          backgroundColor: AppColors.error,
-        ),
-      );
+        );
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              context.read<TransactionProvider>().error ??
+                  'Failed to save order',
+            ),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
     }
   }
 }
