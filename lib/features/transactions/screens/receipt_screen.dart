@@ -1,12 +1,156 @@
+import 'package:blue_thermal_printer/blue_thermal_printer.dart';
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import '../../../core/services/printer_service.dart';
 import '../models/transaction.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../core/constants/app_colors.dart';
 
-class ReceiptScreen extends StatelessWidget {
+class ReceiptScreen extends StatefulWidget {
   final Transaction transaction;
 
   const ReceiptScreen({Key? key, required this.transaction}) : super(key: key);
+
+  @override
+  State<ReceiptScreen> createState() => _ReceiptScreenState();
+}
+
+class _ReceiptScreenState extends State<ReceiptScreen> {
+  final PrinterService _printerService = PrinterService();
+  bool _isPrinting = false;
+
+  Future<void> _handlePrint() async {
+    setState(() => _isPrinting = true);
+
+    try {
+      if (await _printerService.isConnected) {
+        await _printerService.printReceipt(widget.transaction);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Receipt printed successfully')),
+          );
+        }
+      } else {
+        final devices = await _printerService.getBondedDevices();
+        if (devices.isEmpty) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'No paired printers found. Please pair a printer in settings first.',
+                ),
+              ),
+            );
+          }
+          return;
+        }
+
+        if (mounted) {
+          await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Select Printer'),
+              content: SizedBox(
+                width: double.maxFinite,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: devices.length,
+                  itemBuilder: (context, index) {
+                    final device = devices[index];
+                    return ListTile(
+                      title: Text(device.name ?? 'Unknown Device'),
+                      subtitle: Text(device.address ?? ''),
+                      onTap: () async {
+                        Navigator.pop(context);
+                        final connected = await _printerService.connect(device);
+                        if (connected) {
+                          await _printerService.printReceipt(
+                            widget.transaction,
+                          );
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Receipt printed successfully'),
+                              ),
+                            );
+                          }
+                        } else {
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Failed to connect to printer'),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+              ],
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error printing: $e')));
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isPrinting = false);
+      }
+    }
+  }
+
+  void _handleShare() {
+    final t = widget.transaction;
+    final buffer = StringBuffer();
+
+    buffer.writeln('🧾 *KEDAI KITA Receipt*');
+    buffer.writeln('--------------------------------');
+    buffer.writeln(
+      '📅 Date: ${DateFormatter.formatDateTime(t.createdAt ?? DateTime.now())}',
+    );
+    buffer.writeln(
+      '🔢 Order ID: #${t.id?.substring(0, 8).toUpperCase() ?? 'POS-001'}',
+    );
+    if (t.tableNumber != null) {
+      buffer.writeln('🍽️ Table: ${t.tableNumber}');
+    }
+    buffer.writeln('--------------------------------');
+
+    for (var item in t.items) {
+      buffer.writeln('${item.productName}');
+      buffer.writeln(
+        '${item.quantity} x ${CurrencyFormatter.format(item.price)} = ${CurrencyFormatter.format(item.subtotal)}',
+      );
+    }
+
+    buffer.writeln('--------------------------------');
+    buffer.writeln('Subtotal: ${CurrencyFormatter.format(t.subtotal)}');
+    if (t.discount > 0) {
+      buffer.writeln('Discount: -${CurrencyFormatter.format(t.discount)}');
+    }
+    buffer.writeln('Tax (10%): ${CurrencyFormatter.format(t.tax)}');
+    buffer.writeln('--------------------------------');
+    buffer.writeln('*TOTAL: ${CurrencyFormatter.format(t.total)}*');
+    buffer.writeln('--------------------------------');
+    buffer.writeln('Thank you for your visit! 🙏');
+
+    Share.share(
+      buffer.toString(),
+      subject: 'Receipt #${t.id?.substring(0, 8).toUpperCase()}',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,19 +243,19 @@ class ReceiptScreen extends StatelessWidget {
                           _buildDetailRow(
                             'Date',
                             DateFormatter.formatDateTime(
-                              transaction.createdAt ?? DateTime.now(),
+                              widget.transaction.createdAt ?? DateTime.now(),
                             ),
                           ),
                           const SizedBox(height: 8),
                           _buildDetailRow(
                             'Order ID',
-                            '#${transaction.id?.toUpperCase() ?? 'POS-001'}',
+                            '#${widget.transaction.id?.toUpperCase() ?? 'POS-001'}',
                           ),
-                          if (transaction.tableNumber != null) ...[
+                          if (widget.transaction.tableNumber != null) ...[
                             const SizedBox(height: 8),
                             _buildDetailRow(
                               'Table',
-                              transaction.tableNumber!,
+                              widget.transaction.tableNumber!,
                               isBold: true,
                             ),
                           ],
@@ -119,7 +263,7 @@ class ReceiptScreen extends StatelessWidget {
                           const Divider(thickness: 1, height: 24),
 
                           // Items
-                          ...transaction.items.map((item) {
+                          ...widget.transaction.items.map((item) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 12),
                               child: Row(
@@ -166,18 +310,20 @@ class ReceiptScreen extends StatelessWidget {
                           // Bill Breakdown
                           _buildBillRow(
                             'Subtotal',
-                            CurrencyFormatter.format(transaction.subtotal),
+                            CurrencyFormatter.format(
+                              widget.transaction.subtotal,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           _buildBillRow(
                             'Discount',
-                            '-${CurrencyFormatter.format(transaction.discount)}',
+                            '-${CurrencyFormatter.format(widget.transaction.discount)}',
                             isError: true,
                           ),
                           const SizedBox(height: 8),
                           _buildBillRow(
                             'Tax (10%)',
-                            CurrencyFormatter.format(transaction.tax),
+                            CurrencyFormatter.format(widget.transaction.tax),
                           ),
                           const SizedBox(height: 16),
 
@@ -203,7 +349,9 @@ class ReceiptScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  CurrencyFormatter.format(transaction.total),
+                                  CurrencyFormatter.format(
+                                    widget.transaction.total,
+                                  ),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w900,
                                     fontSize: 20,
@@ -216,16 +364,21 @@ class ReceiptScreen extends StatelessWidget {
                           const SizedBox(height: 16),
 
                           // Payment Status
-                          _buildDetailRow('Payment', transaction.paymentMethod),
+                          _buildDetailRow(
+                            'Payment',
+                            widget.transaction.paymentMethod,
+                          ),
                           const SizedBox(height: 8),
                           _buildDetailRow(
                             'Amount Paid',
-                            CurrencyFormatter.format(transaction.paymentAmount),
+                            CurrencyFormatter.format(
+                              widget.transaction.paymentAmount,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           _buildDetailRow(
                             'Change',
-                            CurrencyFormatter.format(transaction.change),
+                            CurrencyFormatter.format(widget.transaction.change),
                             isBold: true,
                           ),
 
@@ -251,12 +404,11 @@ class ReceiptScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: _buildActionButton(
-                      label: 'Print',
+                      label: _isPrinting ? 'Printing...' : 'Print',
                       icon: Icons.print_outlined,
                       color: AppColors.slate900,
-                      onPressed: () {
-                        // TODO: Implement print
-                      },
+                      isLoading: _isPrinting,
+                      onPressed: _isPrinting ? () {} : _handlePrint,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -265,9 +417,7 @@ class ReceiptScreen extends StatelessWidget {
                       label: 'Share',
                       icon: Icons.share_outlined,
                       color: AppColors.indigo500,
-                      onPressed: () {
-                        // TODO: Implement share
-                      },
+                      onPressed: _handleShare,
                     ),
                   ),
                 ],
@@ -344,6 +494,7 @@ class ReceiptScreen extends StatelessWidget {
     required IconData icon,
     required Color color,
     required VoidCallback onPressed,
+    bool isLoading = false,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -368,7 +519,17 @@ class ReceiptScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, color: color, size: 20),
+                if (isLoading)
+                  SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: color,
+                    ),
+                  )
+                else
+                  Icon(icon, color: color, size: 20),
                 const SizedBox(width: 8),
                 Text(
                   label,

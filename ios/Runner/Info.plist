@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Need bluetooth access to connect to thermal printer</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Need bluetooth access to connect to thermal printer</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Need location access to scan for bluetooth devices</string>
 </dict>
 </plist>
