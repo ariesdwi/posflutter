@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'core/providers/navigation_provider.dart';
 import 'features/products/screens/product_list_screen.dart';
 import 'features/transactions/screens/dine_in_screen.dart';
 import 'features/transactions/screens/transaction_history_screen.dart';
@@ -14,8 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-
   final List<Widget> _screens = [
     const ProductListScreen(),
     const DineInScreen(),
@@ -25,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final selectedIndex = context.watch<NavigationProvider>().selectedIndex;
+
     return Scaffold(
       backgroundColor: AppColors.slate50,
       extendBody: true, // Crucial for the floating look
@@ -32,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           // Screen Content with index safety
           Positioned.fill(
-            child: _screens[_selectedIndex.clamp(0, _screens.length - 1)],
+            child: _screens[selectedIndex.clamp(0, _screens.length - 1)],
           ),
 
           // Floating "Super Premium" Dock
@@ -40,14 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
             left: 20,
             right: 20,
             bottom: 30,
-            child: _buildFloatingDock(),
+            child: _buildFloatingDock(context, selectedIndex),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildFloatingDock() {
+  Widget _buildFloatingDock(BuildContext context, int selectedIndex) {
     return Container(
       height: 64,
       decoration: BoxDecoration(
@@ -66,20 +68,50 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildDockItem(0, Icons.restaurant_menu_rounded, 'Menu'),
-            _buildDockItem(1, Icons.table_restaurant_rounded, 'Tables'),
-            _buildDockItem(2, Icons.history_rounded, 'History'),
-            _buildDockItem(3, Icons.settings_rounded, 'System'),
+            _buildDockItem(
+              context,
+              selectedIndex,
+              0,
+              Icons.restaurant_menu_rounded,
+              'Menu',
+            ),
+            _buildDockItem(
+              context,
+              selectedIndex,
+              1,
+              Icons.table_restaurant_rounded,
+              'Tables',
+            ),
+            _buildDockItem(
+              context,
+              selectedIndex,
+              2,
+              Icons.history_rounded,
+              'History',
+            ),
+            _buildDockItem(
+              context,
+              selectedIndex,
+              3,
+              Icons.settings_rounded,
+              'System',
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDockItem(int index, IconData icon, String label) {
-    final isSelected = _selectedIndex == index;
+  Widget _buildDockItem(
+    BuildContext context,
+    int selectedIndex,
+    int index,
+    IconData icon,
+    String label,
+  ) {
+    final isSelected = selectedIndex == index;
     return GestureDetector(
-      onTap: () => setState(() => _selectedIndex = index),
+      onTap: () => context.read<NavigationProvider>().setIndex(index),
       behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),

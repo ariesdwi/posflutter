@@ -8,6 +8,35 @@ class CartProvider extends ChangeNotifier {
   double _discount = 0;
   String? _tableNumber;
 
+  // ... (existing getters)
+
+  // Add this method
+  void loadTransactionItems(List<dynamic> items, String? tableNumber) {
+    _items.clear(); // Clear current cart
+    _tableNumber = tableNumber;
+    _discount =
+        0; // Reset discount or load if available in transaction (complexity: assume 0 for now)
+
+    for (var item in items) {
+      // Create a minimal product object from the transaction item
+      // We assume we have enough info. Ideally, we should fetch the full product,
+      // but for "Add More", we might just need ID, Name, Price.
+      // Note: item is likely a TransactionItem.
+
+      final product = Product(
+        id: item.productId,
+        name: item.productName,
+        price: item.price,
+        stock: 999, // Dummy stock, or we need to fetch it.
+        categoryId: '', // Unknown
+        image: null,
+      );
+
+      _items.add(CartItem(product: product, quantity: item.quantity));
+    }
+    notifyListeners();
+  }
+
   List<CartItem> get items => _items;
   String? get tableNumber => _tableNumber;
   int get itemCount => _items.length;

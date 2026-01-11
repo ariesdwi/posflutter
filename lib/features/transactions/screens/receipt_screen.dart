@@ -1,10 +1,15 @@
-import 'package:blue_thermal_printer/blue_thermal_printer.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../core/services/printer_service.dart';
 import '../models/transaction.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../core/constants/app_colors.dart';
+import 'printer_settings_screen.dart';
 
 class ReceiptScreen extends StatefulWidget {
   final Transaction transaction;
@@ -17,7 +22,9 @@ class ReceiptScreen extends StatefulWidget {
 
 class _ReceiptScreenState extends State<ReceiptScreen> {
   final PrinterService _printerService = PrinterService();
+  final GlobalKey _receiptKey = GlobalKey();
   bool _isPrinting = false;
+  bool _isSharing = false;
 
   Future<void> _handlePrint() async {
     setState(() => _isPrinting = true);
@@ -31,69 +38,13 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
           );
         }
       } else {
-        final devices = await _printerService.getBondedDevices();
-        if (devices.isEmpty) {
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                  'No paired printers found. Please pair a printer in settings first.',
-                ),
-              ),
-            );
-          }
-          return;
-        }
-
         if (mounted) {
-          await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Select Printer'),
-              content: SizedBox(
-                width: double.maxFinite,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: devices.length,
-                  itemBuilder: (context, index) {
-                    final device = devices[index];
-                    return ListTile(
-                      title: Text(device.name ?? 'Unknown Device'),
-                      subtitle: Text(device.address ?? ''),
-                      onTap: () async {
-                        Navigator.pop(context);
-                        final connected = await _printerService.connect(device);
-                        if (connected) {
-                          await _printerService.printReceipt(
-                            widget.transaction,
-                          );
-                          if (mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Receipt printed successfully'),
-                              ),
-                            );
-                          }
-                        } else {
-                          if (mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Failed to connect to printer'),
-                              ),
-                            );
-                          }
-                        }
-                      },
-                    );
-                  },
-                ),
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'No printer connected. Please connect a printer first.',
               ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancel'),
-                ),
-              ],
+              duration: Duration(seconds: 3),
             ),
           );
         }
@@ -111,45 +62,54 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
     }
   }
 
-  void _handleShare() {
-    final t = widget.transaction;
-    final buffer = StringBuffer();
+  Future<void> _handleShare() async {
+    setState(() => _isSharing = true);
+    try {
+      // 1. Capture the widget as an image
+      RenderRepaintBoundary? boundary =
+          _receiptKey.currentContext?.findRenderObject()
+              as RenderRepaintBoundary?;
 
-    buffer.writeln('🧾 *KEDAI KITA Receipt*');
-    buffer.writeln('--------------------------------');
-    buffer.writeln(
-      '📅 Date: ${DateFormatter.formatDateTime(t.createdAt ?? DateTime.now())}',
-    );
-    buffer.writeln(
-      '🔢 Order ID: #${t.id?.substring(0, 8).toUpperCase() ?? 'POS-001'}',
-    );
-    if (t.tableNumber != null) {
-      buffer.writeln('🍽️ Table: ${t.tableNumber}');
-    }
-    buffer.writeln('--------------------------------');
+      if (boundary == null) {
+        throw Exception("Unable to capture receipt image.");
+      }
 
-    for (var item in t.items) {
-      buffer.writeln('${item.productName}');
-      buffer.writeln(
-        '${item.quantity} x ${CurrencyFormatter.format(item.price)} = ${CurrencyFormatter.format(item.subtotal)}',
+      // Increase pixel ratio for higher quality image
+      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      ByteData? byteData = await image.toByteData(
+        format: ui.ImageByteFormat.png,
       );
-    }
 
-    buffer.writeln('--------------------------------');
-    buffer.writeln('Subtotal: ${CurrencyFormatter.format(t.subtotal)}');
-    if (t.discount > 0) {
-      buffer.writeln('Discount: -${CurrencyFormatter.format(t.discount)}');
-    }
-    buffer.writeln('Tax (10%): ${CurrencyFormatter.format(t.tax)}');
-    buffer.writeln('--------------------------------');
-    buffer.writeln('*TOTAL: ${CurrencyFormatter.format(t.total)}*');
-    buffer.writeln('--------------------------------');
-    buffer.writeln('Thank you for your visit! 🙏');
+      if (byteData == null) {
+        throw Exception("Failed to generate image data.");
+      }
 
-    Share.share(
-      buffer.toString(),
-      subject: 'Receipt #${t.id?.substring(0, 8).toUpperCase()}',
-    );
+      Uint8List pngBytes = byteData.buffer.asUint8List();
+
+      // 2. Save image to temporary directory
+      final directory = await getTemporaryDirectory();
+      final String filePath =
+          '${directory.path}/receipt_${widget.transaction.id}.png';
+      final File imgFile = File(filePath);
+      await imgFile.writeAsBytes(pngBytes);
+
+      // 3. Share the image file
+      await Share.shareXFiles(
+        [XFile(filePath)],
+        text: 'Receipt #${widget.transaction.id}',
+        subject: 'Transaction Receipt',
+      );
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error sharing receipt: $e')));
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isSharing = false);
+      }
+    }
   }
 
   @override
@@ -188,213 +148,220 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
               ),
               const SizedBox(height: 32),
 
-              // Thermal Receipt Card
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(4),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.slate900.withOpacity(0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    // Jagged / Dotted Top border simulation
-                    Container(
-                      height: 6,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppColors.slate200.withOpacity(0.5),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(4),
-                          topRight: Radius.circular(4),
+              // Thermal Receipt Card (Wrapped in RepaintBoundary)
+              RepaintBoundary(
+                key: _receiptKey,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors
+                        .white, // Important: White background for the image
+                    borderRadius: BorderRadius.circular(4),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.slate900.withOpacity(0.1),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      // Jagged / Dotted Top border simulation
+                      Container(
+                        height: 6,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColors.slate200.withOpacity(0.5),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4),
+                            topRight: Radius.circular(4),
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'KEDAI KITA',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1.2,
-                              color: AppColors.indigo500,
+                      Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'KEDAI KITA',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 1.2,
+                                color: AppColors.indigo500,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Professional POS System',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: AppColors.slate500,
-                              letterSpacing: 1,
+                            const SizedBox(height: 4),
+                            Text(
+                              'Professional POS System',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppColors.slate500,
+                                letterSpacing: 1,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 24),
+                            const SizedBox(height: 24),
 
-                          // Receipt Details
-                          _buildDetailRow(
-                            'Date',
-                            DateFormatter.formatDateTime(
-                              widget.transaction.createdAt ?? DateTime.now(),
+                            // Receipt Details
+                            _buildDetailRow(
+                              'Date',
+                              DateFormatter.formatDateTime(
+                                widget.transaction.createdAt ?? DateTime.now(),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          _buildDetailRow(
-                            'Order ID',
-                            '#${widget.transaction.id?.toUpperCase() ?? 'POS-001'}',
-                          ),
-                          if (widget.transaction.tableNumber != null) ...[
                             const SizedBox(height: 8),
                             _buildDetailRow(
-                              'Table',
-                              widget.transaction.tableNumber!,
-                              isBold: true,
+                              'Order ID',
+                              '#${widget.transaction.id?.toUpperCase() ?? 'POS-001'}',
                             ),
-                          ],
-                          const SizedBox(height: 12),
-                          const Divider(thickness: 1, height: 24),
+                            if (widget.transaction.tableNumber != null) ...[
+                              const SizedBox(height: 8),
+                              _buildDetailRow(
+                                'Table',
+                                widget.transaction.tableNumber!,
+                                isBold: true,
+                              ),
+                            ],
+                            const SizedBox(height: 12),
+                            const Divider(thickness: 1, height: 24),
 
-                          // Items
-                          ...widget.transaction.items.map((item) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 12),
+                            // Items
+                            ...widget.transaction.items.map((item) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.productName,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                              color: AppColors.slate900,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${item.quantity} x ${CurrencyFormatter.format(item.price)}',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: AppColors.slate500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Text(
+                                      CurrencyFormatter.format(item.subtotal),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: AppColors.slate900,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+
+                            const Divider(thickness: 1, height: 24),
+
+                            // Bill Breakdown
+                            _buildBillRow(
+                              'Subtotal',
+                              CurrencyFormatter.format(
+                                widget.transaction.subtotal,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            _buildBillRow(
+                              'Discount',
+                              '-${CurrencyFormatter.format(widget.transaction.discount)}',
+                              isError: true,
+                            ),
+                            const SizedBox(height: 8),
+                            _buildBillRow(
+                              'Tax (10%)',
+                              CurrencyFormatter.format(widget.transaction.tax),
+                            ),
+                            const SizedBox(height: 16),
+
+                            // Total
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 12,
+                                horizontal: 16,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.slate50,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                               child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          item.productName,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                            color: AppColors.slate900,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${item.quantity} x ${CurrencyFormatter.format(item.price)}',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: AppColors.slate500,
-                                          ),
-                                        ),
-                                      ],
+                                  const Text(
+                                    'TOTAL',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 16,
+                                      color: AppColors.slate900,
                                     ),
                                   ),
                                   Text(
-                                    CurrencyFormatter.format(item.subtotal),
+                                    CurrencyFormatter.format(
+                                      widget.transaction.total,
+                                    ),
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 20,
                                       color: AppColors.slate900,
                                     ),
                                   ),
                                 ],
                               ),
-                            );
-                          }).toList(),
+                            ),
+                            const SizedBox(height: 16),
 
-                          const Divider(thickness: 1, height: 24),
+                            // Payment Status
+                            _buildDetailRow(
+                              'Payment',
+                              widget.transaction.paymentMethod,
+                            ),
+                            const SizedBox(height: 8),
+                            _buildDetailRow(
+                              'Amount Paid',
+                              CurrencyFormatter.format(
+                                widget.transaction.paymentAmount,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            _buildDetailRow(
+                              'Change',
+                              CurrencyFormatter.format(
+                                widget.transaction.change,
+                              ),
+                              isBold: true,
+                            ),
 
-                          // Bill Breakdown
-                          _buildBillRow(
-                            'Subtotal',
-                            CurrencyFormatter.format(
-                              widget.transaction.subtotal,
+                            const SizedBox(height: 32),
+                            const Text(
+                              'Thank you for your visit!',
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: AppColors.slate500,
+                                fontSize: 13,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          _buildBillRow(
-                            'Discount',
-                            '-${CurrencyFormatter.format(widget.transaction.discount)}',
-                            isError: true,
-                          ),
-                          const SizedBox(height: 8),
-                          _buildBillRow(
-                            'Tax (10%)',
-                            CurrencyFormatter.format(widget.transaction.tax),
-                          ),
-                          const SizedBox(height: 16),
-
-                          // Total
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 12,
-                              horizontal: 16,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.slate50,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'TOTAL',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 16,
-                                    color: AppColors.slate900,
-                                  ),
-                                ),
-                                Text(
-                                  CurrencyFormatter.format(
-                                    widget.transaction.total,
-                                  ),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 20,
-                                    color: AppColors.slate900,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-
-                          // Payment Status
-                          _buildDetailRow(
-                            'Payment',
-                            widget.transaction.paymentMethod,
-                          ),
-                          const SizedBox(height: 8),
-                          _buildDetailRow(
-                            'Amount Paid',
-                            CurrencyFormatter.format(
-                              widget.transaction.paymentAmount,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          _buildDetailRow(
-                            'Change',
-                            CurrencyFormatter.format(widget.transaction.change),
-                            isBold: true,
-                          ),
-
-                          const SizedBox(height: 32),
-                          const Text(
-                            'Thank you for your visit!',
-                            style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: AppColors.slate500,
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 40),
@@ -414,10 +381,11 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: _buildActionButton(
-                      label: 'Share',
+                      label: _isSharing ? 'Sharing...' : 'Share',
                       icon: Icons.share_outlined,
                       color: AppColors.indigo500,
-                      onPressed: _handleShare,
+                      isLoading: _isSharing,
+                      onPressed: _isSharing ? () {} : _handleShare,
                     ),
                   ),
                 ],
