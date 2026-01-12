@@ -6,6 +6,7 @@ import '../../cart/providers/cart_provider.dart';
 import '../models/product.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../auth/providers/auth_provider.dart';
 import '../../cart/screens/cart_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -40,9 +41,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       backgroundColor: AppColors.slate50,
       appBar: AppBar(
-        title: const Text(
-          'KEDAI KITA',
-          style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2),
+        title: Consumer<AuthProvider>(
+          builder: (context, auth, _) {
+            return Text(
+              auth.user?.business?.name?.toUpperCase() ?? 'POS',
+              style: const TextStyle(
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2,
+              ),
+            );
+          },
         ),
         centerTitle: true,
         leading: Consumer<CartProvider>(

@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 24),
                       const Text(
-                        'KEDAI KITA',
+                        'POS',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 32,

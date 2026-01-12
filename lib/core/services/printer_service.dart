@@ -89,7 +89,12 @@ class PrinterService {
     return state == BluetoothConnectionState.connected;
   }
 
-  Future<void> printReceipt(Transaction transaction) async {
+  Future<void> printReceipt(
+    Transaction transaction, {
+    String? businessName,
+    String? businessAddress,
+    String? businessPhone,
+  }) async {
     if (_connectedDevice == null || _writeCharacteristic == null) {
       throw Exception("Printer not connected");
     }
@@ -101,7 +106,7 @@ class PrinterService {
 
     // Header
     bytes += generator.text(
-      "KEDAI KITA",
+      businessName ?? "POS",
       styles: const PosStyles(
         align: PosAlign.center,
         height: PosTextSize.size2,
@@ -109,10 +114,18 @@ class PrinterService {
         bold: true,
       ),
     );
-    bytes += generator.text(
-      "Professional POS System",
-      styles: const PosStyles(align: PosAlign.center),
-    );
+    if (businessAddress != null) {
+      bytes += generator.text(
+        businessAddress,
+        styles: const PosStyles(align: PosAlign.center),
+      );
+    }
+    if (businessPhone != null) {
+      bytes += generator.text(
+        businessPhone,
+        styles: const PosStyles(align: PosAlign.center),
+      );
+    }
     bytes += generator.feed(1);
 
     // Info

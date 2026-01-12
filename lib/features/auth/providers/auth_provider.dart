@@ -68,10 +68,52 @@ class AuthProvider extends ChangeNotifier {
         final userData = data['data']?['user'];
 
         if (token != null && userData != null) {
+          // Debug: Print raw JSON
+          print('=== RAW USER DATA ===');
+          print(jsonEncode(userData));
+          print('=====================');
+
           _user = User.fromJson(userData as Map<String, dynamic>);
+
+          // Debug: Print business data
+          print('=== AUTH DEBUG ===');
+          print('User: ${_user?.name}');
+          print('Business ID: ${_user?.businessId}');
+          print('Business Name: ${_user?.business?.name}');
+          print('Business Address: ${_user?.business?.address}');
+          print('Business Phone: ${_user?.business?.phone}');
+          print('==================');
 
           await _prefs.setString(AppConstants.tokenKey, token);
           await _prefs.setString(AppConstants.userKey, jsonEncode(userData));
+
+          // Fetch full profile to get business data
+          try {
+            final profileResponse = await _apiClient.get(
+              ApiConstants.profileEndpoint,
+            );
+            if (profileResponse.statusCode == 200) {
+              final profileData = profileResponse.data as Map<String, dynamic>;
+              final fullUserData = profileData['data']?['user'];
+
+              if (fullUserData != null) {
+                _user = User.fromJson(fullUserData as Map<String, dynamic>);
+                await _prefs.setString(
+                  AppConstants.userKey,
+                  jsonEncode(fullUserData),
+                );
+
+                print('=== PROFILE FETCHED ===');
+                print('Business Name: ${_user?.business?.name}');
+                print('Business Address: ${_user?.business?.address}');
+                print('Business Phone: ${_user?.business?.phone}');
+                print('=======================');
+              }
+            }
+          } catch (e) {
+            print('Profile fetch error: $e');
+            // Continue anyway with login data
+          }
 
           if (rememberMe) {
             await _prefs.setBool(AppConstants.rememberMeKey, true);

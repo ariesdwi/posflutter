@@ -2,9 +2,11 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../auth/providers/auth_provider.dart';
 import '../../../core/services/printer_service.dart';
 import '../models/transaction.dart';
 import '../../../core/utils/formatters.dart';
@@ -31,7 +33,16 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
 
     try {
       if (await _printerService.isConnected) {
-        await _printerService.printReceipt(widget.transaction);
+        final businessName = context
+            .read<AuthProvider>()
+            .user
+            ?.business
+            ?.name
+            ?.toUpperCase();
+        await _printerService.printReceipt(
+          widget.transaction,
+          businessName: businessName,
+        );
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Receipt printed successfully')),
@@ -182,23 +193,57 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                         padding: const EdgeInsets.all(24),
                         child: Column(
                           children: [
-                            const Text(
-                              'KEDAI KITA',
-                              style: TextStyle(
+                            Text(
+                              context
+                                      .read<AuthProvider>()
+                                      .user
+                                      ?.business
+                                      ?.name
+                                      ?.toUpperCase() ??
+                                  'POS',
+                              style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 1.2,
                                 color: AppColors.indigo500,
                               ),
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Professional POS System',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: AppColors.slate500,
-                                letterSpacing: 1,
-                              ),
+                            const SizedBox(height: 8),
+                            Builder(
+                              builder: (context) {
+                                final business = context
+                                    .read<AuthProvider>()
+                                    .user
+                                    ?.business;
+                                return Column(
+                                  children: [
+                                    if (business?.address != null)
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: 4,
+                                        ),
+                                        child: Text(
+                                          business!.address!,
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                            color: AppColors.slate500,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    if (business?.phone != null)
+                                      Text(
+                                        business!.phone!,
+                                        style: const TextStyle(
+                                          fontSize: 11,
+                                          color: AppColors.slate500,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                  ],
+                                );
+                              },
                             ),
                             const SizedBox(height: 24),
 

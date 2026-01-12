@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'KEDAI KITA',
+        title: 'POS',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,

@@ -7,6 +7,7 @@ class CartProvider extends ChangeNotifier {
   List<CartItem> _items = [];
   double _discount = 0;
   String? _tableNumber;
+  double _taxRate = AppConstants.taxRate; // Default tax rate
 
   // ... (existing getters)
 
@@ -42,7 +43,8 @@ class CartProvider extends ChangeNotifier {
   int get itemCount => _items.length;
   double get subtotal => _items.fold(0, (sum, item) => sum + item.subtotal);
   double get discount => _discount;
-  double get tax => (subtotal - discount) * (AppConstants.taxRate / 100);
+  double get taxRate => _taxRate;
+  double get tax => (subtotal - discount) * (_taxRate / 100);
   double get total => (subtotal - discount) + tax;
 
   void addProduct(Product product, {int quantity = 1}) {
@@ -83,6 +85,11 @@ class CartProvider extends ChangeNotifier {
 
   void setTableNumber(String? table) {
     _tableNumber = table;
+    notifyListeners();
+  }
+
+  void setTaxRate(double rate) {
+    _taxRate = rate;
     notifyListeners();
   }
 
