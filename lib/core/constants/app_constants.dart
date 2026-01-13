@@ -1,6 +1,6 @@
 class AppConstants {
   // App Name
-  static const String appName = 'KEDAI KITA';
+  static const String appName = 'POS';
   static const String appVersion = '1.0.0';
 
   // Storage Keys
@@ -14,6 +14,9 @@ class AppConstants {
   // Payment Methods
   static const String paymentMethodCash = 'CASH';
   static const String paymentMethodCard = 'CARD';
+  static const String paymentMethodQris = 'QRIS';
+  static const String paymentMethodTransfer = 'TRANSFER';
+  static const String paymentMethodOther = 'OTHER';
 
   // Transaction Status
   static const String transactionStatusPending = 'PENDING';

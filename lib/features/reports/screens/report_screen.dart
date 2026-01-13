@@ -76,16 +76,16 @@ class _ReportScreenState extends State<ReportScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Reports'),
+        title: const Text('Laporan'),
         bottom: TabBar(
           controller: _tabController,
           labelColor: Colors.black,
           unselectedLabelColor: Colors.black54,
           indicatorColor: Colors.black,
           tabs: const [
-            Tab(text: 'Daily'),
-            Tab(text: 'Weekly'),
-            Tab(text: 'Monthly'),
+            Tab(text: 'Harian'),
+            Tab(text: 'Mingguan'),
+            Tab(text: 'Bulanan'),
           ],
         ),
         actions: [
@@ -107,12 +107,12 @@ class _ReportScreenState extends State<ReportScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Error: ${provider.error}',
+                    'Kesalahan: ${provider.error}',
                     style: const TextStyle(color: Colors.red),
                   ),
                   ElevatedButton(
                     onPressed: _fetchData,
-                    child: const Text('Retry'),
+                    child: const Text('Coba Lagi'),
                   ),
                 ],
               ),
@@ -121,7 +121,7 @@ class _ReportScreenState extends State<ReportScreen>
 
           final data = provider.reportData;
           if (data == null) {
-            return const Center(child: Text('No data available'));
+            return const Center(child: Text('Tidak ada data tersedia'));
           }
 
           return RefreshIndicator(
@@ -165,7 +165,7 @@ class _ReportScreenState extends State<ReportScreen>
                         1.1, // Decreased to prevent overflow (needs more height)
                     children: [
                       _SummaryCard(
-                        title: 'Revenue',
+                        title: 'Pendapatan',
                         value: CurrencyFormatter.format(
                           data.summary.totalRevenue,
                         ),
@@ -173,7 +173,7 @@ class _ReportScreenState extends State<ReportScreen>
                         color: Colors.green,
                       ),
                       _SummaryCard(
-                        title: 'Transactions',
+                        title: 'Transaksi',
                         value: data.summary.totalTransactions.toString(),
                         icon: Icons.receipt,
                         color: Colors.blue,
@@ -184,12 +184,12 @@ class _ReportScreenState extends State<ReportScreen>
 
                   // Best Sellers
                   Text(
-                    'Best Sellers',
+                    'Penjualan Terbaik',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
                   if (data.bestSellers.isEmpty)
-                    const Text('No sales data')
+                    const Text('Tidak ada data penjualan')
                   else
                     ListView.builder(
                       shrinkWrap: true,
@@ -200,7 +200,7 @@ class _ReportScreenState extends State<ReportScreen>
                         return ListTile(
                           leading: CircleAvatar(child: Text('${index + 1}')),
                           title: Text(item.productName),
-                          subtitle: Text('${item.quantitySold} sold'),
+                          subtitle: Text('${item.quantitySold} terjual'),
                           trailing: Text(
                             CurrencyFormatter.format(item.revenue),
                           ),
@@ -211,7 +211,7 @@ class _ReportScreenState extends State<ReportScreen>
 
                   // Revenue by Payment
                   Text(
-                    'Revenue Breakdown',
+                    'Rincian Pendapatan',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
@@ -226,7 +226,7 @@ class _ReportScreenState extends State<ReportScreen>
                   if (provider.revenueByCategory.isNotEmpty) ...[
                     const SizedBox(height: 24),
                     Text(
-                      'Revenue by Category',
+                      'Pendapatan per Kategori',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 8),
@@ -238,7 +238,7 @@ class _ReportScreenState extends State<ReportScreen>
                         final item = provider.revenueByCategory[index];
                         return ListTile(
                           title: Text(item.category),
-                          subtitle: Text('${item.itemsSold} items sold'),
+                          subtitle: Text('${item.itemsSold} item terjual'),
                           trailing: Text(
                             CurrencyFormatter.format(item.revenue),
                           ),

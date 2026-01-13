@@ -125,7 +125,44 @@ class Transaction {
     );
   }
 
-  // Strictly follow new spec for creating transactions: POST /transactions
+  Transaction copyWith({
+    String? id,
+    String? transactionNumber,
+    List<TransactionItem>? items,
+    double? subtotal,
+    double? discount,
+    double? tax,
+    double? total,
+    String? paymentMethod,
+    double? paymentAmount,
+    double? change,
+    String? status,
+    String? tableNumber,
+    String? notes,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? userId,
+  }) {
+    return Transaction(
+      id: id ?? this.id,
+      transactionNumber: transactionNumber ?? this.transactionNumber,
+      items: items ?? this.items,
+      subtotal: subtotal ?? this.subtotal,
+      discount: discount ?? this.discount,
+      tax: tax ?? this.tax,
+      total: total ?? this.total,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
+      paymentAmount: paymentAmount ?? this.paymentAmount,
+      change: change ?? this.change,
+      status: status ?? this.status,
+      tableNumber: tableNumber ?? this.tableNumber,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      userId: userId ?? this.userId,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       if (tableNumber != null && tableNumber!.isNotEmpty)
@@ -134,6 +171,8 @@ class Transaction {
           .map((e) => {'productId': e.productId, 'quantity': e.quantity})
           .toList(),
       'status': status,
+      'paymentMethod': paymentMethod,
+      'paymentAmount': paymentAmount,
     };
   }
 }

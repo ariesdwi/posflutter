@@ -6,6 +6,7 @@ import '../../cart/providers/cart_provider.dart';
 import '../models/product.dart';
 import '../../../core/utils/formatters.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../auth/providers/auth_provider.dart';
 import '../../cart/screens/cart_screen.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -40,9 +41,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       backgroundColor: AppColors.slate50,
       appBar: AppBar(
-        title: const Text(
-          'KEDAI KITA',
-          style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2),
+        title: Consumer<AuthProvider>(
+          builder: (context, auth, _) {
+            return Text(
+              auth.user?.business?.name?.toUpperCase() ?? 'POS',
+              style: const TextStyle(
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2,
+              ),
+            );
+          },
         ),
         centerTitle: true,
         leading: Consumer<CartProvider>(
@@ -121,7 +129,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   child: TextField(
                     controller: _searchController,
                     decoration: const InputDecoration(
-                      hintText: 'Search delicious items...',
+                      hintText: 'Cari menu lezat...',
                       prefixIcon: Icon(
                         Icons.search_rounded,
                         color: AppColors.slate400,
@@ -148,7 +156,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         itemBuilder: (context, index) {
                           if (index == 0) {
                             return _CategoryPill(
-                              label: 'All Items',
+                              label: 'Semua Item',
                               isSelected:
                                   productProvider.selectedCategoryId == null,
                               onTap: () => context
@@ -231,7 +239,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            'No items found',
+            'Tidak ada item ditemukan',
             style: TextStyle(
               color: AppColors.slate500,
               fontWeight: FontWeight.w600,
@@ -359,7 +367,7 @@ class ProductCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Text(
-                        'SOLD OUT',
+                        'HABIS',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 10,
@@ -409,7 +417,7 @@ class ProductCard extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    '${product.name} added to cart',
+                                    '${product.name} ditambahkan ke keranjang',
                                   ),
                                   margin: const EdgeInsets.all(16),
                                   behavior: SnackBarBehavior.floating,
@@ -526,7 +534,7 @@ class ProductListItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
             ),
             child: const Text(
-              'Add',
+              'Tambah',
               style: TextStyle(fontWeight: FontWeight.w800),
             ),
           ),

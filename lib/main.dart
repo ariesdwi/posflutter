@@ -10,6 +10,7 @@ import 'features/products/providers/product_provider.dart';
 import 'features/cart/providers/cart_provider.dart';
 import 'features/transactions/providers/transaction_provider.dart';
 import 'features/reports/providers/report_provider.dart';
+import 'core/providers/navigation_provider.dart';
 import 'home_screen.dart';
 
 void main() async {
@@ -46,9 +47,12 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               ReportProvider(apiClient: context.read<ApiClient>()),
         ),
+        ChangeNotifierProvider<NavigationProvider>(
+          create: (_) => NavigationProvider(),
+        ),
       ],
       child: MaterialApp(
-        title: 'KEDAI KITA',
+        title: 'POS',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,
