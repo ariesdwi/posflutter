@@ -168,25 +168,11 @@ class Transaction {
       if (tableNumber != null && tableNumber!.isNotEmpty)
         'tableNumber': tableNumber,
       'items': items
-          .map(
-            (e) => {
-              'productId': e.productId,
-              'productName': e.productName,
-              'price': e.price,
-              'quantity': e.quantity,
-              'subtotal': e.subtotal,
-            },
-          )
+          .map((e) => {'productId': e.productId, 'quantity': e.quantity})
           .toList(),
-      'subtotal': subtotal,
-      'discount': discount,
-      'tax': tax,
-      'total': total,
       'status': status,
-      if (paymentMethod != 'CASH') 'paymentMethod': paymentMethod,
-      if (paymentAmount > 0) 'paymentAmount': paymentAmount,
-      if (change > 0) 'change': change,
-      if (notes != null) 'notes': notes,
+      'paymentMethod': paymentMethod,
+      'paymentAmount': paymentAmount,
     };
   }
 }
