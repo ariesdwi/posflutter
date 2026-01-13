@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleLogin() {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Email and password are required')),
+        const SnackBar(content: Text('Email dan password wajib diisi')),
       );
       return;
     }
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Text(
-                        'PREMIUM POS SYSTEM',
+                        'SISTEM POS PREMIUM',
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.6),
                           fontSize: 12,
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Login Session',
+                              'Sesi Login',
                               style: TextStyle(
                                 color: AppColors.slate900,
                                 fontSize: 24,
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              'Please enter your credentials',
+                              'Silakan masukkan kredensial Anda',
                               style: TextStyle(
                                 color: AppColors.slate500,
                                 fontSize: 14,
@@ -177,9 +177,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             // Email
                             _buildInputField(
                               controller: _emailController,
-                              label: 'EMAIL ADDRESS',
+                              label: 'ALAMAT EMAIL',
                               icon: Icons.email_outlined,
-                              hint: 'cashier@kedaikita.com',
+                              hint: 'kasir@kedaikita.com',
                             ),
                             const SizedBox(height: 20),
 
@@ -221,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  'Remember this device',
+                                  'Ingat perangkat ini',
                                   style: TextStyle(
                                     color: AppColors.slate500,
                                     fontSize: 14,
@@ -264,7 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           )
                                         : const Text(
-                                            'START SESSION',
+                                            'MULAI SESI',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w900,
                                               letterSpacing: 1.5,

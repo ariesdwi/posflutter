@@ -27,7 +27,7 @@ class _DineInScreenState extends State<DineInScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Dine-in (Tables)'),
+        title: const Text('Dine-in (Meja)'),
         actions: [const SizedBox(width: 8)],
       ),
       body: Consumer<TransactionProvider>(
@@ -48,7 +48,7 @@ class _DineInScreenState extends State<DineInScreen> {
                   Icon(Icons.restaurant, size: 64, color: AppColors.slate200),
                   const SizedBox(height: 16),
                   Text(
-                    'No active tables',
+                    'Tidak ada meja aktif',
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 16,
@@ -125,7 +125,7 @@ class _TableCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      transaction.tableNumber ?? 'No Table',
+                      transaction.tableNumber ?? 'Tanpa Meja',
                       style: const TextStyle(
                         color: AppColors.indigo500,
                         fontWeight: FontWeight.bold,
@@ -148,7 +148,7 @@ class _TableCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${transaction.items.length} items',
+                    '${transaction.items.length} item',
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 12,

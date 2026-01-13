@@ -33,26 +33,56 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
     try {
       List<Permission> permissions = [];
       if (Platform.isAndroid) {
+        // For Android 12+ (API 31+), bluetoothScan and bluetoothConnect are needed.
+        // For older versions, bluetooth and location are needed.
+        // permission_handler manages this across versions, but being explicit helps.
         permissions.addAll([
           Permission.bluetoothScan,
           Permission.bluetoothConnect,
           Permission.location,
         ]);
-      } else {
-        // iOS and others
+      } else if (Platform.isIOS) {
         permissions.add(Permission.bluetooth);
       }
 
-      Map<Permission, PermissionStatus> statuses = await permissions.request();
+      // 1. Check current status of all required permissions
+      bool allGranted = true;
+      List<Permission> notGranted = [];
 
-      if (statuses.values.any(
-        (status) => status.isDenied || status.isPermanentlyDenied,
-      )) {
+      for (var permission in permissions) {
+        final status = await permission.status;
+        if (!status.isGranted) {
+          allGranted = false;
+          notGranted.add(permission);
+        }
+      }
+
+      // 2. Only request if there are permissions not yet granted
+      if (!allGranted) {
+        Map<Permission, PermissionStatus> statuses = await notGranted.request();
+
+        if (statuses.values.any(
+          (status) => status.isDenied || status.isPermanentlyDenied,
+        )) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text(
+                  'Izin Bluetooth dan Lokasi diperlukan untuk memindai printer.',
+                ),
+              ),
+            );
+          }
+          return;
+        }
+      }
+
+      // 3. Check if Bluetooth is actually ON
+      if (await FlutterBluePlus.adapterState.first !=
+          BluetoothAdapterState.on) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Bluetooth permissions are required.'),
-            ),
+            const SnackBar(content: Text('Silakan aktifkan Bluetooth Anda.')),
           );
         }
         return;
@@ -63,7 +93,7 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Error scanning: $e')));
+        ).showSnackBar(SnackBar(content: Text('Kesalahan memindai: $e')));
       }
     }
   }
@@ -75,21 +105,21 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
       if (success) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Connected to ${device.platformName}')),
+            SnackBar(content: Text('Terhubung ke ${device.platformName}')),
           );
         }
       } else {
         if (mounted) {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(const SnackBar(content: Text('Failed to connect')));
+          ).showSnackBar(const SnackBar(content: Text('Gagal terhubung')));
         }
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Error connecting: $e')));
+        ).showSnackBar(SnackBar(content: Text('Kesalahan menghubungkan: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -103,13 +133,13 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Disconnected')));
+        ).showSnackBar(const SnackBar(content: Text('Terputus')));
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Error disconnecting: $e')));
+        ).showSnackBar(SnackBar(content: Text('Kesalahan memutuskan: $e')));
       }
     } finally {
       if (mounted) setState(() => _isLoading = false);
@@ -121,7 +151,7 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
     return Scaffold(
       backgroundColor: AppColors.slate50,
       appBar: AppBar(
-        title: const Text('Printer Settings'),
+        title: const Text('Pengaturan Printer'),
         centerTitle: true,
         elevation: 0,
       ),
@@ -160,8 +190,8 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
                     const SizedBox(height: 16),
                     Text(
                       isConnected
-                          ? 'Connected to $deviceName'
-                          : 'No Printer Connected',
+                          ? 'Terhubung ke $deviceName'
+                          : 'Tidak Ada Printer Terhubung',
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -173,7 +203,7 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
                       OutlinedButton.icon(
                         onPressed: _isLoading ? null : _disconnect,
                         icon: const Icon(Icons.close),
-                        label: const Text('Disconnect'),
+                        label: const Text('Putuskan'),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: AppColors.error,
                         ),
@@ -192,7 +222,7 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Available Devices',
+                  'Perangkat Tersedia',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
@@ -215,7 +245,7 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
                       return TextButton.icon(
                         onPressed: _startScan,
                         icon: const Icon(Icons.refresh, size: 16),
-                        label: const Text('Scan'),
+                        label: const Text('Pindai'),
                       );
                     }
                   },
@@ -248,12 +278,12 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
                         ),
                         const SizedBox(height: 16),
                         const Text(
-                          'No devices found',
+                          'Tidak ada perangkat ditemukan',
                           style: TextStyle(color: AppColors.slate500),
                         ),
                         TextButton(
                           onPressed: _startScan,
-                          child: const Text('Start Scan'),
+                          child: const Text('Mulai Pindai'),
                         ),
                       ],
                     ),
@@ -344,7 +374,7 @@ class _PrinterSettingsScreenState extends State<PrinterSettingsScreen> {
                                       MaterialTapTargetSize.shrinkWrap,
                                 ),
                                 child: const Text(
-                                  'Connect',
+                                  'Hubungkan',
                                   style: TextStyle(fontSize: 12),
                                 ),
                               ),

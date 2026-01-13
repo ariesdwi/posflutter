@@ -42,10 +42,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
   ) async {
     final amountPaid = double.tryParse(_amountPaidController.text) ?? 0;
     final totalToPay = widget.existingTransaction?.total ?? cartProvider.total;
+    final String? effectiveTransactionId =
+        widget.existingTransaction?.id ?? cartProvider.transactionId;
 
     if (amountPaid < totalToPay) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Amount paid is less than total')),
+        const SnackBar(content: Text('Jumlah yang dibayar kurang dari total')),
       );
       return;
     }
@@ -90,14 +92,37 @@ class _PaymentScreenState extends State<PaymentScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) =>
-          const LoadingDialog(message: 'Processing transaction...'),
+          const LoadingDialog(message: 'Memproses transaksi...'),
     );
 
     // Submit transaction
     bool success;
-    if (widget.existingTransaction != null) {
+    if (effectiveTransactionId != null) {
+      // If coming from cart and we have a transaction ID, we might have updated items
+      if (widget.existingTransaction == null) {
+        // Update items and totals first before checkout
+        await transactionProvider.updateTransaction(effectiveTransactionId, {
+          'items': items
+              .map(
+                (item) => {
+                  'productId': item.productId,
+                  'productName': item.productName,
+                  'price': item.price,
+                  'quantity': item.quantity,
+                  'subtotal': item.subtotal,
+                },
+              )
+              .toList(),
+          'subtotal': cartProvider.subtotal,
+          'discount': cartProvider.discount,
+          'tax': cartProvider.tax,
+          'total': cartProvider.total,
+          'tableNumber': tableNumber.isNotEmpty ? tableNumber : null,
+        });
+      }
+
       success = await transactionProvider
-          .checkoutTransaction(widget.existingTransaction!.id!, {
+          .checkoutTransaction(effectiveTransactionId, {
             'paymentMethod': _selectedPaymentMethod,
             'paymentAmount': amountPaid,
             'notes':
@@ -124,7 +149,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              transactionProvider.error ?? 'Failed to process transaction',
+              transactionProvider.error ?? 'Gagal memproses transaksi',
             ),
             backgroundColor: Colors.red,
           ),
@@ -136,7 +161,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Payment')),
+      appBar: AppBar(title: const Text('Pembayaran')),
       body: Consumer<CartProvider>(
         builder: (context, cartProvider, _) {
           final totalToPay =
@@ -173,7 +198,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text(
-                                  'Bill Summary',
+                                  'Ringkasan Tagihan',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
@@ -217,13 +242,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ),
                             const SizedBox(height: 8),
                             _buildSummaryRow(
-                              'Discount',
+                              'Diskon',
                               '-${CurrencyFormatter.format(widget.existingTransaction?.discount ?? cartProvider.discount)}',
                               isNegative: true,
                             ),
                             const SizedBox(height: 8),
                             _buildSummaryRow(
-                              'Tax (10%)',
+                              'Pajak (10%)',
                               CurrencyFormatter.format(
                                 widget.existingTransaction?.tax ??
                                     cartProvider.tax,
@@ -248,7 +273,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
-                              'Total to Pay',
+                              'Total',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -273,7 +298,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                 // Payment Method Selection
                 const Text(
-                  'Select Payment Method',
+                  'Pilih Metode Pembayaran',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -281,18 +306,45 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Row(
+                Column(
                   children: [
-                    _buildPaymentCard(
-                      'Cash',
-                      Icons.payments_outlined,
-                      AppConstants.paymentMethodCash,
+                    Row(
+                      children: [
+                        _buildPaymentCard(
+                          'Tunai',
+                          Icons.payments_outlined,
+                          AppConstants.paymentMethodCash,
+                        ),
+                        const SizedBox(width: 12),
+                        _buildPaymentCard(
+                          'Kartu',
+                          Icons.credit_card_outlined,
+                          AppConstants.paymentMethodCard,
+                        ),
+                        const SizedBox(width: 12),
+                        _buildPaymentCard(
+                          'QRIS',
+                          Icons.qr_code_scanner_rounded,
+                          AppConstants.paymentMethodQris,
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 16),
-                    _buildPaymentCard(
-                      'Card',
-                      Icons.credit_card_outlined,
-                      AppConstants.paymentMethodCard,
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        _buildPaymentCard(
+                          'Transfer',
+                          Icons.account_balance_rounded,
+                          AppConstants.paymentMethodTransfer,
+                        ),
+                        const SizedBox(width: 12),
+                        _buildPaymentCard(
+                          'Lainnya',
+                          Icons.more_horiz_rounded,
+                          AppConstants.paymentMethodOther,
+                        ),
+                        const Expanded(child: SizedBox()),
+                      ],
                     ),
                   ],
                 ),
@@ -300,7 +352,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
                 // Amount Entry with "Quick Pay" buttons style
                 const Text(
-                  'Amount Paid',
+                  'Jumlah Dibayar',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -378,8 +430,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         Text(
                           ((double.tryParse(_amountPaidController.text) ?? 0) >=
                                   totalToPay)
-                              ? 'Change to Customer'
-                              : 'Remaining Balance',
+                              ? 'Kembalian untuk Pelanggan'
+                              : 'Sisa Saldo',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color:
@@ -446,7 +498,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ),
                               )
                             : const Text(
-                                'Complete Transaction',
+                                'Selesaikan Transaksi',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -461,7 +513,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: const Text(
-                      'Back to Cart',
+                      'Kembali ke Keranjang',
                       style: TextStyle(color: AppColors.slate500),
                     ),
                   ),

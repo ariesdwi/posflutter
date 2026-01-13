@@ -45,7 +45,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
         );
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Receipt printed successfully')),
+            const SnackBar(content: Text('Struk berhasil dicetak')),
           );
         }
       } else {
@@ -53,7 +53,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text(
-                'No printer connected. Please connect a printer first.',
+                'Tidak ada printer terhubung. Silakan hubungkan printer terlebih dahulu.',
               ),
               duration: Duration(seconds: 3),
             ),
@@ -64,7 +64,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Error printing: $e')));
+        ).showSnackBar(SnackBar(content: Text('Kesalahan mencetak: $e')));
       }
     } finally {
       if (mounted) {
@@ -112,9 +112,9 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
       );
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Error sharing receipt: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Kesalahan membagikan struk: $e')),
+        );
       }
     } finally {
       if (mounted) {
@@ -133,7 +133,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
       child: Scaffold(
         backgroundColor: AppColors.slate50,
         appBar: AppBar(
-          title: const Text('Transaction Receipt'),
+          title: const Text('Struk Transaksi'),
           centerTitle: true,
           automaticallyImplyLeading: false,
           elevation: 0,
@@ -150,7 +150,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Payment Successful!',
+                'Pembayaran Berhasil!',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -249,20 +249,20 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
 
                             // Receipt Details
                             _buildDetailRow(
-                              'Date',
+                              'Tanggal',
                               DateFormatter.formatDateTime(
                                 widget.transaction.createdAt ?? DateTime.now(),
                               ),
                             ),
                             const SizedBox(height: 8),
                             _buildDetailRow(
-                              'Order ID',
+                              'ID Pesanan',
                               '#${widget.transaction.id?.toUpperCase() ?? 'POS-001'}',
                             ),
                             if (widget.transaction.tableNumber != null) ...[
                               const SizedBox(height: 8),
                               _buildDetailRow(
-                                'Table',
+                                'Meja',
                                 widget.transaction.tableNumber!,
                                 isBold: true,
                               ),
@@ -324,13 +324,13 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                             ),
                             const SizedBox(height: 8),
                             _buildBillRow(
-                              'Discount',
+                              'Diskon',
                               '-${CurrencyFormatter.format(widget.transaction.discount)}',
                               isError: true,
                             ),
                             const SizedBox(height: 8),
                             _buildBillRow(
-                              'Tax (10%)',
+                              'Pajak (10%)',
                               CurrencyFormatter.format(widget.transaction.tax),
                             ),
                             const SizedBox(height: 16),
@@ -374,19 +374,19 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
 
                             // Payment Status
                             _buildDetailRow(
-                              'Payment',
+                              'Pembayaran',
                               widget.transaction.paymentMethod,
                             ),
                             const SizedBox(height: 8),
                             _buildDetailRow(
-                              'Amount Paid',
+                              'Jumlah Dibayar',
                               CurrencyFormatter.format(
                                 widget.transaction.paymentAmount,
                               ),
                             ),
                             const SizedBox(height: 8),
                             _buildDetailRow(
-                              'Change',
+                              'Kembalian',
                               CurrencyFormatter.format(
                                 widget.transaction.change,
                               ),
@@ -395,7 +395,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
 
                             const SizedBox(height: 32),
                             const Text(
-                              'Thank you for your visit!',
+                              'Terima kasih atas kunjungan Anda!',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 color: AppColors.slate500,
@@ -416,7 +416,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                 children: [
                   Expanded(
                     child: _buildActionButton(
-                      label: _isPrinting ? 'Printing...' : 'Print',
+                      label: _isPrinting ? 'Mencetak...' : 'Cetak',
                       icon: Icons.print_outlined,
                       color: AppColors.slate900,
                       isLoading: _isPrinting,
@@ -426,7 +426,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: _buildActionButton(
-                      label: _isSharing ? 'Sharing...' : 'Share',
+                      label: _isSharing ? 'Membagikan...' : 'Bagikan',
                       icon: Icons.share_outlined,
                       color: AppColors.indigo500,
                       isLoading: _isSharing,
@@ -446,7 +446,7 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: const Text(
-                    'Done',
+                    'Selesai',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

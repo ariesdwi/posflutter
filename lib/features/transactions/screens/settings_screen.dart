@@ -48,15 +48,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: const Text(
-          'Set Tax Rate',
+          'Atur Tarif Pajak',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         content: TextField(
           controller: controller,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           decoration: InputDecoration(
-            labelText: 'Tax Rate (%)',
-            hintText: 'e.g., 10 for 10%',
+            labelText: 'Tarif Pajak (%)',
+            hintText: 'mis., 10 untuk 10%',
             suffixText: '%',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           ),
@@ -65,7 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Batal'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -76,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Tax rate updated to ${rate.toStringAsFixed(1)}%',
+                      'Tarif pajak diperbarui menjadi ${rate.toStringAsFixed(1)}%',
                     ),
                     backgroundColor: AppColors.indigo500,
                     behavior: SnackBarBehavior.floating,
@@ -89,7 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text(
-                      'Please enter a valid tax rate (0-100)',
+                      'Silakan masukkan tarif pajak yang valid (0-100)',
                     ),
                     backgroundColor: AppColors.error,
                     behavior: SnackBarBehavior.floating,
@@ -100,7 +100,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 );
               }
             },
-            child: const Text('Save'),
+            child: const Text('Simpan'),
           ),
         ],
       ),
@@ -112,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: AppColors.slate50,
       appBar: AppBar(
-        title: const Text('System Settings'),
+        title: const Text('Pengaturan Sistem'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -199,7 +199,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const SizedBox(height: 32),
             const Text(
-              'App Management',
+              'Manajemen Aplikasi',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 16,
@@ -217,14 +217,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // ),
             _buildSettingTile(
               icon: Icons.percent_rounded,
-              title: 'Tax Rate',
+              title: 'Tarif Pajak',
               subtitle: '${_taxRate.toStringAsFixed(1)}%',
               onTap: _showTaxRateDialog,
             ),
             _buildSettingTile(
               icon: Icons.print_rounded,
-              title: 'Printer Settings',
-              subtitle: 'Configure thermal printer',
+              title: 'Pengaturan Printer',
+              subtitle: 'Konfigurasi printer thermal',
               onTap: () {
                 Navigator.push(
                   context,
@@ -236,7 +236,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _buildSettingTile(
               icon: Icons.info_outline_rounded,
-              title: 'App Version',
+              title: 'Versi Aplikasi',
               subtitle: AppConstants.appVersion,
               onTap: () {},
             ),
@@ -307,14 +307,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: const Text(
-          'Logout',
+          'Keluar',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
-        content: const Text('Are you sure you want to logout?'),
+        content: const Text('Apakah Anda yakin ingin keluar?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Batal'),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -325,7 +325,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               }
             },
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
-            child: const Text('Logout'),
+            child: const Text('Keluar'),
           ),
         ],
       ),

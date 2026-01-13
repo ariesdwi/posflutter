@@ -8,38 +8,39 @@ class CartProvider extends ChangeNotifier {
   double _discount = 0;
   String? _tableNumber;
   double _taxRate = AppConstants.taxRate; // Default tax rate
+  String? _transactionId;
 
   // ... (existing getters)
 
   // Add this method
-  void loadTransactionItems(List<dynamic> items, String? tableNumber) {
+  void loadTransactionItems(
+    List<dynamic> items,
+    String? tableNumber,
+    String? transactionId,
+  ) {
     _items.clear(); // Clear current cart
     _tableNumber = tableNumber;
-    _discount =
-        0; // Reset discount or load if available in transaction (complexity: assume 0 for now)
+    _transactionId = transactionId;
+    _discount = 0;
 
     for (var item in items) {
-      // Create a minimal product object from the transaction item
-      // We assume we have enough info. Ideally, we should fetch the full product,
-      // but for "Add More", we might just need ID, Name, Price.
-      // Note: item is likely a TransactionItem.
-
       final product = Product(
         id: item.productId,
         name: item.productName,
         price: item.price,
-        stock: 999, // Dummy stock, or we need to fetch it.
-        categoryId: '', // Unknown
+        stock: 999,
+        categoryId: '',
         image: null,
       );
 
-      _items.add(CartItem(product: product, quantity: item.quantity));
+      // Use addProduct logic to merge duplicates if any exist in the source
+      addProduct(product, quantity: item.quantity);
     }
-    notifyListeners();
   }
 
   List<CartItem> get items => _items;
   String? get tableNumber => _tableNumber;
+  String? get transactionId => _transactionId;
   int get itemCount => _items.length;
   double get subtotal => _items.fold(0, (sum, item) => sum + item.subtotal);
   double get discount => _discount;
@@ -97,6 +98,7 @@ class CartProvider extends ChangeNotifier {
     _items.clear();
     _discount = 0;
     _tableNumber = null;
+    _transactionId = null;
     notifyListeners();
   }
 

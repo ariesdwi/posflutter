@@ -31,7 +31,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     return Scaffold(
       backgroundColor: AppColors.slate50,
       appBar: AppBar(
-        title: const Text('Transaction History'),
+        title: const Text('Riwayat Transaksi'),
         centerTitle: true,
         elevation: 0,
         actions: [const SizedBox(width: 8)],
@@ -55,13 +55,13 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
             child: Row(
               children: [
                 _buildFilterChip(
-                  label: 'Today',
+                  label: 'Hari Ini',
                   selected: _todayOnly,
                   onTap: () => setState(() => _todayOnly = true),
                 ),
                 const SizedBox(width: 12),
                 _buildFilterChip(
-                  label: 'All History',
+                  label: 'Semua Riwayat',
                   selected: !_todayOnly,
                   onTap: () => setState(() => _todayOnly = false),
                 ),
@@ -77,12 +77,12 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                final transactions = _todayOnly
+                final allTransactions = _todayOnly
                     ? transactionProvider.getTodayTransactions()
                     : transactionProvider.transactions;
 
-                // Calculate total (only completed transactions)
-                final completedTransactions = transactions
+                // Filter to only show completed transactions
+                final transactions = allTransactions
                     .where(
                       (t) =>
                           t.status.toLowerCase() == 'completed' ||
@@ -90,7 +90,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                     )
                     .toList();
 
-                final totalSales = completedTransactions.fold<double>(
+                final totalSales = transactions.fold<double>(
                   0,
                   (sum, t) => sum + t.total,
                 );
@@ -126,7 +126,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Today\'s Sales',
+                              'Penjualan Hari Ini',
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.8),
                                 fontSize: 14,
@@ -165,7 +165,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                       ),
                                       const SizedBox(width: 4),
                                       Text(
-                                        '${completedTransactions.length} Completed',
+                                        '${transactions.length} Selesai',
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
@@ -264,7 +264,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           ),
           const SizedBox(height: 24),
           const Text(
-            'No transactions found',
+            'Tidak ada transaksi',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -273,7 +273,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           ),
           const SizedBox(height: 8),
           const Text(
-            'Sales you complete will appear here.',
+            'Transaksi yang selesai akan muncul di sini.',
             style: TextStyle(color: AppColors.slate500),
           ),
         ],
@@ -374,6 +374,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                           context.read<CartProvider>().loadTransactionItems(
                             transaction.items,
                             transaction.tableNumber,
+                            transaction.id,
                           );
                           context.read<NavigationProvider>().setIndex(
                             0,
@@ -382,14 +383,14 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                'Items loaded to cart. You can now add more items.',
+                                'Item dimuat ke keranjang. Anda bisa menambah item lagi.',
                               ),
                               duration: Duration(seconds: 2),
                             ),
                           );
                         },
                         icon: const Icon(Icons.playlist_add_rounded, size: 20),
-                        label: const Text('Add More'),
+                        label: const Text('Tambah Lagi'),
                         style: TextButton.styleFrom(
                           foregroundColor: AppColors.indigo500,
                           padding: EdgeInsets.zero,

@@ -1,0 +1,51 @@
+Analyzing 5 items...                                            
+
+   info • The private field _items could be 'final' • lib/features/cart/providers/cart_provider.dart:7:18 • prefer_final_fields
+   info • Parameter 'key' could be a super parameter • lib/features/cart/screens/cart_screen.dart:12:9 • use_super_parameters
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/cart/screens/cart_screen.dart:67:53 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/cart/screens/cart_screen.dart:73:53 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/cart/screens/cart_screen.dart:185:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/cart/screens/cart_screen.dart:345:56 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/cart/screens/cart_screen.dart:386:60 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/cart/screens/cart_screen.dart:437:60 • deprecated_member_use
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/cart/screens/cart_screen.dart:548:21 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/cart/screens/cart_screen.dart:552:30 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/cart/screens/cart_screen.dart:562:23 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/cart/screens/cart_screen.dart:564:30 • use_build_context_synchronously
+   info • Parameter 'key' could be a super parameter • lib/features/transactions/screens/payment_screen.dart:16:9 • use_super_parameters
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/payment_screen.dart:136:21 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/payment_screen.dart:140:9 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/payment_screen.dart:143:22 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/payment_screen.dart:149:30 • use_build_context_synchronously
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/payment_screen.dart:181:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/payment_screen.dart:187:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/payment_screen.dart:217:66 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/payment_screen.dart:388:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/payment_screen.dart:389:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/payment_screen.dart:396:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/payment_screen.dart:397:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/payment_screen.dart:549:50 • deprecated_member_use
+   info • Parameter 'key' could be a super parameter • lib/features/transactions/screens/transaction_detail_screen.dart:14:9 • use_super_parameters
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/transaction_detail_screen.dart:115:30 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/transaction_detail_screen.dart:137:42 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/transaction_detail_screen.dart:151:42 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/transaction_detail_screen.dart:167:30 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/features/transactions/screens/transaction_detail_screen.dart:170:38 • use_build_context_synchronously
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_detail_screen.dart:214:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_detail_screen.dart:230:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_detail_screen.dart:231:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_detail_screen.dart:315:47 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_detail_screen.dart:399:62 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_detail_screen.dart:495:54 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_detail_screen.dart:634:41 • deprecated_member_use
+   info • Parameter 'key' could be a super parameter • lib/features/transactions/screens/transaction_history_screen.dart:11:9 • use_super_parameters
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_history_screen.dart:49:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_history_screen.dart:119:58 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_history_screen.dart:131:53 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_history_screen.dart:155:57 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_history_screen.dart:253:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_history_screen.dart:291:39 • deprecated_member_use
+   info • Parameter 'key' could be a super parameter • lib/features/transactions/screens/transaction_history_screen.dart:440:9 • use_super_parameters
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/transactions/screens/transaction_history_screen.dart:465:22 • deprecated_member_use
+
+47 issues found. (ran in 1.4s)
