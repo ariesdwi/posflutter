@@ -27,7 +27,7 @@ class _DineInScreenState extends State<DineInScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Dine-in (Meja)'),
+        title: const Text('Bayar Nanti'),
         actions: [const SizedBox(width: 8)],
       ),
       body: Consumer<TransactionProvider>(
@@ -45,7 +45,11 @@ class _DineInScreenState extends State<DineInScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.restaurant, size: 64, color: AppColors.slate200),
+                  Icon(
+                    Icons.schedule_send,
+                    size: 64,
+                    color: AppColors.slate200,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     'Tidak ada meja aktif',
