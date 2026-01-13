@@ -44,7 +44,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         title: Consumer<AuthProvider>(
           builder: (context, auth, _) {
             return Text(
-              auth.user?.business?.name?.toUpperCase() ?? 'POS',
+              auth.user?.business?.name.toUpperCase() ?? 'POS',
               style: const TextStyle(
                 fontWeight: FontWeight.w900,
                 letterSpacing: 2,

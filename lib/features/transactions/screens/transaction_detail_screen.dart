@@ -436,7 +436,7 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                     ),
                     const SizedBox(height: 12),
                     _buildSummaryRow(
-                      'Kembalian',
+                      'Kembali',
                       CurrencyFormatter.format(widget.transaction.change),
                       isBold: true,
                     ),

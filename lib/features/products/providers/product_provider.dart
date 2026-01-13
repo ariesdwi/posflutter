@@ -9,17 +9,42 @@ class ProductProvider extends ChangeNotifier {
 
   List<Product> _products = [];
   List<Category> _categories = [];
-  List<Product> _filteredProducts = [];
   bool _isLoading = false;
   String? _error;
   String? _selectedCategoryId;
+  String _searchQuery = '';
 
-  List<Product> get products =>
-      _filteredProducts.isEmpty ? _products : _filteredProducts;
+  List<Product> get products {
+    List<Product> filtered = _products;
+
+    // Filter by category
+    if (_selectedCategoryId != null && _selectedCategoryId!.isNotEmpty) {
+      filtered = filtered
+          .where((product) => product.categoryId == _selectedCategoryId)
+          .toList();
+    }
+
+    // Filter by search query
+    if (_searchQuery.isNotEmpty) {
+      final lowerQuery = _searchQuery.toLowerCase();
+      filtered = filtered
+          .where(
+            (product) =>
+                product.name.toLowerCase().contains(lowerQuery) ||
+                (product.description?.toLowerCase().contains(lowerQuery) ??
+                    false),
+          )
+          .toList();
+    }
+
+    return filtered;
+  }
+
   List<Category> get categories => _categories;
   bool get isLoading => _isLoading;
   String? get error => _error;
   String? get selectedCategoryId => _selectedCategoryId;
+  String get searchQuery => _searchQuery;
 
   ProductProvider({required ApiClient apiClient}) : _apiClient = apiClient;
 
@@ -38,7 +63,6 @@ class ProductProvider extends ChangeNotifier {
           _products = productsList
               .map((p) => Product.fromJson(p as Map<String, dynamic>))
               .toList();
-          _filteredProducts = List.from(_products);
         }
       } else {
         _error = 'Failed to fetch products';
@@ -73,32 +97,12 @@ class ProductProvider extends ChangeNotifier {
   }
 
   void filterByCategory(String categoryId) {
-    if (categoryId.isEmpty) {
-      _filteredProducts = List.from(_products);
-      _selectedCategoryId = null;
-    } else {
-      _filteredProducts = _products
-          .where((product) => product.categoryId == categoryId)
-          .toList();
-      _selectedCategoryId = categoryId;
-    }
+    _selectedCategoryId = categoryId.isEmpty ? null : categoryId;
     notifyListeners();
   }
 
   void searchProducts(String query) {
-    if (query.isEmpty) {
-      _filteredProducts = List.from(_products);
-    } else {
-      final lowerQuery = query.toLowerCase();
-      _filteredProducts = _products
-          .where(
-            (product) =>
-                product.name.toLowerCase().contains(lowerQuery) ||
-                (product.description?.toLowerCase().contains(lowerQuery) ??
-                    false),
-          )
-          .toList();
-    }
+    _searchQuery = query;
     notifyListeners();
   }
 
