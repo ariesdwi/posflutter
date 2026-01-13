@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     const ProductListScreen(),
-    const DineInScreen(),
+    const PaymentLaterScreen(),
     const TransactionHistoryScreen(),
     const SettingsScreen(),
   ];

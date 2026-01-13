@@ -6,14 +6,14 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/utils/formatters.dart';
 import 'transaction_detail_screen.dart';
 
-class DineInScreen extends StatefulWidget {
-  const DineInScreen({Key? key}) : super(key: key);
+class PaymentLaterScreen extends StatefulWidget {
+  const PaymentLaterScreen({Key? key}) : super(key: key);
 
   @override
-  State<DineInScreen> createState() => _DineInScreenState();
+  State<PaymentLaterScreen> createState() => _PaymentLaterScreenState();
 }
 
-class _DineInScreenState extends State<DineInScreen> {
+class _PaymentLaterScreenState extends State<PaymentLaterScreen> {
   @override
   void initState() {
     super.initState();
