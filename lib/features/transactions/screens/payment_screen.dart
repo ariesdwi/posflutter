@@ -248,7 +248,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             ),
                             const SizedBox(height: 8),
                             _buildSummaryRow(
-                              'Pajak (10%)',
+                              'Pajak (${cartProvider.taxRate.toStringAsFixed(1)}%)',
                               CurrencyFormatter.format(
                                 widget.existingTransaction?.tax ??
                                     cartProvider.tax,

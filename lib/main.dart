@@ -38,7 +38,9 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               ProductProvider(apiClient: context.read<ApiClient>()),
         ),
-        ChangeNotifierProvider<CartProvider>(create: (_) => CartProvider()),
+        ChangeNotifierProvider<CartProvider>(
+          create: (context) => CartProvider(context.read<SharedPreferences>()),
+        ),
         ChangeNotifierProvider<TransactionProvider>(
           create: (context) =>
               TransactionProvider(apiClient: context.read<ApiClient>()),

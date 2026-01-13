@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/cart_item.dart';
 import '../../products/models/product.dart';
 import '../../../core/constants/app_constants.dart';
@@ -9,6 +10,17 @@ class CartProvider extends ChangeNotifier {
   String? _tableNumber;
   double _taxRate = AppConstants.taxRate; // Default tax rate
   String? _transactionId;
+
+  CartProvider(SharedPreferences prefs) {
+    _loadTaxRate(prefs);
+  }
+
+  void _loadTaxRate(SharedPreferences prefs) {
+    final savedRate = prefs.getDouble('tax_rate');
+    if (savedRate != null) {
+      _taxRate = savedRate;
+    }
+  }
 
   // ... (existing getters)
 

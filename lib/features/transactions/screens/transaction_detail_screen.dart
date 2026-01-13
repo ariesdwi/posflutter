@@ -36,7 +36,8 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
   void _recalculateTotals() {
     _subtotal = _items.fold(0.0, (sum, item) => sum + item.subtotal);
     _discount = widget.transaction.discount;
-    _tax = (_subtotal - _discount) * 0.1; // 10% tax
+    final taxRate = context.read<CartProvider>().taxRate / 100;
+    _tax = (_subtotal - _discount) * taxRate;
     _total = _subtotal - _discount + _tax;
   }
 
@@ -83,8 +84,9 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                   (sum, item) => sum + item.subtotal,
                 );
                 final updatedDiscount = _discount;
+                final taxRate = context.read<CartProvider>().taxRate / 100;
                 final updatedTax =
-                    (updatedSubtotal - updatedDiscount) * 0.1; // 10% tax
+                    (updatedSubtotal - updatedDiscount) * taxRate;
                 final updatedTotal =
                     updatedSubtotal - updatedDiscount + updatedTax;
 
@@ -411,9 +413,11 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                     isError: true,
                   ),
                   const SizedBox(height: 12),
-                  _buildSummaryRow(
-                    'Pajak (10%)',
-                    CurrencyFormatter.format(_tax),
+                  Consumer<CartProvider>(
+                    builder: (context, cartProvider, _) => _buildSummaryRow(
+                      'Pajak (${cartProvider.taxRate.toStringAsFixed(1)}%)',
+                      CurrencyFormatter.format(_tax),
+                    ),
                   ),
                   const Divider(height: 32),
                   _buildSummaryRow(

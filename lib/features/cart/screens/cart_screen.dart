@@ -323,9 +323,11 @@ class _CartScreenState extends State<CartScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Pajak (10%)',
-                          style: TextStyle(color: AppColors.textSecondary),
+                        Text(
+                          'Pajak (${cartProvider.taxRate.toStringAsFixed(1)}%)',
+                          style: const TextStyle(
+                            color: AppColors.textSecondary,
+                          ),
                         ),
                         Text(
                           CurrencyFormatter.format(cartProvider.tax),

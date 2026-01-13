@@ -330,7 +330,17 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
                             ),
                             const SizedBox(height: 8),
                             _buildBillRow(
-                              'Pajak (10%)',
+                              () {
+                                // Calculate tax rate from transaction data
+                                final taxableAmount =
+                                    widget.transaction.subtotal -
+                                    widget.transaction.discount;
+                                final taxRate = taxableAmount > 0
+                                    ? (widget.transaction.tax / taxableAmount) *
+                                          100
+                                    : 0.0;
+                                return 'Pajak (${taxRate.toStringAsFixed(1)}%)';
+                              }(),
                               CurrencyFormatter.format(widget.transaction.tax),
                             ),
                             const SizedBox(height: 16),
