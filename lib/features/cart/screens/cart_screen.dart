@@ -290,9 +290,11 @@ class _CartScreenState extends State<CartScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Subtotal',
-                          style: TextStyle(color: AppColors.textSecondary),
+                        const Expanded(
+                          child: Text(
+                            'Subtotal',
+                            style: TextStyle(color: AppColors.textSecondary),
+                          ),
                         ),
                         Text(
                           CurrencyFormatter.format(cartProvider.subtotal),
@@ -305,9 +307,11 @@ class _CartScreenState extends State<CartScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Diskon',
-                            style: TextStyle(color: AppColors.textSecondary),
+                          const Expanded(
+                            child: Text(
+                              'Diskon',
+                              style: TextStyle(color: AppColors.textSecondary),
+                            ),
                           ),
                           Text(
                             '-${CurrencyFormatter.format(cartProvider.discount)}',
@@ -323,10 +327,12 @@ class _CartScreenState extends State<CartScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Pajak (${cartProvider.taxRate.toStringAsFixed(1)}%)',
-                          style: const TextStyle(
-                            color: AppColors.textSecondary,
+                        Expanded(
+                          child: Text(
+                            'Pajak (${cartProvider.taxRate.toStringAsFixed(1)}%)',
+                            style: const TextStyle(
+                              color: AppColors.textSecondary,
+                            ),
                           ),
                         ),
                         Text(

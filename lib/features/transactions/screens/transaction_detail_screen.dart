@@ -255,39 +255,47 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    widget.transaction.transactionNumber ??
-                        'Order #${widget.transaction.id?.toUpperCase().substring(0, 8) ?? 'N/A'}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.slate500,
-                      fontWeight: FontWeight.w500,
+                    Text(
+                      widget.transaction.transactionNumber ??
+                          'Order #${widget.transaction.id?.toUpperCase().substring(0, 8) ?? 'N/A'}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.slate500,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
                   const Divider(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildInfoItem(
-                        Icons.calendar_today_outlined,
-                        'Tanggal',
-                        DateFormatter.formatDateTime(
-                          widget.transaction.createdAt ?? DateTime.now(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: _buildInfoItem(
+                            Icons.calendar_today_outlined,
+                            'Tanggal',
+                            DateFormatter.formatDateTime(
+                              widget.transaction.createdAt ?? DateTime.now(),
+                            ),
+                          ),
                         ),
-                      ),
-                      _buildInfoItem(
-                        Icons.payments_outlined,
-                        'Metode',
-                        widget.transaction.paymentMethod,
-                      ),
-                      if (widget.transaction.tableNumber != null)
-                        _buildInfoItem(
-                          Icons.table_restaurant_outlined,
-                          'Meja',
-                          widget.transaction.tableNumber!,
+                        Expanded(
+                          child: _buildInfoItem(
+                            Icons.payments_outlined,
+                            'Metode',
+                            widget.transaction.paymentMethod,
+                          ),
                         ),
-                    ],
-                  ),
+                        if (widget.transaction.tableNumber != null)
+                          Expanded(
+                            child: _buildInfoItem(
+                              Icons.table_restaurant_outlined,
+                              'Meja',
+                              widget.transaction.tableNumber!,
+                            ),
+                          ),
+                      ],
+                    ),
                 ],
               ),
             ),
@@ -619,12 +627,16 @@ class _TransactionDetailScreenState extends State<TransactionDetailScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: fontSize,
-            color: isBold ? AppColors.slate900 : AppColors.slate500,
-            fontWeight: isBold ? FontWeight.w900 : FontWeight.w500,
+        Expanded(
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: fontSize,
+              color: isBold ? AppColors.slate900 : AppColors.slate500,
+              fontWeight: isBold ? FontWeight.w900 : FontWeight.w500,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         Text(

@@ -313,32 +313,36 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          transaction.transactionNumber ??
-                              'Order #${transaction.id?.toUpperCase().substring(0, 8) ?? 'N/A'}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 16,
-                            color: AppColors.slate900,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            transaction.transactionNumber ??
+                                'Order #${transaction.id?.toUpperCase().substring(0, 8) ?? 'N/A'}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w900,
+                              fontSize: 16,
+                              color: AppColors.slate900,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          transaction.createdAt != null
-                              ? DateFormatter.formatDateTime(
-                                  transaction.createdAt!,
-                                )
-                              : 'No date',
-                          style: const TextStyle(
-                            color: AppColors.slate500,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
+                          const SizedBox(height: 4),
+                          Text(
+                            transaction.createdAt != null
+                                ? DateFormatter.formatDateTime(
+                                    transaction.createdAt!,
+                                  )
+                                : 'No date',
+                            style: const TextStyle(
+                              color: AppColors.slate500,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     _StatusBadge(status: transaction.status),
                   ],
@@ -347,25 +351,30 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        _buildMiniInfo(
-                          Icons.inventory_2_outlined,
-                          '${transaction.items.length}',
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            _buildMiniInfo(
+                              Icons.inventory_2_outlined,
+                              '${transaction.items.length}',
+                            ),
+                            const SizedBox(width: 16),
+                            _buildMiniInfo(
+                              Icons.payments_outlined,
+                              transaction.paymentMethod,
+                            ),
+                            if (transaction.tableNumber != null) ...[
+                              const SizedBox(width: 16),
+                              _buildMiniInfo(
+                                Icons.table_restaurant_outlined,
+                                'T${transaction.tableNumber}',
+                              ),
+                            ],
+                          ],
                         ),
-                        const SizedBox(width: 16),
-                        _buildMiniInfo(
-                          Icons.payments_outlined,
-                          transaction.paymentMethod,
-                        ),
-                        if (transaction.tableNumber != null) ...[
-                          const SizedBox(width: 16),
-                          _buildMiniInfo(
-                            Icons.table_restaurant_outlined,
-                            'T${transaction.tableNumber}',
-                          ),
-                        ],
-                      ],
+                      ),
                     ),
                     if (transaction.status == 'PENDING')
                       TextButton.icon(
