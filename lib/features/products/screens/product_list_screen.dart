@@ -8,6 +8,7 @@ import '../../../core/utils/formatters.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../../cart/screens/cart_screen.dart';
+import '../../cart/widgets/mini_cart_popup.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({Key? key}) : super(key: key);
@@ -411,22 +412,7 @@ class ProductCard extends StatelessWidget {
                       onTap: product.isAvailable
                           ? () {
                               context.read<CartProvider>().addProduct(product);
-                              ScaffoldMessenger.of(
-                                context,
-                              ).hideCurrentSnackBar();
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    '${product.name} ditambahkan ke keranjang',
-                                  ),
-                                  margin: const EdgeInsets.all(16),
-                                  behavior: SnackBarBehavior.floating,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  backgroundColor: AppColors.slate900,
-                                ),
-                              );
+                              MiniCartPopup.show(context, product);
                             }
                           : null,
                       child: Container(
@@ -522,7 +508,10 @@ class ProductListItem extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: product.isAvailable
-                ? () => context.read<CartProvider>().addProduct(product)
+                ? () {
+                    context.read<CartProvider>().addProduct(product);
+                    MiniCartPopup.show(context, product);
+                  }
                 : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.indigo500,

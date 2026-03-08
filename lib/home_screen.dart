@@ -7,6 +7,7 @@ import 'features/transactions/screens/dine_in_screen.dart';
 import 'features/transactions/screens/transaction_history_screen.dart';
 import 'features/transactions/screens/settings_screen.dart';
 import 'core/constants/app_colors.dart';
+import 'features/cart/widgets/cart_summary_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -42,7 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
             left: 20,
             right: 20,
             bottom: 30,
-            child: _buildFloatingDock(context, selectedIndex),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CartSummaryWidget(),
+                const SizedBox(height: 16),
+                _buildFloatingDock(context, selectedIndex),
+              ],
+            ),
           ),
         ],
       ),
