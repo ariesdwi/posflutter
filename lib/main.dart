@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,6 +110,12 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        builder: (context, child) {
+          return DebugOverlay(
+            enableDebugButton: kDebugMode,
+            child: child ?? const SizedBox(),
+          );
+        },
         home: const AuthWrapper(),
       ),
     );
@@ -123,7 +130,7 @@ class AuthWrapper extends StatelessWidget {
     return Consumer<AuthProvider>(
       builder: (context, authProvider, _) {
         if (authProvider.isAuthenticated) {
-          return const DebugOverlay(child: HomeScreen());
+          return const HomeScreen();
         }
         return const LoginScreen();
       },

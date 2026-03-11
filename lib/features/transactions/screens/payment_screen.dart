@@ -103,20 +103,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
         // Update items and totals first before checkout
         await transactionProvider.updateTransaction(effectiveTransactionId, {
           'items': items
-              .map(
-                (item) => {
-                  'productId': item.productId,
-                  'productName': item.productName,
-                  'price': item.price,
-                  'quantity': item.quantity,
-                  'subtotal': item.subtotal,
-                },
-              )
+              .map((item) => {
+                    'productId': item.productId,
+                    'quantity': item.quantity,
+                  })
               .toList(),
-          'subtotal': cartProvider.subtotal,
-          'discount': cartProvider.discount,
-          'tax': cartProvider.tax,
-          'total': cartProvider.total,
           'tableNumber': tableNumber.isNotEmpty ? tableNumber : null,
         });
       }

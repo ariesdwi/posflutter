@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/api_constants.dart';
@@ -167,6 +168,10 @@ class _LoggingInterceptor extends Interceptor {
     developer.log(detailsMessage, name: 'API.REQUEST', level: 800);
     developer.log(requestBody, name: 'API.REQUEST', level: 800);
     developer.log(headers, name: 'API.REQUEST', level: 800);
+    if (kDebugMode) {
+      print(logMessage);
+      print(requestBody);
+    }
     _debugLog.addLog(logMessage);
     _debugLog.addLog(detailsMessage);
     _debugLog.addLog(requestBody);
@@ -185,6 +190,10 @@ class _LoggingInterceptor extends Interceptor {
     developer.log(logMessage, name: 'API.RESPONSE', level: 800);
     developer.log(statusMessage, name: 'API.RESPONSE', level: 800);
     developer.log(responseBody, name: 'API.RESPONSE', level: 800);
+    if (kDebugMode) {
+      print(logMessage);
+      print(responseBody);
+    }
     _debugLog.addLog(logMessage);
     _debugLog.addLog(statusMessage);
     _debugLog.addLog(responseBody);
@@ -212,6 +221,12 @@ class _LoggingInterceptor extends Interceptor {
     developer.log(urlBreakdown, name: 'API.ERROR', level: 1000);
     developer.log(requestBody, name: 'API.ERROR', level: 1000);
     developer.log(responseBody, name: 'API.ERROR', level: 1000);
+    if (kDebugMode) {
+      print(logMessage);
+      print(errorDetails);
+      print(requestBody);
+      print(responseBody);
+    }
     _debugLog.addLog(logMessage);
     _debugLog.addLog(errorDetails);
     _debugLog.addLog(urlBreakdown);
