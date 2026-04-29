@@ -1,0 +1,130 @@
+{
+  "snapshot_meta": {
+    "snapshot_id": "FC752099_snapshot_20260423_131929_inbox_uploaded",
+    "snapshot_created_at": "2026-04-23T13:19:29+07:00",
+    "snapshot_purpose": "record_for_tiktok_production_application",
+    "source": {
+      "type": "editor_buffer",
+      "path": "data/posted/tiktok/FC752099_20260423.json",
+      "note": "Source record captured from opened editor content"
+    },
+    "record_status": "inbox_uploaded"
+  },
+  "record": {
+    "id": "FC752099",
+    "platform": "tiktok",
+    "pillar": "Tips Keuangan",
+    "topic": "Tips menabung gaji UMR dengan metode 50/30/20",
+    "format": "video",
+    "hook": "Gaji selalu ludes sebelum akhir bulan? Mungkin ini penyebabnya!",
+    "caption": "Selalu bingung kenapa gaji cepat habis? Saatnya coba metode 50/30/20! 🔍\n\n💰 50% untuk kebutuhan pokok\n🎉 30% untuk keinginan\n📈 20% untuk tabungan dan investasi\n\nMulai atur keuanganmu dengan lebih cerdas! Casha siap bantu kamu setiap langkahnya. 💪\n\nFollow untuk tips keuangan tiap hari!",
+    "best_post_time": "19:00 WIB",
+    "caption_short": "Gaji selalu habis? Coba metode 50/30/20! 💰",
+    "hook_visual": "Stock video dompet kosong + teks hook bold",
+    "carousel_slides": null,
+    "hashtags": {
+      "branded": [
+        "#CashaIndonesia"
+      ],
+      "niche": [
+        "#KeuanganCerdas",
+        "#TipsKeuangan"
+      ],
+      "volume_tinggi": [
+        "#FinancialFreedom",
+        "#fyp"
+      ],
+      "trending": [
+        "#CaraMenabung",
+        "#UangPintar"
+      ]
+    },
+    "cta_primary": "Follow untuk tips keuangan tiap hari!",
+    "cta_secondary": "Simpan video ini! 🔖",
+    "content_score": {
+      "engagement_potential": 85,
+      "brand_alignment": 90,
+      "relatability": 88,
+      "shareability": 82,
+      "educational_value": 90,
+      "cmo_recommendation": "Komentar singkat CMO"
+    },
+    "video_production": {
+      "production_constraint": "NO SHOOTING (tanpa footage real/talent kamera)",
+      "asset_strategy": "Motion Graphics + Stock Video + Screencast App",
+      "duration_seconds": 30,
+      "fps": 30,
+      "scene_breakdown": [
+        {
+          "scene": 1,
+          "duration_sec": 3,
+          "visual": "Stock video dompet kosong + teks hook bold",
+          "color_palette": [
+            "#2E7D32",
+            "#FFFFFF"
+          ],
+          "vo": "Kalimat hook"
+        },
+        {
+          "scene": 2,
+          "duration_sec": 4,
+          "visual": "Stock video orang sibuk + subtitle kontras",
+          "color_palette": [
+            "#FFFFFF",
+            "#212121"
+          ],
+          "vo": "Validasi masalah"
+        },
+        {
+          "scene": 3,
+          "duration_sec": 4,
+          "visual": "Motion graphic teks besar untuk pattern interrupt",
+          "color_palette": [
+            "#2E7D32",
+            "#FFFFFF"
+          ],
+          "vo": "Transisi ke solusi"
+        }
+      ],
+      "bgm_mood": "upbeat / motivational",
+      "transition_style": "quick cut + zoom punch",
+      "subtitle_style": {
+        "font": "Inter Bold",
+        "color": "#FFFFFF",
+        "position": "center-bottom"
+      },
+      "source_recommendation": {
+        "stock_video": "Pexels/Pixabay",
+        "motion_tool": "CapCut/Canva",
+        "illustration_source": "Canva/Freepik/Flaticon",
+        "app_demo": "Screencast penggunaan fitur Casha"
+      }
+    },
+    "target_persona": {
+      "segment": "Milenial & Gen-Z",
+      "age_range": "20–35",
+      "pain_point": "Gaji habis sebelum akhir bulan"
+    },
+    "reference_content": [
+      "https://www.tiktok.com/@financialguru"
+    ],
+    "brand_safety_notes": "Hindari klaim return investasi spesifik (regulasi OJK).",
+    "created_at": "2026-04-23T12:56:09.704910",
+    "status": "posted",
+    "video_path": "data/assets/tiktok/FC752099/Voice over.mp4",
+    "image_paths": [
+      "data/assets/tiktok/FC752099/Voice over.mp4"
+    ],
+    "image_path": "data/assets/tiktok/FC752099/Voice over.mp4",
+    "posted_at": "2026-04-23T13:19:29.436348",
+    "post_result": {
+      "post_id": "v_inbox_file~v2.7631834681616566292",
+      "platform": "tiktok",
+      "method": "content_posting_api_inbox_file_upload",
+      "status": "inbox_uploaded",
+      "posted_at": "2026-04-23T13:19:29.429514",
+      "video_path": "data/assets/tiktok/FC752099/Voice over.mp4",
+      "note": "Video uploaded to TikTok inbox. Final publish dilakukan manual dari akun TikTok sandbox."
+    }
+  }
+}

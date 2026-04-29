@@ -1,0 +1,56 @@
+{
+  "template_name": "Problem-Solution",
+  "description": "Template untuk konten yang mengidentifikasi masalah finansial dan menawarkan solusi via Casha",
+  "pillar": "Tips Keuangan",
+  "structure": {
+    "hook_patterns": [
+      "Kenapa gaji {nominal} selalu habis sebelum tanggal {tanggal}? 😰",
+      "Bukan kamu yang boros. Kamu cuma belum punya sistem yang bener.",
+      "{persentase}% orang Indonesia tidak tahu kemana uang mereka pergi setiap bulan.",
+      "Kamu pernah nanya ke diri sendiri: 'Uang gue kemana ya?' 🤔"
+    ],
+    "problem_frames": [
+      "Tanpa tracking, keuangan kamu kayak kapal tanpa kompas.",
+      "Manual pencatatan di Excel? Cape, ribet, dan akhirnya males.",
+      "Niat nabung tapi realisasinya NIHIL setiap bulan?"
+    ],
+    "solution_bridges": [
+      "Casha hadir buat ngubah kebiasaan finansialmu.",
+      "Dengan Casha, kamu bisa:",
+      "Solusinya simpel:"
+    ],
+    "feature_highlights": [
+      "✅ Catat pengeluaran otomatis dengan AI",
+      "✅ Budget yang realistis & mudah diikuti",
+      "✅ Laporan keuangan visual yang mudah dipahami",
+      "✅ Reminder tagihan & nabung otomatis",
+      "✅ Goals finansial dengan tracking progress"
+    ],
+    "cta_variants": [
+      "Download Casha gratis sekarang 👇 Link di bio!",
+      "Cobain Casha gratis hari ini. Link di bio �",
+      "Mulai gratis di Casha – link di bio!",
+      "Join {jumlah}+ pengguna Casha yang udah hidup lebih terencana �"
+    ]
+  },
+  "hashtags": {
+    "primary": ["#Casha", "#AppKeuangan", "#FinansialCerdas"],
+    "secondary": ["#TipsKeuangan", "#KeuanganSehat", "#CatatPengeluaran"],
+    "long_tail": ["#AppKeuanganIndonesia", "#ManajemenKeuangan", "#BudgetingApp"]
+  },
+  "platforms": {
+    "instagram": {
+      "format": "carousel",
+      "slide_count": "5-7",
+      "caption_length": "150-300 kata"
+    },
+    "tiktok": {
+      "format": "talking-head + text overlay",
+      "duration": "30-45 detik"
+    },
+    "linkedin": {
+      "format": "text post",
+      "tone": "lebih profesional, fokus pada data"
+    }
+  }
+}

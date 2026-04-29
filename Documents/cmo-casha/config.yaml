@@ -1,0 +1,208 @@
+# ============================================================
+# Casha AI CMO - Konfigurasi Utama
+# ============================================================
+
+app:
+  name: "Casha AI CMO"
+  version: "1.0.0"
+  timezone: "Asia/Jakarta"
+  language: "id"  # id = Bahasa Indonesia, en = English
+
+# ── Brand Identity ──────────────────────────────────────────
+brand:
+  name: "Casha"
+  tagline: "Aplikasi Keuangan Cerdas untuk Hidup Lebih Terencana"
+  description: |
+    Casha adalah aplikasi manajemen keuangan personal berbasis AI yang
+    membantu pengguna melacak pengeluaran, merencanakan anggaran,
+    dan mencapai tujuan keuangan mereka dengan mudah dan menyenangkan.
+  # Palette resmi Casha — mengikuti App/UI/Theme/Colors.swift (tema hijau finance-growth)
+  # Token ini adalah mirror dari Assets.xcassets/Casha*.colorset agar materi marketing
+  # konsisten dengan tampilan aplikasi iOS di Light Mode.
+  colors:
+    # Brand (cashaPrimary / cashaAccent)
+    primary: "#2E7D32"           # cashaPrimary · Light — CTA utama, tab aktif, ikon brand
+    primary_dark: "#81C784"      # cashaPrimary · Dark  — varian untuk asset dark-mode
+    accent: "#4CAF50"            # cashaAccent  · Light — badge, highlight sekunder, progress
+    accent_dark: "#43A047"       # cashaAccent  · Dark
+
+    # Surface (cashaBackground / cashaCard)
+    background: "#FFFFFF"        # cashaBackground · Light
+    background_dark: "#121212"   # cashaBackground · Dark
+    card: "#EFF0F1"              # cashaCard · Light — container, list row
+    card_dark: "#1F1F1F"         # cashaCard · Dark
+
+    # Text (cashaTextPrimary / cashaTextSecondary)
+    text_primary: "#212121"      # cashaTextPrimary · Light — judul, nominal
+    text_primary_dark: "#FFFFFF" # cashaTextPrimary · Dark
+    text_secondary: "#757575"    # cashaTextSecondary · Light — subtitle, caption
+    text_secondary_dark: "#A5D6A7" # cashaTextSecondary · Dark
+
+    # Status (sama di Light & Dark)
+    success: "#2E7D32"           # cashaSuccess — pemasukan, konfirmasi positif
+    danger:  "#F44336"           # cashaDanger  — error, pengeluaran, destructive
+
+    # Alias legacy (dipertahankan untuk kompatibilitas generator konten lama)
+    secondary: "#4CAF50"         # -> cashaAccent
+    dark: "#121212"              # -> cashaBackground (dark)
+    light: "#EFF0F1"             # -> cashaCard (light)
+    warning: "#F44336"           # -> cashaDanger (peringatan/validasi gagal)
+
+    # Gradient marketing — varian hijau brand (hindari flood; pakai untuk hero/CTA)
+    gradient_start: "#2E7D32"    # cashaPrimary
+    gradient_end:   "#4CAF50"    # cashaAccent
+
+  # Aturan pemakaian warna pada materi marketing (selaras App/UI/Theme guidelines):
+  # 1. Gunakan `primary` / `accent` hanya untuk aksen & CTA, bukan flood seluruh canvas.
+  # 2. `success` & `danger` hanya untuk feedback state (bukan dekorasi).
+  # 3. Jaga kontras WCAG AA: 4.5:1 body text, 3:1 large text.
+  # 4. Untuk aset Dark Mode (story IG dark, LinkedIn dark card), pakai varian `*_dark`.
+  # 5. Jangan menambah warna baru tanpa persetujuan tim desain — reuse palette di atas.
+
+  typography:
+    primary_font: "Plus Jakarta Sans"   # Font utama Casha (Google Fonts)
+    secondary_font: "Inter"             # Font pendukung (UI/body text)
+    accent_font: "Poppins"              # Font aksen (quote/highlight)
+    usage:
+      headline:     "Plus Jakarta Sans – Bold (700) – 48-64px"
+      subheadline:  "Plus Jakarta Sans – SemiBold (600) – 28-36px"
+      body:         "Inter – Regular (400) – 14-16px"
+      caption:      "Inter – Regular (400) – 12px"
+      cta_button:   "Plus Jakarta Sans – Bold (700) – 16px"
+      quote:        "Poppins – SemiBold Italic (600i) – 20-24px"
+      label_tag:    "Inter – Medium (500) – 12px – UPPERCASE"
+    line_height:
+      tight: 1.2    # Headline
+      normal: 1.5   # Body text
+      loose: 1.8    # Long paragraphs
+    letter_spacing:
+      headline: "-0.5px"  # Sedikit rapat untuk headline bold
+      body: "0px"
+      label: "1px"        # Sedikit renggang untuk label uppercase
+
+  emoji_brand: "�"   # Mengikuti brand hijau Casha (cashaPrimary)
+  
+  voice:
+    tone: "friendly, empowering, conversational"
+    style: "informatif namun santai, menggunakan bahasa sehari-hari Indonesia"
+    avoid:
+      - "bahasa terlalu formal"
+      - "jargon keuangan yang rumit"
+      - "kata-kata negatif tentang uang"
+    keywords:
+      - "finansial cerdas"
+      - "hidup terencana"
+      - "kontrol keuangan"
+      - "bebas finansial"
+      - "nabung otomatis"
+      - "catat pengeluaran"
+
+  target_audience:
+    primary: "Milenial & Gen-Z Indonesia usia 20-35 tahun"
+    income: "Kelas menengah, gaji 4-20 juta/bulan"
+    pain_points:
+      - "Gaji habis sebelum akhir bulan"
+      - "Tidak tahu uang kemana"
+      - "Sulit menabung secara konsisten"
+      - "Takut memulai investasi"
+    desires:
+      - "Financial freedom"
+      - "Bisa nabung untuk liburan/rumah"
+      - "Tidak stress soal uang"
+
+# ── AI / LLM Settings ───────────────────────────────────────
+ai:
+  provider: "openai"        # openai | anthropic | google
+  model: "gpt-4o"
+  temperature: 0.8
+  max_tokens: 2000
+  
+# ── Platform Settings ───────────────────────────────────────
+platforms:
+  instagram:
+    enabled: true
+    username: ""             # Isi dengan username IG
+    max_hashtags: 30
+    optimal_post_times:
+      weekday: ["07:00", "12:00", "19:00", "21:00"]
+      weekend: ["08:00", "11:00", "16:00", "20:00"]
+    content_ratio:
+      educational: 40
+      entertaining: 30
+      promotional: 20
+      user_generated: 10
+
+  tiktok:
+    enabled: true
+    username: ""             # Isi dengan username TikTok
+    draft_only: true          # true = inbox/draft (aman); set false kalau akun TikTok sudah private atau audit selesai
+    video_duration_target: 30  # seconds
+    optimal_post_times:
+      weekday: ["06:00", "10:00", "19:00", "22:00"]
+      weekend: ["09:00", "14:00", "20:00"]
+
+  linkedin:
+    enabled: true
+    page_id: ""              # Isi dengan LinkedIn Page ID
+    content_focus: "professional_tips"
+    optimal_post_times:
+      weekday: ["08:00", "12:00", "17:00"]
+
+# ── Content Strategy ─────────────────────────────────────────
+content:
+  posting_frequency:
+    instagram: 7              # posts per week
+    tiktok: 5                 # videos per week
+    linkedin: 3               # posts per week
+  
+  content_pillars:
+    - name: "Tips Keuangan"
+      description: "Tips praktis mengelola keuangan sehari-hari"
+      hashtags_base: ["#TipsKeuangan", "#FinansialCerdas", "#KeuanganSehat"]
+      weight: 35
+    
+    - name: "Fitur Casha"
+      description: "Showcase fitur-fitur canggih Casha"
+      hashtags_base: ["#Casha", "#AppKeuangan", "#FinTech"]
+      weight: 25
+    
+    - name: "Motivasi Finansial"
+      description: "Konten inspiratif tentang kebebasan finansial"
+      hashtags_base: ["#FinancialFreedom", "#MotivasiKeuangan", "#HidupTerencana"]
+      weight: 25
+    
+    - name: "Edukasi Investasi"
+      description: "Panduan investasi untuk pemula"
+      hashtags_base: ["#BelajarInvestasi", "#InvestasiPemula", "#Saham"]
+      weight: 15
+
+# ── Analytics ────────────────────────────────────────────────
+analytics:
+  report_frequency: "weekly"  # daily | weekly | monthly
+  kpis:
+    - "follower_growth"
+    - "engagement_rate"
+    - "reach"
+    - "impressions"
+    - "profile_visits"
+    - "website_clicks"
+    - "app_installs"
+  
+  target_metrics:
+    instagram_engagement_rate: 3.5   # %
+    follower_growth_monthly: 500
+    tiktok_average_views: 10000
+
+# ── Scheduler ────────────────────────────────────────────────
+scheduler:
+  auto_post: false           # Set true untuk auto-posting (butuh API keys)
+  queue_dir: "data/queue"
+  posted_dir: "data/posted"
+  failed_dir: "data/failed"
+
+# ── Logging ──────────────────────────────────────────────────
+logging:
+  level: "INFO"              # DEBUG | INFO | WARNING | ERROR
+  file: "logs/cmo.log"
+  max_size_mb: 10
+  backup_count: 5

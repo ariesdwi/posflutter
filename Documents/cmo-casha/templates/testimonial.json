@@ -1,0 +1,45 @@
+{
+  "template_name": "Testimonial & Social Proof",
+  "description": "Template untuk konten user story, review, dan social proof Casha",
+  "pillar": "Motivasi Finansial",
+  "structure": {
+    "hook_patterns": [
+      "'{kutipan_user}' – {nama}, {profesi} 💬",
+      "Kisah nyata: Gimana {nama} berhasil {pencapaian} pakai Casha",
+      "Dari nol tabungan ke {target} dalam {durasi} – ini rahasianya 🏆",
+      "Review jujur Casha dari {jumlah} pengguna setia kami:"
+    ],
+    "story_structure": {
+      "before": "Sebelum Casha: {kondisi_awal}",
+      "problem": "Masalah utama: {masalah}",
+      "discovery": "Kenalan sama Casha: {cara_menemukan}",
+      "transformation": "Yang berubah: {perubahan}",
+      "result": "Hasilnya: {pencapaian}",
+      "quote": "'{kutipan_inspiratif}'"
+    },
+    "metrics_showcase": [
+      "💰 Berhasil nabung Rp{nominal} dalam {durasi}",
+      "📉 Pengeluaran berkurang {persentase}%",
+      "🎯 Goals tercapai {jumlah}x lebih cepat",
+      "⭐ Rating {rating}/5 dari {jumlah} ulasan"
+    ],
+    "community_stats": {
+      "users": "500.000+",
+      "avg_saving_increase": "35%",
+      "app_store_rating": "4.8",
+      "countries": "Indonesia"
+    }
+  },
+  "hashtags": {
+    "primary": ["#Casha", "#CashaStory", "#FinansialCerdas"],
+    "secondary": ["#SuccessStory", "#KeuanganSehat", "#HidupTerencana"],
+    "long_tail": ["#FinancialFreedom", "#MotivasiKeuangan", "#CeritaInspirasi"]
+  },
+  "content_types": [
+    "user_story",
+    "before_after",
+    "milestone_celebration",
+    "community_highlight",
+    "review_compilation"
+  ]
+}

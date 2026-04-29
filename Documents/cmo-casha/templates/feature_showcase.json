@@ -1,0 +1,51 @@
+{
+  "template_name": "Feature Showcase",
+  "description": "Template untuk memperkenalkan dan mendemonstrasikan fitur-fitur unggulan Casha",
+  "pillar": "Fitur Casha",
+  "structure": {
+    "hook_patterns": [
+      "Tau ga fitur Casha yang bikin {manfaat}? 🤯",
+      "Update terbaru Casha yang bakal bikin keuanganmu auto rapi �",
+      "Fitur ini yang bikin {jumlah}+ pengguna Casha ketagihan!",
+      "Cara paling gampang {aksi} dengan Casha:"
+    ],
+    "demo_structure": [
+      "Step 1: {langkah_1}",
+      "Step 2: {langkah_2}",
+      "Step 3: {langkah_3}",
+      "Selesai! {hasil}"
+    ],
+    "features": {
+      "ai_tracking": {
+        "name": "AI Transaction Tracking",
+        "benefit": "Catat pengeluaran cukup dengan foto struk atau ketik chat",
+        "emoji": "🤖"
+      },
+      "budget_planner": {
+        "name": "Smart Budget Planner",
+        "benefit": "Budget realistis berdasarkan pola pengeluaranmu",
+        "emoji": "📊"
+      },
+      "goals": {
+        "name": "Financial Goals",
+        "benefit": "Tabung untuk impianmu dengan tracking otomatis",
+        "emoji": "🎯"
+      },
+      "reports": {
+        "name": "Laporan Visual",
+        "benefit": "Grafik keuangan yang mudah dipahami dalam sekejap",
+        "emoji": "📈"
+      },
+      "reminders": {
+        "name": "Bill Reminders",
+        "benefit": "Tidak pernah lupa bayar tagihan lagi",
+        "emoji": "🔔"
+      }
+    }
+  },
+  "hashtags": {
+    "primary": ["#Casha", "#FinTech", "#AppKeuangan"],
+    "secondary": ["#FiturBaru", "#FinansialApp", "#KeuanganDigital"],
+    "long_tail": ["#FinTechIndonesia", "#AppPengeluaran", "#ManajemenKeuanganDigital"]
+  }
+}

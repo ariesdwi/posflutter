@@ -1,0 +1,41 @@
+# ── Python ─────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.venv/
+
+# ── Environment & Secrets ──────────────────────────
+.env
+*.env
+!.env.example
+data/auth/
+
+# ── Data (Jangan commit data user/konten) ──────────
+data/queue/
+data/posted/
+data/failed/
+data/analytics/
+data/strategies/
+
+# ── Logs ───────────────────────────────────────────
+logs/
+*.log
+
+# ── Generated Images/Videos ────────────────────────
+generated/
+media/uploads/
+
+# ── IDE ────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# ── Build ──────────────────────────────────────────
+dist/
+build/
+*.egg-info/
