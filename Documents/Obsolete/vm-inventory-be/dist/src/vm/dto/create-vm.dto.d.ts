@@ -1,0 +1,33 @@
+export declare class CreateVmDto {
+    no?: number;
+    namaList?: string;
+    kondisi?: string;
+    cluster?: string;
+    host?: string;
+    compatibility?: string;
+    guestOs?: string;
+    provisionedSpace?: string;
+    usedSpace?: string;
+    memorySize?: string;
+    cpus?: number;
+    nics?: number;
+    ipAddress?: string;
+    uuid?: string;
+    uptime?: string;
+    datastore?: string;
+    application?: string;
+    component?: string;
+    kritikalitas?: string;
+    category?: string;
+    notes?: string;
+    osDetail?: string;
+    ipDetail?: string;
+    maOwner?: string;
+    maOps?: string;
+    maDev?: string;
+    vcenter?: string;
+    endSupportDate?: string;
+    statusOs?: string;
+    detailStatus?: string;
+    keterangan?: string;
+}

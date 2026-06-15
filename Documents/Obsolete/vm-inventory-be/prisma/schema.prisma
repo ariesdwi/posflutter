@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Vm {
+  id               Int      @id @default(autoincrement())
+  no               Int?
+  namaList         String?
+  kondisi          String?
+  cluster          String?
+  host             String?
+  compatibility    String?
+  guestOs          String?
+  provisionedSpace String?
+  usedSpace        String?
+  memorySize       String?
+  cpus             Int?
+  nics             Int?
+  ipAddress        String?  @db.Text
+  uuid             String?
+  uptime           String?
+  datastore        String?
+  application      String?
+  component        String?
+  kritikalitas     String?
+  category         String?
+  notes            String?
+  osDetail         String?
+  ipDetail         String?  @db.Text
+  maOwner          String?
+  maOps            String?
+  maDev            String?
+  vcenter          String?
+  endSupportDate   String?
+  statusOs         String?
+  detailStatus     String?
+  keterangan       String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("vms")
+}
+
+model AlertRule {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  webhookUrl  String
+  severity    String   @default("warning")
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("alert_rules")
+}
+
+model ImportHistory {
+  id         Int      @id @default(autoincrement())
+  filename   String
+  total      Int
+  inserted   Int
+  truncated  Boolean  @default(false)
+  importedBy String?
+  importedAt DateTime @default(now())
+
+  @@map("import_history")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  password  String
+  role      String     @default("VIEWER")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  entity    String
+  entityId  Int
+  action    String
+  userId    Int?
+  username  String?
+  payload   Json?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model AppMapping {
+  id               Int      @id @default(autoincrement())
+  department       String?
+  team             String?
+  aplikasi         String?
+  applicationOwner String?
+  platformOwner    String?
+  kritikalitas     String?
+  squadLead        String?
+  keterangan       String?
+  support24h       String?
+  target24h        String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("app_mappings")
+}

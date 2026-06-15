@@ -1,0 +1,84 @@
+═══════════════════════════════════════════════════════════════
+   UNKNOWN DEPARTMENT APPLICATIONS - QUICK SUMMARY
+═══════════════════════════════════════════════════════════════
+
+📊 OVERVIEW:
+   • Total Unmapped Applications: 548
+   • Total VMs in Unknown Department: 5,860
+   • Percentage: ~52% of Production VMs
+
+═══════════════════════════════════════════════════════════════
+
+🔝 TOP 20 APPLICATIONS NEEDING IMMEDIATE ATTENTION:
+
+Rank  Application                          VMs    Kritikalitas
+────────────────────────────────────────────────────────────────
+  1.  Monitoring                           462    CRA, Unspecified
+  2.  Openshift Container Platform         460    Critical
+  3.  EDW (Enterprise Data Warehouse)      390    Critical
+  4.  K8S (Kubernetes)                     286    CRA, Critical
+  5.  BRISIM                               259    Very High
+  6.  Qcash                                196    Critical
+  7.  Ansible                              130    Medium
+  8.  VMWare                               125    Critical
+  9.  BRINETS Web                          120    High
+ 10.  Atlassian Bamboo                      99    High
+ 11.  Mail Server                           93    Critical
+ 12.  Big Data Platform                     82    Very High
+ 13.  MDM (Master Data Management)          82    Very High
+ 14.  DataHub                               77    Very High
+ 15.  Anti Virus Management                 76    Critical
+ 16.  Active Directory                      66    Critical
+ 17.  IAM Platform                          60    Critical
+ 18.  BRI Dashboard                         58    Low
+ 19.  CAPAM (CyberARK)                      56    Critical
+ 20.  Zabbix                                53    Critical
+────────────────────────────────────────────────────────────────
+      SUBTOTAL TOP 20:                  3,530    60.2% of total
+
+═══════════════════════════════════════════════════════════════
+
+📂 MAJOR CATEGORIES:
+
+   🖥️  Infrastructure & Platform (~2,000 VMs)
+      • Monitoring, Openshift, K8S, Ansible, VMWare
+      • Active Directory, IAM, Zabbix
+
+   📊 Data & Analytics (~800 VMs)
+      • EDW, Big Data Platform, DataHub, MDM
+      • Elastic Search, Tableau, Kafka
+
+   🏦 Core Banking Systems (~700 VMs)
+      • BRISIM, Qcash, BRINETS Web
+      • BRIMEN, BRI Merchant, BRITAM
+
+   🔒 Security & Compliance (~400 VMs)
+      • Anti Virus, CAPAM, Safewatch
+      • XDR, EDR, SIEM, SAST/DAST
+
+   🔧 Development & DevOps (~300 VMs)
+      • Bamboo, Bitbucket, Jenkins
+      • SonarQube, Nexus, Container tools
+
+═══════════════════════════════════════════════════════════════
+
+🎯 IMMEDIATE ACTION REQUIRED:
+
+Priority 1 (9 apps, 2,582 VMs):
+   → Monitoring, Openshift, EDW, K8S, BRISIM, Qcash,
+      Ansible, VMWare, BRINETS Web
+
+Priority 2 (13 apps, 785 VMs):
+   → Bamboo, Mail Server, Big Data, MDM, DataHub,
+      Anti Virus, AD, IAM, Dashboard, CAPAM, Zabbix,
+      BRIBRAIN, Kafka
+
+═══════════════════════════════════════════════════════════════
+
+📁 DETAILED REPORTS AVAILABLE:
+   • UNKNOWN_DEPARTMENT_APPS.md (full analysis)
+   • unknown-apps.csv (complete list)
+   • unknown-department-apps.txt (raw output)
+
+═══════════════════════════════════════════════════════════════
+Generated: June 9, 2026

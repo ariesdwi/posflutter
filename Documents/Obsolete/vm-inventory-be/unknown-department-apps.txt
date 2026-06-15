@@ -1,0 +1,1113 @@
+🔍 Fetching applications without department mapping...
+
+�� Summary:
+Total Applications without Department: 548
+Total VMs in Unknown Department: 5860
+
+====================================================================================================
+Application                                        VMs        Kritikalitas
+====================================================================================================
+  1. Monitoring                                      462   CRA, Unspecified
+  2. Openshift Container Platform                    460   Critical
+  3. EDW (Enterprise Data Warehouse)                 390   Critical
+  4. K8S (Kubernetes)                                286   CRA, Critical
+  5. BRISIM                                          259   Very High
+  6. Qcash                                           196   Critical, Unspecified
+  7. Ansible                                         130   Medium
+  8. VMWare                                          125   Critical
+  9. BRINETS Web                                     120   High
+ 10. Atlassian Bamboo                                 99   High
+ 11. Mail Server                                      93   Critical
+ 12. Big Data Platform                                82   Very High, Critical
+ 13. MDM (Master Data Management)                     82   Very High
+ 14. DataHub                                          77   Very High, Critical
+ 15. Anti Virus Management                            76   Critical
+ 16. Active Directory / Directory Service             66   Critical
+ 17. IAM Platform                                     60   Critical
+ 18. BRI Dashboard                                    58   Low
+ 19. CAPAM (CyberARK Privilage Access Management)     56   Critical
+ 20. Zabbix                                           53   Critical
+ 21. BRIBRAIN                                         50   High
+ 22. Confluent Kafka                                  50   Critical
+ 23. Desktop Management                               49   CRA
+ 24. Storage Management                               41   Critical
+ 25. BRIMEN                                           40   High
+ 26. BRINETS WEB                                      39   High
+ 27. Safewatch                                        37   Very High
+ 28. Elastic Search (ELK)                             37   CRA, Critical
+ 29. BRI Merchant                                     34   High
+ 30. Mail Gateway / Antispam                          32   Critical
+ 31. KJT                                              31   CRA
+ 32. BRIStars: BRITAXS 2.0                            30   High
+ 33. Monitoring INF                                   30   Medium
+ 34. BRINETS Express                                  29   Medium
+ 35. BPR                                              28   Unspecified
+ 36. Third Party Identity Management (TPIM)           26   Low
+ 37. SAST (Static Application Security Testing)       26   Critical
+ 38. MinIO                                            26   CRA
+ 39. Zabbix : Grafana                                 26   High
+ 40. BRITAM                                           23   High
+ 41. Brinets Express                                  23   Medium
+ 42. Cluster Ironport Incoming Outgoing Internal      23   CRA
+ 43. Data Integration                                 23   Very High, Medium
+ 44. Data Visualization                               22   Very High
+ 45. BRIStars: RRM Tools                              22   Medium
+ 46. Proxy DC                                         22   Medium
+ 47. BRILink Support System                           21   Very High
+ 48. Data Streaming                                   21   Very High
+ 49. Nexus Repository                                 21   Low
+ 50. BRICBM (Corporate Billing Management) / SCM (Supply Chain Management)    21   High
+ 51. Wholesale Super Apps                             21   CRA
+ 52. IST (Integrated Sales Tools)                     21   Medium
+ 53. BRIFIRST                                         20   Critical
+ 54. FSRV                                             20   Very High
+ 55. New BRICARE                                      19   High
+ 56. Data Loss Prevention                             19   Very High
+ 57. Operations Console & Workflow Management         19   Unspecified
+ 58. Tableau                                          19   Very High
+ 59. Trifia                                           19   Very High
+ 60. Report Server ODC                                18   Unspecified
+ 61. XDR                                              17   Critical
+ 62. BRIFORCE                                         17   Unspecified, CRA
+ 63. Coretax                                          17   Medium
+ 64. Customer Data Quality Tools (CDSA)               17   High
+ 65. Sabrina Chatbot                                  17   Medium
+ 66. Dashboard Defect Dojo                            17   Low
+ 67. Network Automation                               16   High
+ 68. Rekening Koran                                   16   Unspecified
+ 69. Bitbucket                                        15   High
+ 70. Rapid 7                                          14   Critical
+ 71. EDC Controller BRILINK & UKO                     14   Critical
+ 72. OPRA                                             14   Medium
+ 73. Clickhouse                                       13   Low
+ 74. iNMS                                             13   Critical
+ 75. Confluence                                       13   Critical
+ 76. SAS (Statistical Analytic System)                13   Medium
+ 77. Network Access Control                           13   Critical
+ 78. Server Management                                13   Critical
+ 79. OCEAN                                            13   Very High
+ 80. Overbooking Service                              13   Very High
+ 81. Mobile Apps Security                             12   Critical
+ 82. Payment Engine                                   12   Unspecified
+ 83. EDR                                              12   Very High
+ 84. Rubrik                                           12   Critical
+ 85. Cloudera Datalake                                12   Very High
+ 86. PARI Corporate                                   12   Medium
+ 87. BDS (Branch Delivery System)                     11   Medium
+ 88. Splunk                                           11   CRA
+ 89. WM Platform                                      11   CRA
+ 90. Inventory (GITS)-Jarkom                          10   Critical
+ 91. Data Masking & Tokenization                      10   Very High
+ 92. AtScale                                          10   Very High
+ 93. AIOPS                                            10   Unspecified
+ 94. WS Entry                                         10   CRA
+ 95. BMC Control M                                    10   Low
+ 96. SIKP                                             10   Medium
+ 97. Overseas Branch Support System (OBRAS)           10   Low
+ 98. AWS                                              10   Unspecified
+ 99. Breach & Attack Simulation                        9   Low
+100. BRIDRIVE                                          9   Medium
+101. ControlCase Data Discovery                        9   Unspecified
+102. Kamus Data (KATA)                                 9   Medium
+103. Delphix                                           9   Unspecified
+104. LBU                                               9   Unspecified
+105. Enterprise Data Governance (Kamus Data)           9   Medium
+106. ELMO                                              9   CRA, Unspecified
+107. Sonarqube                                         9   Low
+108. EDC Go                                            9   Unspecified
+109. E-Recruitment                                     8   Medium
+110. Autentikasi BRI                                   8   CRA
+111. CO Branding                                       8   Unspecified
+112. SEVATools                                         8   CRA
+113. E-Filling Management                              8   Unspecified
+114. Digital EA (Digital Enterprise Architecture)      8   Low
+115. MRM Tools                                         8   Unspecified
+116. KSEI Payment Bank                                 8   CRA
+117. BRINeTask                                         8   CRA
+118. NTP Server                                        8   Medium
+119. Kibana                                            7   Medium
+120. Moogsoft                                          7   Medium
+121. Galera Cluster Control                            7   Low
+122. PGD Data                                          7   Critical, Unspecified
+123. Jira                                              7   Medium
+124. Brilian News                                      6   Low
+125. Firewall Management                               6   Critical
+126. Password Management                               6   Critical
+127. SSL Automation                                    6   Very High
+128. CHM Support                                       6   CRA
+129. QMS (Queuing Management System)                   6   Unspecified
+130. Remote Agen                                       6   CRA
+131. Vulnerability Assessment                          6   Critical
+132. Redis Enterprise                                  6   CRA
+133. Micro Focus Fortify                               6   CRA
+134. Notebook Ownership Program                        6   CRA, Unspecified
+135. Briafis                                           5   Medium
+136. WS User                                           5   Unspecified, CRA
+137. Brilian Calendar                                  5   Unspecified
+138. IRE                                               5   Unspecified
+139. Scan Engine Vulnerability Management              5   CRA
+140. BRI e-Calendar                                    5   Unspecified
+141. Proxy Pekerja                                     5   Low
+142. Portal MDO                                        5   Unspecified, CRA
+143. Simonpots                                         5   Critical
+144. Prometheus                                        5   High
+145. ADLM CICD Tool                                    5   Critical
+146. PRTG                                              5   Critical
+147. Graph Studio Platform                             5   Medium
+148. Mass TOB (Transfer of Branch)                     5   Medium
+149. Jumphost DBA                                      5   CRA
+150. Dynatrace                                         5   Low
+151. Engine OTP                                        5   CRA, Unspecified
+152. SonarQube                                         5   Low
+153. EazyBI                                            5   Low
+154. BOOST                                             4   Unspecified
+155. SolarWinds                                        4   Medium
+156. Aria                                              4   Unspecified
+157. SSPP (Self Service Passbook Printing)             4   CRA
+158. ADDONS                                            4   CRA
+159. JIRA                                              4   Medium
+160. Management License Cisco                          4   CRA
+161. PMO Watch Tower                                   4   Low
+162. Cloudera Services                                 4   Very High
+163. Pinang                                            4   Unspecified
+164. Corona                                            4   CRA, Unspecified
+165. SHIELD (Incident & Problem Management)            4   Medium
+166. WSUS                                              4   Low
+167. Hasura                                            4   High
+168. Ezio CAS (Confirm Authentication Server)          4   High
+169. Nominal                                           4   Low
+170. LDAP Master BRI                                   4   CRA
+171. D-Nets                                            4   Very High
+172. BRIStars : JARVIS                                 4   Low
+173. SWIFT Alliance Access BRITL                       4   Medium
+174. SMS Controller                                    4   Unspecified
+175. Qlik Replicate                                    4   Critical
+176. Merak                                             4   Unspecified
+177. SCV (Single Customer View) Client                 4   Medium
+178. TADOR (Tax Document Centre)                       4   Low
+179. Kriteria Penilaian Kinerja Unggul (KPKU) Kementeri     4   Unspecified
+180. ePPT & Tarra H2H                                  4   Unspecified
+181. Uniform                                           4   CRA
+182. NMS UPS                                           4   Low
+183. Dashboard BRI Timor Leste                         4   Unspecified
+184. BRIStars: Audio Video Gallery                     4   Low
+185. Grafana                                           4   High
+186. BRCS                                              3   Unspecified
+187. RP4VM (Automation DRM)                            3   High
+188. FTP Report Online                                 3   Low
+189. BRISTORE                                          3   Medium
+190. Activation License Server                         3   CRA
+191. IBM AIOps                                         3   Unspecified
+192. Critical Report                                   3   Unspecified
+193. Report ACRS & ASRS                                3   Unspecified
+194. Poller                                            3   CRA
+195. Sistem Wali Amanat                                3   High
+196. Sandbox                                           3   High
+197. QCA                                               3   Unspecified
+198. CS Digital                                        3   CRA
+199. ATS                                               3   Unspecified
+200. Data Destruction                                  3   High
+201. Search Head                                       3   CRA, Unspecified
+202. Portal WSA                                        3   Low
+203. BRICS BRIGUNA & KPP                               3   Medium
+204. SIEM                                              3   Very High
+205. Sistem Perhitungan ATMR Risiko Pasar (FRTB)       3   Unspecified
+206. Rundeck                                           3   CRA
+207. DeBris (Dynamic Enhancement BRisat Information System)     3   Low
+208. ManageEngine AD Audit Plus                        3   Low
+209. CDC Attunity                                      3   Unspecified
+210. BRIQueue                                          3   Low
+211. Moni Manager                                      3   Low
+212. SIMBOL                                            3   High
+213. Planning Analytic (E-RKAP)                        3   Unspecified
+214. Server Tim QCA                                    3   Unspecified
+215. DDOnline Rekening Koran                           3   Unspecified
+216. Laporan BI                                        3   CRA
+217. RCM (Replacement Card Machine)                    3   Unspecified
+218. Portal OPT                                        3   Critical
+219. Self Deposit Box                                  3   Unspecified
+220. Dashboard MIS TRB                                 3   Unspecified
+221. SANNAV                                            3   Unspecified
+222. MPN Gen 3                                         3   Very High
+223. Replacement Card Machine                          3   Unspecified
+224. SSRS                                              3   Unspecified
+225. NEO (Network Access Operation)                    3   Unspecified
+226. Portal Absensi                                    3   Low
+227. Cabin Crew                                        3   Unspecified
+228. Redis Sentinel                                    3   CRA
+229. Regulatory Report                                 3   CRA, Critical
+230. SME Lending                                       3   Unspecified
+231. Cloud DNS                                         3   High
+232. RemmoteAgen Bamboo                                3   Unspecified
+233. Zoomus                                            3   CRA
+234. Dataiku                                           3   Critical
+235. TiKV Cluster                                      3   Unspecified
+236. CIPS                                              3   Unspecified
+237. BRIDONE                                           3   Unspecified
+238. DAST (Dynamic Application Security Testing)       3   Critical
+239. Bank Raya                                         3   Unspecified
+240. Secure Structured Layer Automation (SSL Automation)     3   Critical
+241. BRISIPD                                           3   Unspecified
+242. CAPPS                                             2   Unspecified
+243. ArcGIS Enterprise                                 2   CRA
+244. Shadow                                            2   CRA
+245. Partner Management                                2   Unspecified
+246. Dashboard Account Planning (Dashboard Korporasi & Menengah)     2   Low
+247. Container Security                                2   Critical
+248. Asuransi Uang Online                              2   Unspecified
+249. APM                                               2   CRA
+250. Antasena                                          2   Unspecified
+251. MCRLN ETL - Subsidi Stimulus Pinjaman KUR         2   Unspecified
+252. Tufin (Secure Change)                             2   CRA
+253. Tbank                                             2   CRA
+254. Portal DAO                                        2   Unspecified
+255. BRIStars: E-Patching                              2   Low
+256. Rekon Quorum                                      2   Unspecified
+257. Message Processor Apigee                          2   Unspecified
+258. Predictive Budgeting                              2   Unspecified
+259. Portal ICG (Integrated Corporate Governance)      2   Low
+260. Teller Cash Recycle                               2   Unspecified
+261. BRION                                             2   Unspecified
+262. Portal Patching SDK                               2   Unspecified
+263. Reporting RCO                                     2   Unspecified
+264. Portal OSD                                        2   CRA
+265. IRBB                                              2   Unspecified
+266. IBM License Metric Tools                          2   Low
+267. Database MySQL (DBA)                              2   Unspecified
+268. Server Pool DBT-DBHA                              2   Unspecified
+269. Server WebService H2H                             2   CRA
+270. Rekon Ebor                                        2   Unspecified
+271. BMNDB DBS                                         2   Unspecified
+272. Webservice RK Last 5 Year                         2   CRA
+273. Mailbox                                           2   Unspecified
+274. NDS                                               2   Critical
+275. Zookeeper                                         2   CRA
+276. DIO                                               2   Unspecified
+277. Nifi                                              2   Unspecified
+278. Notifikasi KKV                                    2   Unspecified
+279. E-Sign                                            2   Unspecified
+280. IVAT Paques                                       2   CRA, Unspecified
+281. Sangfor                                           2   Unspecified
+282. Purple Team                                       2   CRA
+283. MKPSB                                             2   Unspecified
+284. Stimulus BBI                                      2   Unspecified, CRA
+285. BRIMC                                             2   Unspecified
+286. PA Workspace                                      2   Unspecified
+287. Management Inventory Dashboard                    2   Unspecified
+288. ARIS (EA Tools)                                   2   Medium
+289. IVAT                                              2   Unspecified
+290. E-Tilang                                          2   Unspecified
+291. Jenkins                                           2   Medium
+292. FortiManager                                      2   Critical
+293. Network Sentul Core                               2   Critical
+294. SWD                                               2   Unspecified
+295. Network Ragunan Core                              2   Critical
+296. EDC Controller Master                             2   Unspecified
+297. Portal IPM                                        2   Unspecified
+298. BRIStars: Tasklist                                2   Unspecified
+299. Katalon                                           2   CRA
+300. NFS Backup                                        2   CRA
+301. Secure Track                                      2   CRA
+302. SWIFT Alliance Gateway UKLN                       2   Very High
+303. CACTI                                             2   Medium
+304. Onetouch Approval                                 2   Unspecified
+305. AJKO                                              2   CRA, Unspecified
+306. Zevenet                                           2   CRA
+307. Portal CPR                                        2   Unspecified
+308. E-Kios                                            2   Unspecified
+309. Seafile                                           2   CRA
+310. Bamboo                                            2   Low
+311. HSM                                               2   Critical
+312. DR Solution                                       2   Unspecified
+313. Percona                                           2   Unspecified
+314. FBTI Interface & FBTI Data Extractor              2   Unspecified
+315. BRIStars: Adios                                   1   Medium
+316. BRIBOX Ticketing System                           1   CRA
+317. Brijamin                                          1   Unspecified
+318. EPROC                                             1   CRA
+319. A3KO (Asuransi Low)                               1   Unspecified
+320. SKP                                               1   CRA
+321. SourceCode                                        1   CRA
+322. ABBYY OCR SME                                     1   CRA
+323. Blancco Data Destruction                          1   Unspecified
+324. ACI Health Check                                  1   CRA
+325. Automation Tools                                  1   Unspecified
+326. NFS Recording ACRA                                1   Unspecified
+327. Incoming Visa                                     1   Unspecified
+328. Teras Monthly                                     1   Unspecified
+329. BRIGO                                             1   Unspecified
+330. POC Automation Tools                              1   Unspecified
+331. OPACFILTER                                        1   Unspecified
+332. BRIJulo                                           1   Unspecified
+333. BRINS                                             1   Unspecified
+334. Aqua                                              1   CRA
+335. Anaconda                                          1   CRA
+336. Agile Reporter                                    1   Medium
+337. BOM Dependency Tracker                            1   Unspecified
+338. E-Library                                         1   Unspecified
+339. DataMart                                          1   Unspecified
+340. Portal Hubungan                                   1   Unspecified
+341. Stablebit                                         1   CRA
+342. Unstructured Data Analytics                       1   CRA
+343. GLHIST                                            1   Unspecified
+344. BRI Vision                                        1   CRA
+345. SAV                                               1   Unspecified
+346. Portal RCO                                        1   CRA
+347. My BRI                                            1   Unspecified
+348. Brives                                            1   Unspecified
+349. BAM                                               1   Unspecified
+350. Queue Mass UKLN                                   1   Unspecified
+351. E-Katalog                                         1   CRA
+352. OMS                                               1   CRA
+353. DVWA                                              1   CRA
+354. Scoring System (Predixion)                        1   Unspecified
+355. Infra-Data                                        1   CRA
+356. Smart Reporting                                   1   CRA
+357. NEMO                                              1   CRA
+358. DWH BRITL                                         1   Medium
+359. Logarithm iNAC                                    1   Unspecified
+360. Mimix                                             1   CRA
+361. Signserver                                        1   CRA
+362. MIR(Engine Terpusat Reporting Micro BRI)          1   CRA
+363. WS Token                                          1   CRA
+364. Docker                                            1   CRA
+365. Checkmarx Database                                1   CRA
+366. Portal BEA                                        1   Unspecified
+367. Jetico Data Destruction                           1   Medium
+368. Server EDM Testing                                1   Unspecified
+369. Nios                                              1   Unspecified
+370. E-Statement                                       1   Unspecified
+371. Video Banking                                     1   Unspecified
+372. BRI Prioritas                                     1   Unspecified
+373. Payment KK                                        1   Unspecified
+374. TRD Online                                        1   Unspecified
+375. Portal Supplies                                   1   Unspecified
+376. BRISANBOX                                         1   Unspecified
+377. SSIS                                              1   CRA
+378. CA Server                                         1   CRA
+379. E-Catalog Himbara                                 1   Unspecified
+380. Point Reward                                      1   Unspecified
+381. RTE (Rincian Transaksi Export)                    1   Unspecified
+382. DWH BRISG                                         1   Low
+383. Backend UKLN                                      1   Unspecified
+384. Report KLR                                        1   Unspecified
+385. MinIO UKLN                                        1   Unspecified
+386. Remote Collector                                  1   Unspecified
+387. Template/System                                   1   Template/System
+388. BWA                                               1   Unspecified
+389. Time Scale                                        1   Unspecified
+390. Visitor Management                                1   CRA
+391. CNO Automation                                    1   CRA
+392. Corporate Payment                                 1   CRA
+393. Dashboard Eksternal File Server                   1   Unspecified
+394. Dashboard VFDF Value Chain                        1   Unspecified
+395. Server Terminal CNO                               1   CRA
+396. Financial Crime Tool Kit                          1   Unspecified
+397. DXL Broker                                        1   Unspecified
+398. Toad for Oracle                                   1   Unspecified
+399. BIS Distribusi                                    1   Unspecified
+400. Scopia Desktop                                    1   CRA
+401. Operasional MAO                                   1   Unspecified
+402. E-Payslip                                         1   CRA
+403. Qluepedia                                         1   Unspecified
+404. SFTP BRISG                                        1   Unspecified
+405. Access Door                                       1   Low
+406. MyQR BRI                                          1   Unspecified
+407. Conjur                                            1   Unspecified
+408. VoIP                                              1   Unspecified
+409. CSSM Cisco                                        1   CRA
+410. Manajemen IUMK                                    1   CRA
+411. Reporting MDO                                     1   Unspecified
+412. E-Auction DJKN                                    1   CRA
+413. Loyalty Management System (LMS)                   1   Medium
+414. KLR                                               1   Unspecified
+415. Digiops UiPath                                    1   Unspecified
+416. IDEB                                              1   CRA
+417. Portal PDM                                        1   Unspecified
+418. Beban Bunga                                       1   Unspecified
+419. CRHOST                                            1   Unspecified
+420. SILASBRI                                          1   Unspecified
+421. Power BI                                          1   CRA
+422. Server VHA                                        1   Unspecified
+423. Portal STI                                        1   Critical
+424. DC Router                                         1   Critical
+425. PEM (Postgres Enterprise Manager)                 1   CRA
+426. ACRA                                              1   Unspecified
+427. Brisamba                                          1   Unspecified
+428. Centralized Artifact Repository                   1   Medium
+429. COGNOS                                            1   CRA
+430. EATL                                              1   Unspecified
+431. Dashboard Supermikro                              1   Unspecified
+432. Video Conference                                  1   CRA
+433. SAG                                               1   CRA
+434. SMI                                               1   CRA
+435. MTA (Mail Transfer Agent)                         1   CRA
+436. Certificate Issing                                1   CRA
+437. BRILIAN News                                      1   Low
+438. IBM Websphere                                     1   Unspecified
+439. Database DORC                                     1   Unspecified
+440. RabbitMQ UKLN                                     1   Unspecified
+441. Web Server CNO                                    1   Unspecified
+442. Risk Alert                                        1   Unspecified
+443. Server GDP                                        1   Unspecified
+444. Portal CRR & CRS                                  1   Unspecified
+445. Support & Service                                 1   Low
+446. Automation SDK                                    1   Unspecified
+447. CAASM (Cyber Asset Attack Surface Management)     1   Unspecified
+448. Konten Digital Terminal 3                         1   CRA
+449. Project Automation Tools                          1   CRA
+450. Portal ODR                                        1   Unspecified
+451. FBI AMK / FBI Report                              1   Unspecified
+452. turbonomic                                        1   CRA
+453. Cloud Vision                                      1   CRA
+454. Portal JKE                                        1   Unspecified
+455. BRIGV                                             1   Unspecified
+456. Manage Engine Application Manager                 1   CRA
+457. New Reference Rate Engine                         1   Unspecified
+458. Aplikasi CAO/IAO                                  1   Unspecified
+459. SSB (Self Service Banking)                        1   Unspecified
+460. People Analytic                                   1   CRA
+461. Collateral Data Management                        1   CRA
+462. GoAccess                                          1   CRA
+463. H2H PPDPP                                         1   CRA
+464. Early Warning Indicators (EWI)                    1   Unspecified
+465. Card Management Polri                             1   CRA
+466. Portal DWH BRITL                                  1   Medium
+467. Database DevOps                                   1   Unspecified
+468. BRIStars: BRIPASTI                                1   Unspecified
+469. Pengkinian Report Server                          1   Unspecified
+470. MIS                                               1   CRA
+471. MISP (Malware Information Sharing Platform)       1   CRA
+472. Dashboard VA Korporasi                            1   Low
+473. Server HCI                                        1   CRA
+474. Operasional TRO                                   1   CRA
+475. Portal Big Data INF                               1   Unspecified
+476. Server Platform PFO                               1   CRA
+477. Portal DWH Kanpus                                 1   CRA
+478. Dashboard Machine Learning Intelligent            1   CRA
+479. Collect Log SOC                                   1   Unspecified
+480. Virtual HMC (Hardware Management Console)         1   Unspecified
+481. Public Key Infrastructure                         1   CRA
+482. Forensic Tools                                    1   CRA
+483. WAZUH                                             1   CRA
+484. Customer Handling Management                      1   Unspecified
+485. PL Core                                           1   Unspecified
+486. JSON Validator                                    1   CRA
+487. Info Pinjol                                       1   Unspecified
+488. SIP                                               1   CRA
+489. Otomasi Trea                                      1   Unspecified
+490. Repository Local                                  1   Unspecified
+491. Gudang MX                                         1   CRA
+492. Health Check                                      1   CRA
+493. MEH                                               1   Unspecified
+494. VM Connection RSC                                 1   Unspecified
+495. Dashboard Debitur Naik Kelas                      1   Unspecified
+496. Manajemen Perangkat Infoblox                      1   CRA
+497. CRHost                                            1   Unspecified
+498. LCR (Liquidity Coverage Ratio)                    1   Unspecified
+499. CPA (Customer Profitability Analysis)             1   Unspecified
+500. VHA                                               1   Unspecified
+501. Customer Porfolio Management                      1   Unspecified
+502. MOOGSOFT                                          1   Medium
+503. Barcode Polri                                     1   Unspecified
+504. Portal DWH                                        1   Unspecified
+505. RSS Timor Leste                                   1   Unspecified
+506. OPCOT                                             1   Unspecified
+507. Database OPX                                      1   CRA
+508. Git Source Code                                   1   Unspecified
+509. Portal SDM                                        1   Unspecified
+510. Intelligent Financial Analytics                   1   Unspecified
+511. Irregularity Detection                            1   Unspecified
+512. Free Radius                                       1   CRA
+513. Phone Repository                                  1   Unspecified
+514. Debuging Server                                   1   CRA
+515. Log Management                                    1   Critical
+516. Database RnD                                      1   CRA
+517. SFTP BRITL                                        1   Unspecified
+518. IRRB                                              1   Unspecified
+519. H2H Jamsostek                                     1   Unspecified
+520. CKPN                                              1   Unspecified
+521. Mobile Banking BRITW                              1   Unspecified
+522. PQA                                               1   Unspecified
+523. BRIKS                                             1   CRA
+524. Finacle                                           1   Very High
+525. NPMD                                              1   CRA
+526. BRILIFE                                           1   Unspecified
+527. GigaVUE                                           1   Unspecified
+528. NGAWAN                                            1   CRA
+529. Remote Desktop                                    1   CRA
+530. BRISPAN                                           1   Unspecified
+531. Skyline Appliance                                 1   Unspecified
+532. Nextcloud                                         1   Unspecified
+533. Notifikasi Traveloka                              1   Unspecified
+534. Echa Dash - DBO                                   1   CRA
+535. Kamus SHD                                         1   CRA
+536. ACRS                                              1   CRA
+537. Chargeback Issuing                                1   CRA
+538. Logstash                                          1   CRA
+539. Stimulus KUR                                      1   CRA
+540. Portal BRICC                                      1   CRA
+541. Visa Edit Package                                 1   CRA
+542. Vendor Management System                          1   CRA
+543. InterScan Web Security Virtual Appliance (IWSVA)     1   Unspecified
+544. Pusat Data Elektronik                             1   CRA
+545. File Project Agile Reporter                       1   Unspecified
+546. Otomatisasi Health Check                          1   Unspecified
+547. WPEDC                                             1   Unspecified
+548. Proses Ratas                                      1   Unspecified
+====================================================================================================
+
+Total: 548 applications, 5860 VMs
+
+
+📄 Generating CSV output...
+
+Application,VM Count,Kritikalitas,Department Status
+"Monitoring",462,"CRA; Unspecified","Unknown Department"
+"Openshift Container Platform",460,"Critical","Unknown Department"
+"EDW (Enterprise Data Warehouse)",390,"Critical","Unknown Department"
+"K8S (Kubernetes)",286,"CRA; Critical","Unknown Department"
+"BRISIM",259,"Very High","Unknown Department"
+"Qcash",196,"Critical; Unspecified","Unknown Department"
+"Ansible",130,"Medium","Unknown Department"
+"VMWare",125,"Critical","Unknown Department"
+"BRINETS Web",120,"High","Unknown Department"
+"Atlassian Bamboo",99,"High","Unknown Department"
+"Mail Server",93,"Critical","Unknown Department"
+"Big Data Platform",82,"Very High; Critical","Unknown Department"
+"MDM (Master Data Management)",82,"Very High","Unknown Department"
+"DataHub",77,"Very High; Critical","Unknown Department"
+"Anti Virus Management",76,"Critical","Unknown Department"
+"Active Directory / Directory Service",66,"Critical","Unknown Department"
+"IAM Platform",60,"Critical","Unknown Department"
+"BRI Dashboard",58,"Low","Unknown Department"
+"CAPAM (CyberARK Privilage Access Management)",56,"Critical","Unknown Department"
+"Zabbix",53,"Critical","Unknown Department"
+"BRIBRAIN",50,"High","Unknown Department"
+"Confluent Kafka",50,"Critical","Unknown Department"
+"Desktop Management",49,"CRA","Unknown Department"
+"Storage Management",41,"Critical","Unknown Department"
+"BRIMEN",40,"High","Unknown Department"
+"BRINETS WEB",39,"High","Unknown Department"
+"Safewatch",37,"Very High","Unknown Department"
+"Elastic Search (ELK)",37,"CRA; Critical","Unknown Department"
+"BRI Merchant",34,"High","Unknown Department"
+"Mail Gateway / Antispam",32,"Critical","Unknown Department"
+"KJT",31,"CRA","Unknown Department"
+"BRIStars: BRITAXS 2.0",30,"High","Unknown Department"
+"Monitoring INF",30,"Medium","Unknown Department"
+"BRINETS Express",29,"Medium","Unknown Department"
+"BPR",28,"Unspecified","Unknown Department"
+"Third Party Identity Management (TPIM)",26,"Low","Unknown Department"
+"SAST (Static Application Security Testing)",26,"Critical","Unknown Department"
+"MinIO",26,"CRA","Unknown Department"
+"Zabbix : Grafana",26,"High","Unknown Department"
+"BRITAM",23,"High","Unknown Department"
+"Brinets Express",23,"Medium","Unknown Department"
+"Cluster Ironport Incoming Outgoing Internal",23,"CRA","Unknown Department"
+"Data Integration",23,"Very High; Medium","Unknown Department"
+"Data Visualization",22,"Very High","Unknown Department"
+"BRIStars: RRM Tools",22,"Medium","Unknown Department"
+"Proxy DC",22,"Medium","Unknown Department"
+"BRILink Support System",21,"Very High","Unknown Department"
+"Data Streaming",21,"Very High","Unknown Department"
+"Nexus Repository",21,"Low","Unknown Department"
+"BRICBM (Corporate Billing Management) / SCM (Supply Chain Management)",21,"High","Unknown Department"
+"Wholesale Super Apps",21,"CRA","Unknown Department"
+"IST (Integrated Sales Tools)",21,"Medium","Unknown Department"
+"BRIFIRST",20,"Critical","Unknown Department"
+"FSRV",20,"Very High","Unknown Department"
+"New BRICARE",19,"High","Unknown Department"
+"Data Loss Prevention",19,"Very High","Unknown Department"
+"Operations Console & Workflow Management",19,"Unspecified","Unknown Department"
+"Tableau",19,"Very High","Unknown Department"
+"Trifia",19,"Very High","Unknown Department"
+"Report Server ODC",18,"Unspecified","Unknown Department"
+"XDR",17,"Critical","Unknown Department"
+"BRIFORCE",17,"Unspecified; CRA","Unknown Department"
+"Coretax",17,"Medium","Unknown Department"
+"Customer Data Quality Tools (CDSA)",17,"High","Unknown Department"
+"Sabrina Chatbot",17,"Medium","Unknown Department"
+"Dashboard Defect Dojo",17,"Low","Unknown Department"
+"Network Automation",16,"High","Unknown Department"
+"Rekening Koran",16,"Unspecified","Unknown Department"
+"Bitbucket",15,"High","Unknown Department"
+"Rapid 7",14,"Critical","Unknown Department"
+"EDC Controller BRILINK & UKO",14,"Critical","Unknown Department"
+"OPRA",14,"Medium","Unknown Department"
+"Clickhouse",13,"Low","Unknown Department"
+"iNMS",13,"Critical","Unknown Department"
+"Confluence",13,"Critical","Unknown Department"
+"SAS (Statistical Analytic System)",13,"Medium","Unknown Department"
+"Network Access Control",13,"Critical","Unknown Department"
+"Server Management",13,"Critical","Unknown Department"
+"OCEAN",13,"Very High","Unknown Department"
+"Overbooking Service",13,"Very High","Unknown Department"
+"Mobile Apps Security",12,"Critical","Unknown Department"
+"Payment Engine",12,"Unspecified","Unknown Department"
+"EDR",12,"Very High","Unknown Department"
+"Rubrik",12,"Critical","Unknown Department"
+"Cloudera Datalake",12,"Very High","Unknown Department"
+"PARI Corporate",12,"Medium","Unknown Department"
+"BDS (Branch Delivery System)",11,"Medium","Unknown Department"
+"Splunk",11,"CRA","Unknown Department"
+"WM Platform",11,"CRA","Unknown Department"
+"Inventory (GITS)-Jarkom",10,"Critical","Unknown Department"
+"Data Masking & Tokenization",10,"Very High","Unknown Department"
+"AtScale",10,"Very High","Unknown Department"
+"AIOPS",10,"Unspecified","Unknown Department"
+"WS Entry",10,"CRA","Unknown Department"
+"BMC Control M",10,"Low","Unknown Department"
+"SIKP",10,"Medium","Unknown Department"
+"Overseas Branch Support System (OBRAS)",10,"Low","Unknown Department"
+"AWS",10,"Unspecified","Unknown Department"
+"Breach & Attack Simulation",9,"Low","Unknown Department"
+"BRIDRIVE",9,"Medium","Unknown Department"
+"ControlCase Data Discovery",9,"Unspecified","Unknown Department"
+"Kamus Data (KATA)",9,"Medium","Unknown Department"
+"Delphix",9,"Unspecified","Unknown Department"
+"LBU",9,"Unspecified","Unknown Department"
+"Enterprise Data Governance (Kamus Data)",9,"Medium","Unknown Department"
+"ELMO",9,"CRA; Unspecified","Unknown Department"
+"Sonarqube",9,"Low","Unknown Department"
+"EDC Go",9,"Unspecified","Unknown Department"
+"E-Recruitment",8,"Medium","Unknown Department"
+"Autentikasi BRI",8,"CRA","Unknown Department"
+"CO Branding",8,"Unspecified","Unknown Department"
+"SEVATools",8,"CRA","Unknown Department"
+"E-Filling Management",8,"Unspecified","Unknown Department"
+"Digital EA (Digital Enterprise Architecture)",8,"Low","Unknown Department"
+"MRM Tools",8,"Unspecified","Unknown Department"
+"KSEI Payment Bank",8,"CRA","Unknown Department"
+"BRINeTask",8,"CRA","Unknown Department"
+"NTP Server",8,"Medium","Unknown Department"
+"Kibana",7,"Medium","Unknown Department"
+"Moogsoft",7,"Medium","Unknown Department"
+"Galera Cluster Control",7,"Low","Unknown Department"
+"PGD Data",7,"Critical; Unspecified","Unknown Department"
+"Jira",7,"Medium","Unknown Department"
+"Brilian News",6,"Low","Unknown Department"
+"Firewall Management",6,"Critical","Unknown Department"
+"Password Management",6,"Critical","Unknown Department"
+"SSL Automation",6,"Very High","Unknown Department"
+"CHM Support",6,"CRA","Unknown Department"
+"QMS (Queuing Management System)",6,"Unspecified","Unknown Department"
+"Remote Agen",6,"CRA","Unknown Department"
+"Vulnerability Assessment",6,"Critical","Unknown Department"
+"Redis Enterprise",6,"CRA","Unknown Department"
+"Micro Focus Fortify",6,"CRA","Unknown Department"
+"Notebook Ownership Program",6,"CRA; Unspecified","Unknown Department"
+"Briafis",5,"Medium","Unknown Department"
+"WS User",5,"Unspecified; CRA","Unknown Department"
+"Brilian Calendar",5,"Unspecified","Unknown Department"
+"IRE",5,"Unspecified","Unknown Department"
+"Scan Engine Vulnerability Management",5,"CRA","Unknown Department"
+"BRI e-Calendar",5,"Unspecified","Unknown Department"
+"Proxy Pekerja",5,"Low","Unknown Department"
+"Portal MDO",5,"Unspecified; CRA","Unknown Department"
+"Simonpots",5,"Critical","Unknown Department"
+"Prometheus",5,"High","Unknown Department"
+"ADLM CICD Tool",5,"Critical","Unknown Department"
+"PRTG",5,"Critical","Unknown Department"
+"Graph Studio Platform",5,"Medium","Unknown Department"
+"Mass TOB (Transfer of Branch)",5,"Medium","Unknown Department"
+"Jumphost DBA",5,"CRA","Unknown Department"
+"Dynatrace",5,"Low","Unknown Department"
+"Engine OTP",5,"CRA; Unspecified","Unknown Department"
+"SonarQube",5,"Low","Unknown Department"
+"EazyBI",5,"Low","Unknown Department"
+"BOOST",4,"Unspecified","Unknown Department"
+"SolarWinds",4,"Medium","Unknown Department"
+"Aria",4,"Unspecified","Unknown Department"
+"SSPP (Self Service Passbook Printing)",4,"CRA","Unknown Department"
+"ADDONS",4,"CRA","Unknown Department"
+"JIRA",4,"Medium","Unknown Department"
+"Management License Cisco",4,"CRA","Unknown Department"
+"PMO Watch Tower",4,"Low","Unknown Department"
+"Cloudera Services",4,"Very High","Unknown Department"
+"Pinang",4,"Unspecified","Unknown Department"
+"Corona",4,"CRA; Unspecified","Unknown Department"
+"SHIELD (Incident & Problem Management)",4,"Medium","Unknown Department"
+"WSUS",4,"Low","Unknown Department"
+"Hasura",4,"High","Unknown Department"
+"Ezio CAS (Confirm Authentication Server)",4,"High","Unknown Department"
+"Nominal",4,"Low","Unknown Department"
+"LDAP Master BRI",4,"CRA","Unknown Department"
+"D-Nets",4,"Very High","Unknown Department"
+"BRIStars : JARVIS",4,"Low","Unknown Department"
+"SWIFT Alliance Access BRITL",4,"Medium","Unknown Department"
+"SMS Controller",4,"Unspecified","Unknown Department"
+"Qlik Replicate",4,"Critical","Unknown Department"
+"Merak",4,"Unspecified","Unknown Department"
+"SCV (Single Customer View) Client",4,"Medium","Unknown Department"
+"TADOR (Tax Document Centre)",4,"Low","Unknown Department"
+"Kriteria Penilaian Kinerja Unggul (KPKU) Kementeri",4,"Unspecified","Unknown Department"
+"ePPT & Tarra H2H",4,"Unspecified","Unknown Department"
+"Uniform",4,"CRA","Unknown Department"
+"NMS UPS",4,"Low","Unknown Department"
+"Dashboard BRI Timor Leste",4,"Unspecified","Unknown Department"
+"BRIStars: Audio Video Gallery",4,"Low","Unknown Department"
+"Grafana",4,"High","Unknown Department"
+"BRCS",3,"Unspecified","Unknown Department"
+"RP4VM (Automation DRM)",3,"High","Unknown Department"
+"FTP Report Online",3,"Low","Unknown Department"
+"BRISTORE",3,"Medium","Unknown Department"
+"Activation License Server",3,"CRA","Unknown Department"
+"IBM AIOps",3,"Unspecified","Unknown Department"
+"Critical Report",3,"Unspecified","Unknown Department"
+"Report ACRS & ASRS",3,"Unspecified","Unknown Department"
+"Poller",3,"CRA","Unknown Department"
+"Sistem Wali Amanat",3,"High","Unknown Department"
+"Sandbox",3,"High","Unknown Department"
+"QCA",3,"Unspecified","Unknown Department"
+"CS Digital",3,"CRA","Unknown Department"
+"ATS",3,"Unspecified","Unknown Department"
+"Data Destruction",3,"High","Unknown Department"
+"Search Head",3,"CRA; Unspecified","Unknown Department"
+"Portal WSA",3,"Low","Unknown Department"
+"BRICS BRIGUNA & KPP",3,"Medium","Unknown Department"
+"SIEM",3,"Very High","Unknown Department"
+"Sistem Perhitungan ATMR Risiko Pasar (FRTB)",3,"Unspecified","Unknown Department"
+"Rundeck",3,"CRA","Unknown Department"
+"DeBris (Dynamic Enhancement BRisat Information System)",3,"Low","Unknown Department"
+"ManageEngine AD Audit Plus",3,"Low","Unknown Department"
+"CDC Attunity",3,"Unspecified","Unknown Department"
+"BRIQueue",3,"Low","Unknown Department"
+"Moni Manager",3,"Low","Unknown Department"
+"SIMBOL",3,"High","Unknown Department"
+"Planning Analytic (E-RKAP)",3,"Unspecified","Unknown Department"
+"Server Tim QCA",3,"Unspecified","Unknown Department"
+"DDOnline Rekening Koran",3,"Unspecified","Unknown Department"
+"Laporan BI",3,"CRA","Unknown Department"
+"RCM (Replacement Card Machine)",3,"Unspecified","Unknown Department"
+"Portal OPT",3,"Critical","Unknown Department"
+"Self Deposit Box",3,"Unspecified","Unknown Department"
+"Dashboard MIS TRB",3,"Unspecified","Unknown Department"
+"SANNAV",3,"Unspecified","Unknown Department"
+"MPN Gen 3",3,"Very High","Unknown Department"
+"Replacement Card Machine",3,"Unspecified","Unknown Department"
+"SSRS",3,"Unspecified","Unknown Department"
+"NEO (Network Access Operation)",3,"Unspecified","Unknown Department"
+"Portal Absensi",3,"Low","Unknown Department"
+"Cabin Crew",3,"Unspecified","Unknown Department"
+"Redis Sentinel",3,"CRA","Unknown Department"
+"Regulatory Report",3,"CRA; Critical","Unknown Department"
+"SME Lending",3,"Unspecified","Unknown Department"
+"Cloud DNS",3,"High","Unknown Department"
+"RemmoteAgen Bamboo",3,"Unspecified","Unknown Department"
+"Zoomus",3,"CRA","Unknown Department"
+"Dataiku",3,"Critical","Unknown Department"
+"TiKV Cluster",3,"Unspecified","Unknown Department"
+"CIPS",3,"Unspecified","Unknown Department"
+"BRIDONE",3,"Unspecified","Unknown Department"
+"DAST (Dynamic Application Security Testing)",3,"Critical","Unknown Department"
+"Bank Raya",3,"Unspecified","Unknown Department"
+"Secure Structured Layer Automation (SSL Automation)",3,"Critical","Unknown Department"
+"BRISIPD",3,"Unspecified","Unknown Department"
+"CAPPS",2,"Unspecified","Unknown Department"
+"ArcGIS Enterprise",2,"CRA","Unknown Department"
+"Shadow",2,"CRA","Unknown Department"
+"Partner Management",2,"Unspecified","Unknown Department"
+"Dashboard Account Planning (Dashboard Korporasi & Menengah)",2,"Low","Unknown Department"
+"Container Security",2,"Critical","Unknown Department"
+"Asuransi Uang Online",2,"Unspecified","Unknown Department"
+"APM",2,"CRA","Unknown Department"
+"Antasena",2,"Unspecified","Unknown Department"
+"MCRLN ETL - Subsidi Stimulus Pinjaman KUR",2,"Unspecified","Unknown Department"
+"Tufin (Secure Change)",2,"CRA","Unknown Department"
+"Tbank",2,"CRA","Unknown Department"
+"Portal DAO",2,"Unspecified","Unknown Department"
+"BRIStars: E-Patching",2,"Low","Unknown Department"
+"Rekon Quorum",2,"Unspecified","Unknown Department"
+"Message Processor Apigee",2,"Unspecified","Unknown Department"
+"Predictive Budgeting",2,"Unspecified","Unknown Department"
+"Portal ICG (Integrated Corporate Governance)",2,"Low","Unknown Department"
+"Teller Cash Recycle",2,"Unspecified","Unknown Department"
+"BRION",2,"Unspecified","Unknown Department"
+"Portal Patching SDK",2,"Unspecified","Unknown Department"
+"Reporting RCO",2,"Unspecified","Unknown Department"
+"Portal OSD",2,"CRA","Unknown Department"
+"IRBB",2,"Unspecified","Unknown Department"
+"IBM License Metric Tools",2,"Low","Unknown Department"
+"Database MySQL (DBA)",2,"Unspecified","Unknown Department"
+"Server Pool DBT-DBHA",2,"Unspecified","Unknown Department"
+"Server WebService H2H",2,"CRA","Unknown Department"
+"Rekon Ebor",2,"Unspecified","Unknown Department"
+"BMNDB DBS",2,"Unspecified","Unknown Department"
+"Webservice RK Last 5 Year",2,"CRA","Unknown Department"
+"Mailbox",2,"Unspecified","Unknown Department"
+"NDS",2,"Critical","Unknown Department"
+"Zookeeper",2,"CRA","Unknown Department"
+"DIO",2,"Unspecified","Unknown Department"
+"Nifi",2,"Unspecified","Unknown Department"
+"Notifikasi KKV",2,"Unspecified","Unknown Department"
+"E-Sign",2,"Unspecified","Unknown Department"
+"IVAT Paques",2,"CRA; Unspecified","Unknown Department"
+"Sangfor",2,"Unspecified","Unknown Department"
+"Purple Team",2,"CRA","Unknown Department"
+"MKPSB",2,"Unspecified","Unknown Department"
+"Stimulus BBI",2,"Unspecified; CRA","Unknown Department"
+"BRIMC",2,"Unspecified","Unknown Department"
+"PA Workspace",2,"Unspecified","Unknown Department"
+"Management Inventory Dashboard",2,"Unspecified","Unknown Department"
+"ARIS (EA Tools)",2,"Medium","Unknown Department"
+"IVAT",2,"Unspecified","Unknown Department"
+"E-Tilang",2,"Unspecified","Unknown Department"
+"Jenkins",2,"Medium","Unknown Department"
+"FortiManager",2,"Critical","Unknown Department"
+"Network Sentul Core",2,"Critical","Unknown Department"
+"SWD",2,"Unspecified","Unknown Department"
+"Network Ragunan Core",2,"Critical","Unknown Department"
+"EDC Controller Master",2,"Unspecified","Unknown Department"
+"Portal IPM",2,"Unspecified","Unknown Department"
+"BRIStars: Tasklist",2,"Unspecified","Unknown Department"
+"Katalon",2,"CRA","Unknown Department"
+"NFS Backup",2,"CRA","Unknown Department"
+"Secure Track",2,"CRA","Unknown Department"
+"SWIFT Alliance Gateway UKLN",2,"Very High","Unknown Department"
+"CACTI",2,"Medium","Unknown Department"
+"Onetouch Approval",2,"Unspecified","Unknown Department"
+"AJKO",2,"CRA; Unspecified","Unknown Department"
+"Zevenet",2,"CRA","Unknown Department"
+"Portal CPR",2,"Unspecified","Unknown Department"
+"E-Kios",2,"Unspecified","Unknown Department"
+"Seafile",2,"CRA","Unknown Department"
+"Bamboo",2,"Low","Unknown Department"
+"HSM",2,"Critical","Unknown Department"
+"DR Solution",2,"Unspecified","Unknown Department"
+"Percona",2,"Unspecified","Unknown Department"
+"FBTI Interface & FBTI Data Extractor",2,"Unspecified","Unknown Department"
+"BRIStars: Adios",1,"Medium","Unknown Department"
+"BRIBOX Ticketing System",1,"CRA","Unknown Department"
+"Brijamin",1,"Unspecified","Unknown Department"
+"EPROC",1,"CRA","Unknown Department"
+"A3KO (Asuransi Low)",1,"Unspecified","Unknown Department"
+"SKP",1,"CRA","Unknown Department"
+"SourceCode",1,"CRA","Unknown Department"
+"ABBYY OCR SME",1,"CRA","Unknown Department"
+"Blancco Data Destruction",1,"Unspecified","Unknown Department"
+"ACI Health Check",1,"CRA","Unknown Department"
+"Automation Tools",1,"Unspecified","Unknown Department"
+"NFS Recording ACRA",1,"Unspecified","Unknown Department"
+"Incoming Visa",1,"Unspecified","Unknown Department"
+"Teras Monthly",1,"Unspecified","Unknown Department"
+"BRIGO",1,"Unspecified","Unknown Department"
+"POC Automation Tools",1,"Unspecified","Unknown Department"
+"OPACFILTER",1,"Unspecified","Unknown Department"
+"BRIJulo",1,"Unspecified","Unknown Department"
+"BRINS",1,"Unspecified","Unknown Department"
+"Aqua",1,"CRA","Unknown Department"
+"Anaconda",1,"CRA","Unknown Department"
+"Agile Reporter",1,"Medium","Unknown Department"
+"BOM Dependency Tracker",1,"Unspecified","Unknown Department"
+"E-Library",1,"Unspecified","Unknown Department"
+"DataMart",1,"Unspecified","Unknown Department"
+"Portal Hubungan",1,"Unspecified","Unknown Department"
+"Stablebit",1,"CRA","Unknown Department"
+"Unstructured Data Analytics",1,"CRA","Unknown Department"
+"GLHIST",1,"Unspecified","Unknown Department"
+"BRI Vision",1,"CRA","Unknown Department"
+"SAV",1,"Unspecified","Unknown Department"
+"Portal RCO",1,"CRA","Unknown Department"
+"My BRI",1,"Unspecified","Unknown Department"
+"Brives",1,"Unspecified","Unknown Department"
+"BAM",1,"Unspecified","Unknown Department"
+"Queue Mass UKLN",1,"Unspecified","Unknown Department"
+"E-Katalog",1,"CRA","Unknown Department"
+"OMS",1,"CRA","Unknown Department"
+"DVWA",1,"CRA","Unknown Department"
+"Scoring System (Predixion)",1,"Unspecified","Unknown Department"
+"Infra-Data",1,"CRA","Unknown Department"
+"Smart Reporting",1,"CRA","Unknown Department"
+"NEMO",1,"CRA","Unknown Department"
+"DWH BRITL",1,"Medium","Unknown Department"
+"Logarithm iNAC",1,"Unspecified","Unknown Department"
+"Mimix",1,"CRA","Unknown Department"
+"Signserver",1,"CRA","Unknown Department"
+"MIR(Engine Terpusat Reporting Micro BRI)",1,"CRA","Unknown Department"
+"WS Token",1,"CRA","Unknown Department"
+"Docker",1,"CRA","Unknown Department"
+"Checkmarx Database",1,"CRA","Unknown Department"
+"Portal BEA",1,"Unspecified","Unknown Department"
+"Jetico Data Destruction",1,"Medium","Unknown Department"
+"Server EDM Testing",1,"Unspecified","Unknown Department"
+"Nios",1,"Unspecified","Unknown Department"
+"E-Statement",1,"Unspecified","Unknown Department"
+"Video Banking",1,"Unspecified","Unknown Department"
+"BRI Prioritas",1,"Unspecified","Unknown Department"
+"Payment KK",1,"Unspecified","Unknown Department"
+"TRD Online",1,"Unspecified","Unknown Department"
+"Portal Supplies",1,"Unspecified","Unknown Department"
+"BRISANBOX",1,"Unspecified","Unknown Department"
+"SSIS",1,"CRA","Unknown Department"
+"CA Server",1,"CRA","Unknown Department"
+"E-Catalog Himbara",1,"Unspecified","Unknown Department"
+"Point Reward",1,"Unspecified","Unknown Department"
+"RTE (Rincian Transaksi Export)",1,"Unspecified","Unknown Department"
+"DWH BRISG",1,"Low","Unknown Department"
+"Backend UKLN",1,"Unspecified","Unknown Department"
+"Report KLR",1,"Unspecified","Unknown Department"
+"MinIO UKLN",1,"Unspecified","Unknown Department"
+"Remote Collector",1,"Unspecified","Unknown Department"
+"Template/System",1,"Template/System","Unknown Department"
+"BWA",1,"Unspecified","Unknown Department"
+"Time Scale",1,"Unspecified","Unknown Department"
+"Visitor Management",1,"CRA","Unknown Department"
+"CNO Automation",1,"CRA","Unknown Department"
+"Corporate Payment",1,"CRA","Unknown Department"
+"Dashboard Eksternal File Server",1,"Unspecified","Unknown Department"
+"Dashboard VFDF Value Chain",1,"Unspecified","Unknown Department"
+"Server Terminal CNO",1,"CRA","Unknown Department"
+"Financial Crime Tool Kit",1,"Unspecified","Unknown Department"
+"DXL Broker",1,"Unspecified","Unknown Department"
+"Toad for Oracle",1,"Unspecified","Unknown Department"
+"BIS Distribusi",1,"Unspecified","Unknown Department"
+"Scopia Desktop",1,"CRA","Unknown Department"
+"Operasional MAO",1,"Unspecified","Unknown Department"
+"E-Payslip",1,"CRA","Unknown Department"
+"Qluepedia",1,"Unspecified","Unknown Department"
+"SFTP BRISG",1,"Unspecified","Unknown Department"
+"Access Door",1,"Low","Unknown Department"
+"MyQR BRI",1,"Unspecified","Unknown Department"
+"Conjur",1,"Unspecified","Unknown Department"
+"VoIP",1,"Unspecified","Unknown Department"
+"CSSM Cisco",1,"CRA","Unknown Department"
+"Manajemen IUMK",1,"CRA","Unknown Department"
+"Reporting MDO",1,"Unspecified","Unknown Department"
+"E-Auction DJKN",1,"CRA","Unknown Department"
+"Loyalty Management System (LMS)",1,"Medium","Unknown Department"
+"KLR",1,"Unspecified","Unknown Department"
+"Digiops UiPath",1,"Unspecified","Unknown Department"
+"IDEB",1,"CRA","Unknown Department"
+"Portal PDM",1,"Unspecified","Unknown Department"
+"Beban Bunga",1,"Unspecified","Unknown Department"
+"CRHOST",1,"Unspecified","Unknown Department"
+"SILASBRI",1,"Unspecified","Unknown Department"
+"Power BI",1,"CRA","Unknown Department"
+"Server VHA",1,"Unspecified","Unknown Department"
+"Portal STI",1,"Critical","Unknown Department"
+"DC Router",1,"Critical","Unknown Department"
+"PEM (Postgres Enterprise Manager)",1,"CRA","Unknown Department"
+"ACRA",1,"Unspecified","Unknown Department"
+"Brisamba",1,"Unspecified","Unknown Department"
+"Centralized Artifact Repository",1,"Medium","Unknown Department"
+"COGNOS",1,"CRA","Unknown Department"
+"EATL",1,"Unspecified","Unknown Department"
+"Dashboard Supermikro",1,"Unspecified","Unknown Department"
+"Video Conference",1,"CRA","Unknown Department"
+"SAG",1,"CRA","Unknown Department"
+"SMI",1,"CRA","Unknown Department"
+"MTA (Mail Transfer Agent)",1,"CRA","Unknown Department"
+"Certificate Issing",1,"CRA","Unknown Department"
+"BRILIAN News",1,"Low","Unknown Department"
+"IBM Websphere",1,"Unspecified","Unknown Department"
+"Database DORC",1,"Unspecified","Unknown Department"
+"RabbitMQ UKLN",1,"Unspecified","Unknown Department"
+"Web Server CNO",1,"Unspecified","Unknown Department"
+"Risk Alert",1,"Unspecified","Unknown Department"
+"Server GDP",1,"Unspecified","Unknown Department"
+"Portal CRR & CRS",1,"Unspecified","Unknown Department"
+"Support & Service",1,"Low","Unknown Department"
+"Automation SDK",1,"Unspecified","Unknown Department"
+"CAASM (Cyber Asset Attack Surface Management)",1,"Unspecified","Unknown Department"
+"Konten Digital Terminal 3",1,"CRA","Unknown Department"
+"Project Automation Tools",1,"CRA","Unknown Department"
+"Portal ODR",1,"Unspecified","Unknown Department"
+"FBI AMK / FBI Report",1,"Unspecified","Unknown Department"
+"turbonomic",1,"CRA","Unknown Department"
+"Cloud Vision",1,"CRA","Unknown Department"
+"Portal JKE",1,"Unspecified","Unknown Department"
+"BRIGV",1,"Unspecified","Unknown Department"
+"Manage Engine Application Manager",1,"CRA","Unknown Department"
+"New Reference Rate Engine",1,"Unspecified","Unknown Department"
+"Aplikasi CAO/IAO",1,"Unspecified","Unknown Department"
+"SSB (Self Service Banking)",1,"Unspecified","Unknown Department"
+"People Analytic",1,"CRA","Unknown Department"
+"Collateral Data Management",1,"CRA","Unknown Department"
+"GoAccess",1,"CRA","Unknown Department"
+"H2H PPDPP",1,"CRA","Unknown Department"
+"Early Warning Indicators (EWI)",1,"Unspecified","Unknown Department"
+"Card Management Polri",1,"CRA","Unknown Department"
+"Portal DWH BRITL",1,"Medium","Unknown Department"
+"Database DevOps",1,"Unspecified","Unknown Department"
+"BRIStars: BRIPASTI",1,"Unspecified","Unknown Department"
+"Pengkinian Report Server",1,"Unspecified","Unknown Department"
+"MIS",1,"CRA","Unknown Department"
+"MISP (Malware Information Sharing Platform)",1,"CRA","Unknown Department"
+"Dashboard VA Korporasi",1,"Low","Unknown Department"
+"Server HCI",1,"CRA","Unknown Department"
+"Operasional TRO",1,"CRA","Unknown Department"
+"Portal Big Data INF",1,"Unspecified","Unknown Department"
+"Server Platform PFO",1,"CRA","Unknown Department"
+"Portal DWH Kanpus",1,"CRA","Unknown Department"
+"Dashboard Machine Learning Intelligent",1,"CRA","Unknown Department"
+"Collect Log SOC",1,"Unspecified","Unknown Department"
+"Virtual HMC (Hardware Management Console)",1,"Unspecified","Unknown Department"
+"Public Key Infrastructure",1,"CRA","Unknown Department"
+"Forensic Tools",1,"CRA","Unknown Department"
+"WAZUH",1,"CRA","Unknown Department"
+"Customer Handling Management",1,"Unspecified","Unknown Department"
+"PL Core",1,"Unspecified","Unknown Department"
+"JSON Validator",1,"CRA","Unknown Department"
+"Info Pinjol",1,"Unspecified","Unknown Department"
+"SIP",1,"CRA","Unknown Department"
+"Otomasi Trea",1,"Unspecified","Unknown Department"
+"Repository Local",1,"Unspecified","Unknown Department"
+"Gudang MX",1,"CRA","Unknown Department"
+"Health Check",1,"CRA","Unknown Department"
+"MEH",1,"Unspecified","Unknown Department"
+"VM Connection RSC",1,"Unspecified","Unknown Department"
+"Dashboard Debitur Naik Kelas",1,"Unspecified","Unknown Department"
+"Manajemen Perangkat Infoblox",1,"CRA","Unknown Department"
+"CRHost",1,"Unspecified","Unknown Department"
+"LCR (Liquidity Coverage Ratio)",1,"Unspecified","Unknown Department"
+"CPA (Customer Profitability Analysis)",1,"Unspecified","Unknown Department"
+"VHA",1,"Unspecified","Unknown Department"
+"Customer Porfolio Management",1,"Unspecified","Unknown Department"
+"MOOGSOFT",1,"Medium","Unknown Department"
+"Barcode Polri",1,"Unspecified","Unknown Department"
+"Portal DWH",1,"Unspecified","Unknown Department"
+"RSS Timor Leste",1,"Unspecified","Unknown Department"
+"OPCOT",1,"Unspecified","Unknown Department"
+"Database OPX",1,"CRA","Unknown Department"
+"Git Source Code",1,"Unspecified","Unknown Department"
+"Portal SDM",1,"Unspecified","Unknown Department"
+"Intelligent Financial Analytics",1,"Unspecified","Unknown Department"
+"Irregularity Detection",1,"Unspecified","Unknown Department"
+"Free Radius",1,"CRA","Unknown Department"
+"Phone Repository",1,"Unspecified","Unknown Department"
+"Debuging Server",1,"CRA","Unknown Department"
+"Log Management",1,"Critical","Unknown Department"
+"Database RnD",1,"CRA","Unknown Department"
+"SFTP BRITL",1,"Unspecified","Unknown Department"
+"IRRB",1,"Unspecified","Unknown Department"
+"H2H Jamsostek",1,"Unspecified","Unknown Department"
+"CKPN",1,"Unspecified","Unknown Department"
+"Mobile Banking BRITW",1,"Unspecified","Unknown Department"
+"PQA",1,"Unspecified","Unknown Department"
+"BRIKS",1,"CRA","Unknown Department"
+"Finacle",1,"Very High","Unknown Department"
+"NPMD",1,"CRA","Unknown Department"
+"BRILIFE",1,"Unspecified","Unknown Department"
+"GigaVUE",1,"Unspecified","Unknown Department"
+"NGAWAN",1,"CRA","Unknown Department"
+"Remote Desktop",1,"CRA","Unknown Department"
+"BRISPAN",1,"Unspecified","Unknown Department"
+"Skyline Appliance",1,"Unspecified","Unknown Department"
+"Nextcloud",1,"Unspecified","Unknown Department"
+"Notifikasi Traveloka",1,"Unspecified","Unknown Department"
+"Echa Dash - DBO",1,"CRA","Unknown Department"
+"Kamus SHD",1,"CRA","Unknown Department"
+"ACRS",1,"CRA","Unknown Department"
+"Chargeback Issuing",1,"CRA","Unknown Department"
+"Logstash",1,"CRA","Unknown Department"
+"Stimulus KUR",1,"CRA","Unknown Department"
+"Portal BRICC",1,"CRA","Unknown Department"
+"Visa Edit Package",1,"CRA","Unknown Department"
+"Vendor Management System",1,"CRA","Unknown Department"
+"InterScan Web Security Virtual Appliance (IWSVA)",1,"Unspecified","Unknown Department"
+"Pusat Data Elektronik",1,"CRA","Unknown Department"
+"File Project Agile Reporter",1,"Unspecified","Unknown Department"
+"Otomatisasi Health Check",1,"Unspecified","Unknown Department"
+"WPEDC",1,"Unspecified","Unknown Department"
+"Proses Ratas",1,"Unspecified","Unknown Department"
